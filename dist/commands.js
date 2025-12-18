@@ -1,19 +1,45 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
-;// ./src/util/log.ts
+/***/ "./src/util/log.ts":
+/*!*************************!*\
+  !*** ./src/util/log.ts ***!
+  \*************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   formatLog: function() { return /* binding */ formatLog; }
+/* harmony export */ });
 function pad(num) {
   return num.toString().padStart(2, '0');
 }
 function padMilliseconds(ms) {
   return ms.toString().padStart(3, '0');
 }
-function log_formatLog(message) {
+function formatLog(message) {
   var now = new Date();
   var formattedTime = "".concat(pad(now.getHours()), ":").concat(pad(now.getMinutes()), ":").concat(pad(now.getSeconds()), ":").concat(padMilliseconds(now.getMilliseconds()));
   return "[VdSpek ".concat(formattedTime, "] ").concat(message);
 }
-;// ./src/util/mailitem.ts
+
+/***/ }),
+
+/***/ "./src/util/mailitem.ts":
+/*!******************************!*\
+  !*** ./src/util/mailitem.ts ***!
+  \******************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getMachineNumberFromSubject: function() { return /* binding */ getMachineNumberFromSubject; },
+/* harmony export */   getMachineTypeFromSubject: function() { return /* binding */ getMachineTypeFromSubject; },
+/* harmony export */   getReferenceFromSubject: function() { return /* binding */ getReferenceFromSubject; },
+/* harmony export */   isQuotationRequest: function() { return /* binding */ isQuotationRequest; }
+/* harmony export */ });
+/* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./log */ "./src/util/log.ts");
 
 var MachineType;
 (function (MachineType) {
@@ -70,7 +96,7 @@ function getMachineTypeFromSubject(subject) {
     throw new Error("Kan type machine niet bepalen.");
   }
   var typeString = match[1];
-  console.log(formatLog('Machine type:'), typeString);
+  console.log((0,_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)('Machine type:'), typeString);
   //Machine type: [Heftruck; 4605]
   var lowerTypeString = typeString.toLowerCase();
   switch (lowerTypeString) {
@@ -125,20 +151,87 @@ function getMachineTypeFromSubject(subject) {
       return MachineType.Unknown;
   }
 }
-;// ./src/commands/commands.ts
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+!function() {
+/*!**********************************!*\
+  !*** ./src/commands/commands.ts ***!
+  \**********************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _util_log__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/log */ "./src/util/log.ts");
+/* harmony import */ var _util_mailitem__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/mailitem */ "./src/util/mailitem.ts");
 
 
 /* global Office */
 Office.onReady(function () {
   // Office.js is ready to be called.
-  console.log(log_formatLog("Office.js is ready to be called"));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Office.js is ready to be called"));
 });
 /**
  * Shows a notification when the add-in command is executed.
  */
 function action(event) {
   var _a;
-  console.log(log_formatLog("Action to show notification when the add-in command is executed"));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Action to show notification when the add-in command is executed"));
   var message = {
     type: Office.MailboxEnums.ItemNotificationMessageType.InformationalMessage,
     message: "Performed action.",
@@ -152,30 +245,30 @@ function action(event) {
  * Opens a dialog showing the subject of the selected email.
  */
 function readSubject(event) {
-  console.log(log_formatLog("Read subject..."));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Read subject..."));
   try {
     var item = Office.context.mailbox.item;
-    console.log(log_formatLog("item"), item);
+    console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("item"), item);
     if (item && item.subject) {
       var subject = item.subject;
-      console.log(log_formatLog("Subject"), subject);
-      if (isQuotationRequest(subject)) {
-        console.log(log_formatLog("isQuotationRequest = true"));
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Subject"), subject);
+      if ((0,_util_mailitem__WEBPACK_IMPORTED_MODULE_1__.isQuotationRequest)(subject)) {
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("isQuotationRequest = true"));
       }
       Office.context.ui.displayDialogAsync("https://webit01.github.io/vdspek/dist/dialog.html?subject=".concat(encodeURIComponent(subject)), {
         height: 30,
         width: 40
       }, function (result) {
         if (result.status === Office.AsyncResultStatus.Failed) {
-          console.error(log_formatLog("Dialoog openen mislukt:"), result.error.message);
+          console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Dialoog openen mislukt:"), result.error.message);
         }
       });
     } else {
-      console.warn(log_formatLog("Geen onderwerp beschikbaar."));
+      console.warn((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Geen onderwerp beschikbaar."));
     }
     event.completed();
   } catch (e) {
-    console.error(log_formatLog("Error when read subject"), e);
+    console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Error when read subject"), e);
   }
 }
 var pdfAttachmentUrl = "https://www.gebruikteheftrucks.nl/site/algemene-voorwaarden/$FILE/Algemene%20voorwaarden%20Van%20der%20Spek%20Nederlands%202025.pdf";
@@ -193,9 +286,9 @@ function openNewMailWithAttachment(event) {
     // URL naar bestand
     "AlgemeneVoorwaarden.pdf", function (result) {
       if (result.status === Office.AsyncResultStatus.Succeeded) {
-        console.log(log_formatLog("Bijlage toegevoegd!"));
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Bijlage toegevoegd!"));
       } else {
-        console.error(log_formatLog("Fout bij toevoegen"), result.error);
+        console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij toevoegen"), result.error);
       }
     });
   }, 2000); // kleine delay zodat compose venster klaar is
@@ -203,26 +296,26 @@ function openNewMailWithAttachment(event) {
   event.completed();
 }
 function createHtmlMailWithAttachment(event) {
-  console.log(log_formatLog("Create HTML mail with attachment"));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Create HTML mail with attachment"));
   // HTML body instellen
   Office.context.mailbox.item.body.setAsync("<h1 style='color:blue'>Aanbieding</h1><p>Beste klant,<br/>Hierbij onze aanbieding.</p>", {
     coercionType: Office.CoercionType.Html
   }, function (asyncResult) {
     if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
-      console.log(log_formatLog("HTML body ingesteld"));
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("HTML body ingesteld"));
     } else {
-      console.error(log_formatLog("Fout bij body"), asyncResult.error);
+      console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij body"), asyncResult.error);
     }
   });
-  console.log(log_formatLog("Add attachment"));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment"));
   // Bijlage toevoegen (via URL of base64)
   Office.context.mailbox.item.addFileAttachmentAsync(pdfAttachmentUrl,
   // Publieke URL of base64
   "AlgemeneVoorwaarden.pdf", function (result) {
     if (result.status === Office.AsyncResultStatus.Succeeded) {
-      console.log(log_formatLog("Bijlage toegevoegd"));
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Bijlage toegevoegd"));
     } else {
-      console.error(log_formatLog("Fout bij bijlage"), result.error);
+      console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij bijlage"), result.error);
     }
   });
   // Altijd afsluiten
@@ -233,6 +326,7 @@ Office.actions.associate("action", action);
 Office.actions.associate("readSubject", readSubject);
 Office.actions.associate("openNewMailWithAttachment", openNewMailWithAttachment);
 Office.actions.associate("createHtmlMailWithAttachment", createHtmlMailWithAttachment);
+}();
 /******/ })()
 ;
 //# sourceMappingURL=commands.js.map
