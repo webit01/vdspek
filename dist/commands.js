@@ -309,9 +309,9 @@ function createHtmlMailWithAttachment(event) {
   });
   console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment"));
   // Bijlage toevoegen (via URL of base64)
-  Office.context.mailbox.item.addFileAttachmentAsync(
-  //pdfAttachmentUrl, // Publieke URL of base64
-  "data:application/pdf;base64,".concat(pdfAttachmentBase64), "AlgemeneVoorwaarden.pdf", function (result) {
+  Office.context.mailbox.item.addFileAttachmentAsync(pdfAttachmentUrl,
+  // Publieke URL of base64
+  "AlgemeneVoorwaarden.pdf", function (result) {
     if (result.status === Office.AsyncResultStatus.Succeeded) {
       console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Bijlage toegevoegd"));
     } else {
