@@ -308,7 +308,7 @@ function createHtmlMailWithAttachment(event) {
       console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij body"), asyncResult.error);
     }
   });
-  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment"));
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment"), tempAttachmentUrl);
   // Bijlage toevoegen (via URL of base64)
   Office.context.mailbox.item.addFileAttachmentAsync(tempAttachmentUrl,
   // Publieke URL of base64
