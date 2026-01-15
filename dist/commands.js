@@ -271,7 +271,7 @@ function readSubject(event) {
   }
 }
 var pdfAttachmentUrl = "https://www.gebruikteheftrucks.nl/site/algemene-voorwaarden/$FILE/Algemene%20voorwaarden%20Van%20der%20Spek%20Nederlands%202025.pdf";
-var tempAttachmentUrl = "https://www.gebruikteheftrucks.nl/site/10FF9B6E32AF5B0BC12586BD00389D88/$File/3830-elektro-heftruck-toyota-7-fbmf-30-gallerij-900x601.JPG";
+var tempAttachmentUrl = "https://di9rnz7q5uhca.cloudfront.net/600w/cd3cc03b-fc00-4281-95f7-07c198f83e3b.jpg";
 function openNewMailWithAttachment(event) {
   // Stap 1: nieuw compose venster openen
   Office.context.mailbox.displayNewMessageForm({
