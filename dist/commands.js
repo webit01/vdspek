@@ -307,19 +307,44 @@ function createHtmlMailWithAttachment(event) {
       console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij body"), asyncResult.error);
     }
   });
-  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment"), tempAttachmentUrl);
-  // Bijlage toevoegen (via URL of base64)
-  Office.context.mailbox.item.addFileAttachmentAsync(tempAttachmentUrl,
-  // Publieke URL of base64
-  "foto.jpg", function (result) {
-    if (result.status === Office.AsyncResultStatus.Succeeded) {
-      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Bijlage toegevoegd"));
-    } else {
-      console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij bijlage"), result.error);
-    }
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment in base64"), tempAttachmentUrl);
+  var smallImageBase64 = "data:image/png;base64," + "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=";
+  Office.context.mailbox.item.addFileAttachmentAsync(smallImageBase64, "klein-plaatje.png", function (asyncResult) {
+    console.log(asyncResult);
   });
+  // Bijlage toevoegen (via URL of base64)
+  // Office.context.mailbox.item.addFileAttachmentAsync(
+  //     tempAttachmentUrl, // Publieke URL of base64
+  //     "foto.jpg",
+  //     function (result) {
+  //         if (result.status === Office.AsyncResultStatus.Succeeded) {
+  //             console.log(formatLog("Bijlage toegevoegd"));
+  //         } 
+  //         else {
+  //             console.error(formatLog("Fout bij bijlage"), result.error);
+  //         }
+  //     }
+  // );
   // Altijd afsluiten
   event.completed();
+}
+function addBase64Attachment(base64, filename) {
+  var byteCharacters = atob(base64);
+  var byteNumbers = new Array(byteCharacters.length);
+  for (var i = 0; i < byteCharacters.length; i++) {
+    byteNumbers[i] = byteCharacters.charCodeAt(i);
+  }
+  var byteArray = new Uint8Array(byteNumbers);
+  var blob = new Blob([byteArray], {
+    type: "application/pdf"
+  });
+  var url = URL.createObjectURL(blob);
+  Office.context.mailbox.item.addFileAttachmentAsync(url, filename, {
+    isInline: false
+  }, function (result) {
+    URL.revokeObjectURL(url);
+    console.log(result);
+  });
 }
 // Register the functions with Office
 Office.actions.associate("action", action);
