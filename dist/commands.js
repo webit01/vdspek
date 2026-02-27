@@ -297,6 +297,8 @@ function openNewMailWithAttachment(event) {
 }
 function createHtmlMailWithAttachment(event) {
   console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Create HTML mail with attachment"));
+  console.log("Itemtype:", Office.context.mailbox.item.itemType);
+  console.log("Hostname:", Office.context.mailbox.diagnostics.hostName);
   // HTML body instellen
   Office.context.mailbox.item.body.setAsync("<h1 style='color:blue'>Aanbieding</h1><p>Beste klant,<br/>Hierbij onze aanbieding.</p>", {
     coercionType: Office.CoercionType.Html
@@ -307,10 +309,10 @@ function createHtmlMailWithAttachment(event) {
       console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Fout bij body"), asyncResult.error);
     }
   });
-  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment in base64"), tempAttachmentUrl);
-  var smallImageBase64 = "data:image/png;base64," + "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=";
+  console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment in base64, klein plaatje"), tempAttachmentUrl);
+  var smallImageBase64 = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=";
   Office.context.mailbox.item.addFileAttachmentFromBase64Async(smallImageBase64, "klein-plaatje.png", function (asyncResult) {
-    console.log(asyncResult);
+    console.log("Async result", asyncResult);
   });
   // Bijlage toevoegen (via URL of base64)
   // Office.context.mailbox.item.addFileAttachmentAsync(
