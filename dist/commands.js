@@ -309,7 +309,7 @@ function createHtmlMailWithAttachment(event) {
   });
   console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_0__.formatLog)("Add attachment in base64"), tempAttachmentUrl);
   var smallImageBase64 = "data:image/png;base64," + "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=";
-  Office.context.mailbox.item.addFileAttachmentAsync(smallImageBase64, "klein-plaatje.png", function (asyncResult) {
+  Office.context.mailbox.item.addFileAttachmentFromBase64Async(smallImageBase64, "klein-plaatje.png", function (asyncResult) {
     console.log(asyncResult);
   });
   // Bijlage toevoegen (via URL of base64)
