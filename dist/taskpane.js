@@ -19829,7 +19829,18 @@ var MachineData = function (props) {
         Office.context.mailbox.displayNewMessageFormAsync({
             toRecipients: ["test@example.com"],
             subject: "Voorbeeld onderwerp",
-            htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane.</p>"
+            htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane, met bijlage.</p>"
+        }, function () {
+            // Wacht een fractie van een seconde zodat compose-mode actief is
+            setTimeout(function () {
+                // Office.context.mailbox.item.addFileAttachmentAsync(
+                //     "https://jouwserver.nl/bestand.pdf",
+                //     "bestand.pdf"
+                // );
+                Office.context.mailbox.item.addFileAttachmentFromBase64Async("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=", "Toyota.png", function (asyncResult) {
+                    console.log("Async result", asyncResult);
+                });
+            }, 300);
         });
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { className: styles.backgroundPanel },
