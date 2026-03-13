@@ -19824,6 +19824,21 @@ var MachineData = function (props) {
             }
         });
     };
+    function waitForComposeMode(callback) {
+        var interval = setInterval(function () {
+            try {
+                // Compose-mode heeft altijd deze functie
+                if (Office.context.mailbox.item &&
+                    typeof Office.context.mailbox.item.addFileAttachmentFromBase64Async === "function") {
+                    clearInterval(interval);
+                    callback();
+                }
+            }
+            catch (e) {
+                // Outlook is nog bezig met wisselen van context
+            }
+        }, 100);
+    }
     var displayNewMail = function () {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
         Office.context.mailbox.displayNewMessageFormAsync({
@@ -19832,15 +19847,9 @@ var MachineData = function (props) {
             htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane, met bijlage.</p>"
         }, function () {
             // Wacht een fractie van een seconde zodat compose-mode actief is
-            setTimeout(function () {
-                // Office.context.mailbox.item.addFileAttachmentAsync(
-                //     "https://jouwserver.nl/bestand.pdf",
-                //     "bestand.pdf"
-                // );
-                Office.context.mailbox.item.addFileAttachmentFromBase64Async("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=", "Toyota.png", function (asyncResult) {
-                    console.log("Async result", asyncResult);
-                });
-            }, 300);
+            waitForComposeMode(function () {
+                Office.context.mailbox.item.addFileAttachmentFromBase64Async("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=", "bestand.pdf", function (result) { return console.log("Bijlage toegevoegd:", result); });
+            });
         });
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { className: styles.backgroundPanel },
