@@ -19836,15 +19836,16 @@ var MachineData = function (props) {
             }
             catch (e) {
                 // Outlook is nog bezig met wisselen van context
+                console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Wachten op compose-mode..."), e);
             }
-        }, 100);
+        }, 500);
     }
     var displayNewMail = function () {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
         Office.context.mailbox.displayNewMessageFormAsync({
             toRecipients: ["test@example.com"],
             subject: "Voorbeeld onderwerp",
-            htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane, met bijlage.</p>"
+            htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane, met bijlage 2.</p>"
         }, function () {
             // Wacht een fractie van een seconde zodat compose-mode actief is
             waitForComposeMode(function () {
