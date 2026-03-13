@@ -19848,11 +19848,16 @@ var MachineData = function (props) {
             toRecipients: ["test@example.com"],
             subject: "Voorbeeld onderwerp",
             htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane, met bijlage 2.</p>"
-        }, function () {
+        }, function (result) {
+            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Resultaat displayNewMessageFormAsync"), result);
             // Wacht een fractie van een seconde zodat compose-mode actief is
-            waitForComposeMode(function () {
-                Office.context.mailbox.item.addFileAttachmentFromBase64Async("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=", "bestand.pdf", function (result) { return console.log("Bijlage toegevoegd:", result); });
-            });
+            // waitForComposeMode(() => {
+            //     Office.context.mailbox.item.addFileAttachmentFromBase64Async(
+            //         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=",
+            //         "bestand.pdf",
+            //         result => console.log("Bijlage toegevoegd:", result)
+            //     );
+            // });
         });
     };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { className: styles.backgroundPanel },
