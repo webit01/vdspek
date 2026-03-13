@@ -34154,68 +34154,68 @@ var code = "<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licen
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   EmailTemplate: function() { return /* binding */ EmailTemplate; },
 /* harmony export */   HeftruckElectroNLTemplate: function() { return /* binding */ HeftruckElectroNLTemplate; }
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _template_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-styles */ "./src/templates/template-styles.ts");
 
-var EmailTemplate = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null,
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", { style: { color: "#0078d4" } }, "Welkom!"),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Dit is een voorbeeld van HTML vanuit een TSX\u2011bestand."))); };
-var HeftruckElectroNLTemplate = function () { return (react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Geachte heer aanvrager_fullname,"),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null,
+
+var HeftruckElectroNLTemplate = function () { return (
+// Import generieke css vanuit tsx als inline styles in de template zelf
+react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p }, "Geachte heer aanvrager_fullname,"),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p },
         "Hierbij doen wij u een vrijblijvende aanbieding voor een ",
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "elektrische hef_merk vorkheftruck"),
         " toekomen."),
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { className: "blue_bold" }, "Foto als bijlage"),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blueBold }, "Foto als bijlage"),
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { border: 0, cellSpacing: 0, cellPadding: 0, width: 700, style: { width: "700px" } },
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "8px 20px 8px", width: "500px", backgroundColor: "#edeeef" } },
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, "Specificaties"),
-                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { className: "specifications-table", cellSpacing: 0, cellPadding: 6 },
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.specificationsTable, cellSpacing: 0, cellPadding: 6 },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Merk:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_merk")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Type:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_type")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Serie.nr:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_serienummer")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Bouwjaar:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_bouwjaar")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Draaiuren:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { className: "blue" }, "hef_urenstand uur")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue }, "hef_urenstand uur")),
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Motor:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Elektrisch")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Hefvermogen:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_hefvermogen Kg.")),
                     "__SPECIFIC__SPECIFICATIONS__",
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Masttype:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_masttype")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Banden:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Vol Rubber")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Batterij:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_batterijemail")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Capaciteit batterij:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { className: "blue" }, "100 %")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue }, "100 %")),
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Vorklengte:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "In overleg")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "odd" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Verlichting:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Ja")),
-                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { colSpan: 2 }, "hef_extratekst_email\u00A0"))))),
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "15px 0" } },
@@ -34240,6 +34240,77 @@ var HeftruckElectroNLTemplate = function () { return (react__WEBPACK_IMPORTED_MO
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { className: "greenText" }, "Levering Franco"))))),
         "__MAILFOOTER__"))); };
 
+
+/***/ }),
+
+/***/ "./src/templates/template-styles.ts":
+/*!******************************************!*\
+  !*** ./src/templates/template-styles.ts ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   styles: function() { return /* binding */ styles; }
+/* harmony export */ });
+// emailStyles.ts
+var styles = {
+  body: {
+    fontSize: "14px",
+    lineHeight: "20px",
+    color: "#000000",
+    backgroundColor: "#fff",
+    fontFamily: "Arial, 'Open Sans', sans-serif",
+    fontWeight: 200,
+    minWidth: "960px"
+  },
+  h2: {
+    color: "#FF0000",
+    fontSize: "11pt",
+    fontweight: "bold",
+    lineHeight: "20px",
+    marginTop: "15px",
+    marginBottom: "0px"
+  },
+  p: {
+    marginBottom: "5px"
+  },
+  container: {
+    fontFamily: "Arial, sans-serif",
+    padding: "20px"
+  },
+  blueBold: {
+    color: "#0000CC",
+    fontWeight: "bold"
+  },
+  specificationsTable: {
+    border: "3px solid #e4e5e6",
+    width: "100%"
+  },
+  specificationsTableTd: {
+    fontWeight: "bold"
+  },
+  specificationsTable2: {
+    borderLeft: "1px solid #e4e5e6",
+    borderTop: "1px solid #e4e5e6",
+    borderRight: "1px solid #e4e5e6"
+  },
+  specificationsTable2Td: {
+    borderBottom: "1px solid #e4e5e6"
+  },
+  greenText: {
+    color: "#088A08"
+  },
+  odd: {
+    backgroundColor: "#ffffff"
+  },
+  even: {
+    backgroundColor: "#edeeef"
+  },
+  blue: {
+    color: "#0000CC"
+  }
+};
 
 /***/ }),
 
