@@ -19827,18 +19827,20 @@ var MachineData = function (props) {
     function waitForComposeMode(callback) {
         var interval = setInterval(function () {
             try {
-                // Compose-mode heeft altijd deze functie
-                if (Office.context.mailbox.item &&
-                    typeof Office.context.mailbox.item.addFileAttachmentFromBase64Async === "function") {
+                var item = Office.context.mailbox.item;
+                // Compose-mode heeft deze functies altijd
+                var composeApisAvailable = item &&
+                    typeof item.addFileAttachmentFromBase64Async === "function" &&
+                    typeof item.body !== "undefined";
+                if (composeApisAvailable) {
                     clearInterval(interval);
                     callback();
                 }
             }
             catch (e) {
-                // Outlook is nog bezig met wisselen van context
-                console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Wachten op compose-mode..."), e);
+                console.log("Wachten op compose-mode...", e);
             }
-        }, 500);
+        }, 300);
     }
     var displayNewMail = function () {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
