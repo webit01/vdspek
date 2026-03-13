@@ -19824,11 +19824,21 @@ var MachineData = function (props) {
             }
         });
     };
+    var displayNewMail = function () {
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
+        Office.context.mailbox.displayNewMessageFormAsync({
+            toRecipients: ["test@example.com"],
+            subject: "Voorbeeld onderwerp",
+            htmlBody: "<h2>Hallo!</h2><p>Dit is vanuit de taskpane.</p>"
+        });
+    };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { className: styles.backgroundPanel },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_1__.Image, { src: imageUrl, alt: props.title })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: styles.actionButtons },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding"))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding")),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: styles.actionButtons },
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: displayNewMail }, "Maak nieuwe email"))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (MachineData);
 

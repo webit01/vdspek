@@ -1741,18 +1741,39 @@ function readSubject(event) {
         }
       });
     } else {
-      console.warn((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Geen onderwerp beschikbaar."));
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Geen onderwerp beschikbaar."));
     }
     event.completed();
   } catch (e) {
-    console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Error when read subject"), e);
+    console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Error when read subject"), e);
   }
 }
 var tempAttachmentUrl = "https://di9rnz7q5uhca.cloudfront.net/600w/cd3cc03b-fc00-4281-95f7-07c198f83e3b.jpg";
 function openNewMailWithAttachment(event) {
   return __awaiter(this, void 0, void 0, function () {
+    var item, subject, isQuotation, machType, machNr, refNr;
     return __generator(this, function (_a) {
-      console.log("openNewMailWithAttachment");
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("openNewMailWithAttachment"));
+      console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Hostname:"), Office.context.mailbox.diagnostics.hostName);
+      try {
+        item = Office.context.mailbox.item;
+        subject = item.subject;
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Subject"), subject);
+        isQuotation = (0,_util_mailitem__WEBPACK_IMPORTED_MODULE_2__.isQuotationRequest)(subject);
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Is Quotation"), isQuotation);
+        if (!isQuotation) {
+          console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Not a quotation request, stopping here."));
+          return [2 /*return*/];
+        }
+        machType = (0,_util_mailitem__WEBPACK_IMPORTED_MODULE_2__.getMachineTypeFromSubject)(subject);
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Machine type"), machType);
+        machNr = (0,_util_mailitem__WEBPACK_IMPORTED_MODULE_2__.getMachineNumberFromSubject)(subject);
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Machine nr"), machNr);
+        refNr = (0,_util_mailitem__WEBPACK_IMPORTED_MODULE_2__.getReferenceFromSubject)(subject);
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Reference nr"), refNr);
+      } catch (e) {
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Error in openNewMailWithAttachment"), e);
+      }
       // Stap 1: nieuw compose venster openen
       Office.context.mailbox.displayNewMessageFormAsync({
         toRecipients: ["test@example.com"],
@@ -1760,7 +1781,7 @@ function openNewMailWithAttachment(event) {
         subject: "Voorbeeld onderwerp vanuit Add-in",
         htmlBody: "<h2>Hallo!</h2><p>Dit bericht is gegenereerd vanuit een Outlook Add-in.</p>"
       }, function (asyncResult) {
-        console.log("AsyncResult:", asyncResult);
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("AsyncResult"), asyncResult);
       });
       // Office.context.mailbox.displayNewMessageForm({
       //     toRecipients: ["henk@rademakerwebit.nl"],
@@ -1805,7 +1826,7 @@ function createHtmlMailWithAttachment(event) {
             if (asyncResult.status === Office.AsyncResultStatus.Succeeded) {
               console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("HTML body ingesteld"));
             } else {
-              console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Fout bij body"), asyncResult.error);
+              console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Fout bij body"), asyncResult.error);
             }
           });
           console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_1__.formatLog)("Add attachment in base64, klein plaatje"), tempAttachmentUrl);
@@ -1835,24 +1856,6 @@ function createHtmlMailWithAttachment(event) {
           return [2 /*return*/];
       }
     });
-  });
-}
-function addBase64Attachment(base64, filename) {
-  var byteCharacters = atob(base64);
-  var byteNumbers = new Array(byteCharacters.length);
-  for (var i = 0; i < byteCharacters.length; i++) {
-    byteNumbers[i] = byteCharacters.charCodeAt(i);
-  }
-  var byteArray = new Uint8Array(byteNumbers);
-  var blob = new Blob([byteArray], {
-    type: "application/pdf"
-  });
-  var url = URL.createObjectURL(blob);
-  Office.context.mailbox.item.addFileAttachmentAsync(url, filename, {
-    isInline: false
-  }, function (result) {
-    URL.revokeObjectURL(url);
-    console.log(result);
   });
 }
 // Register the functions with Office
