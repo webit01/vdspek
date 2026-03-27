@@ -33669,7 +33669,7 @@ function xmlToJson(xmlDoc) {
         // "hef_bouwjaar": "2023",
         var text = (_a = child.nodeValue) === null || _a === void 0 ? void 0 : _a.trim();
         if (text) {
-          obj["#text"] = text;
+          obj = text;
         }
       }
     });
@@ -33930,12 +33930,13 @@ var MachineData = function (props) {
     };
     react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
         var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var machineDataUrl, machine, result, parser, xmlDoc, json, hefFototElement, hefFototValue;
+            var apiBaseUrl, machineDataUrl, machine, result, parser, xmlDoc, json, hefFototElement, hefFototValue;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        machineDataUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=".concat(props.machineNr, "&mrid=").concat(props.referenceNr);
+                        apiBaseUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck";
+                        machineDataUrl = "".concat(apiBaseUrl, "?openagent&hefid=").concat(props.machineNr, "&mrid=").concat(props.referenceNr);
                         return [4 /*yield*/, fetch(machineDataUrl)];
                     case 1:
                         machine = _b.sent();
