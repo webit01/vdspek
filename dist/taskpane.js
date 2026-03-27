@@ -33694,12 +33694,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_server__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/server */ "./node_modules/react-dom/server.browser.js");
 /* harmony import */ var _templates_heftruck_electro_nl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../templates/heftruck-electro-nl */ "./src/templates/heftruck-electro-nl.tsx");
+var __assign = undefined && undefined.__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+      for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+  };
+  return __assign.apply(this, arguments);
+};
 // renderTemplate.ts
 
 
 
-function getEmailHtml() {
-  return (0,react_dom_server__WEBPACK_IMPORTED_MODULE_1__.renderToStaticMarkup)(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_templates_heftruck_electro_nl__WEBPACK_IMPORTED_MODULE_2__.HeftruckElectroNLTemplate));
+function getEmailHtml(json) {
+  return (0,react_dom_server__WEBPACK_IMPORTED_MODULE_1__.renderToStaticMarkup)(react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_templates_heftruck_electro_nl__WEBPACK_IMPORTED_MODULE_2__.HeftruckElectroNLTemplate, __assign({}, json)));
 }
 
 /***/ }),
@@ -33845,8 +33855,11 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 var useStyles = (0,_fluentui_react_components__WEBPACK_IMPORTED_MODULE_3__.makeStyles)({
     backgroundPanel: {
-        display: "flex",
-        flexDirection: "column",
+        position: "absolute",
+        top: "0",
+        bottom: "0",
+        left: "0",
+        right: "0",
         alignItems: "center",
         padding: "20px",
         backgroundColor: "#f5f5f5",
@@ -33866,11 +33879,11 @@ var MachineData = function (props) {
     var styles = useStyles();
     var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState('https://webit01.github.io/vdspek/dist/assets/logo-filled.png'), imageUrl = _a[0], setImageUrl = _a[1];
     var dialog = null;
-    var displayNewMail = function () {
+    var displayNewMail = function (json) {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
         // Lees html vanuit template bestand => heftruck-electro-nl.html
         // const html = await fetch("/template.html").then(res => res.text());
-        var htmlBody = (0,_services_RenderTemplate__WEBPACK_IMPORTED_MODULE_6__.getEmailHtml)();
+        var htmlBody = (0,_services_RenderTemplate__WEBPACK_IMPORTED_MODULE_6__.getEmailHtml)(json);
         // Vul de placeholders
         // const filledHtml = html.replace("{{machineNr}}", props.machineNr).replace("{{referenceNr}}", props.referenceNr);
         Office.context.mailbox.displayNewMessageFormAsync({
@@ -33946,7 +33959,6 @@ var MachineData = function (props) {
                         parser = new DOMParser();
                         xmlDoc = parser.parseFromString(result, "application/xml");
                         json = (0,_services_Converter__WEBPACK_IMPORTED_MODULE_5__.xmlToJson)(xmlDoc);
-                        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Geconverteerde JSON:"), json);
                         hefFototElement = xmlDoc.querySelector("hef_fotot");
                         hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
                         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Waarde van hef_fotot:"), hefFototValue);
@@ -33956,19 +33968,18 @@ var MachineData = function (props) {
                             hefFototValue = "https://" + hefFototValue;
                         }
                         setImageUrl(hefFototValue);
-                        return [2 /*return*/];
+                        return [2 /*return*/, json];
                 }
             });
         }); };
-        fetchData().then(function () {
-            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Data ophalen voltooid."));
+        fetchData().then(function (json) {
+            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Data ophalen voltooid."), json);
             // Open new mail venster met data erin
-            displayNewMail();
+            displayNewMail(json);
         }).catch(function (error) {
             console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Fout bij ophalen data:"), error);
         });
     }, []);
-    // https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=2839&mrid=2017.00000571
     function waitForComposeMode(callback) {
         var interval = setInterval(function () {
             try {
@@ -33991,9 +34002,7 @@ var MachineData = function (props) {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_1__.Image, { src: imageUrl, alt: props.title })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: styles.actionButtons },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding")),
-        react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: styles.actionButtons },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: displayNewMail }, "Maak nieuwe email"))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding"))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (MachineData);
 
@@ -34168,10 +34177,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _template_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-styles */ "./src/templates/template-styles.ts");
 
 
-var HeftruckElectroNLTemplate = function () { return (
+var HeftruckElectroNLTemplate = function (json) { return (
 // Import generieke css vanuit tsx als inline styles in de template zelf
 react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
-    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p }, "Geachte heer aanvrager_fullname,"),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p },
+        "Geachte heer ",
+        json.Applicant.fullname,
+        ","),
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p },
         "Hierbij doen wij u een vrijblijvende aanbieding voor een ",
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "elektrische hef_merk vorkheftruck"),
