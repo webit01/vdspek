@@ -33848,6 +33848,15 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArray = (undefined && undefined.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 
 
 
@@ -33878,6 +33887,7 @@ var useStyles = (0,_fluentui_react_components__WEBPACK_IMPORTED_MODULE_3__.makeS
 var MachineData = function (props) {
     var styles = useStyles();
     var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState('https://webit01.github.io/vdspek/dist/assets/logo-filled.png'), imageUrl = _a[0], setImageUrl = _a[1];
+    var _b = react__WEBPACK_IMPORTED_MODULE_0__.useState([]), statusLog = _b[0], setStatusLog = _b[1];
     var dialog = null;
     var displayNewMail = function (json) {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
@@ -33887,12 +33897,13 @@ var MachineData = function (props) {
         // Vul de placeholders
         // const filledHtml = html.replace("{{machineNr}}", props.machineNr).replace("{{referenceNr}}", props.referenceNr);
         Office.context.mailbox.displayNewMessageFormAsync({
-            toRecipients: ["test@example.com"],
-            subject: "Voorbeeld onderwerp",
+            toRecipients: [json.Applicant.emailaddress],
+            subject: "Aanbieding vorkheftruck [".concat(json.hef_id, "] ").concat(json.hef_merk, " ").concat(json.hef_type),
             htmlBody: htmlBody
         }, function (result) {
             console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Resultaat displayNewMessageFormAsync"), result);
             // Wacht een fractie van een seconde zodat compose-mode actief is
+            // Werkt niet
             // waitForComposeMode(() => {
             //     Office.context.mailbox.item.addFileAttachmentFromBase64Async(
             //         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=",
@@ -33948,6 +33959,10 @@ var MachineData = function (props) {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        // voorbeeld: 
+                        // gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=2839&mrid=2017.00000571
+                        // Update statuslog
+                        setStatusLog(function (prev) { return __spreadArray(__spreadArray([], prev, true), ["Start met ophalen machinegegevens..."], false); });
                         apiBaseUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck";
                         machineDataUrl = "".concat(apiBaseUrl, "?openagent&hefid=").concat(props.machineNr, "&mrid=").concat(props.referenceNr);
                         return [4 /*yield*/, fetch(machineDataUrl)];
@@ -33956,9 +33971,12 @@ var MachineData = function (props) {
                         return [4 /*yield*/, machine.text()];
                     case 2:
                         result = _b.sent();
+                        setStatusLog(function (prev) { return __spreadArray(__spreadArray([], prev, true), ["Machinegegevens opgehaald, bezig met verwerken..."], false); });
                         parser = new DOMParser();
                         xmlDoc = parser.parseFromString(result, "application/xml");
                         json = (0,_services_Converter__WEBPACK_IMPORTED_MODULE_5__.xmlToJson)(xmlDoc);
+                        // Waarde van <hef_fotot> ophalen
+                        setStatusLog(function (prev) { return __spreadArray(__spreadArray([], prev, true), ["Foto lezen..."], false); });
                         hefFototElement = xmlDoc.querySelector("hef_fotot");
                         hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
                         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Waarde van hef_fotot:"), hefFototValue);
@@ -33974,6 +33992,8 @@ var MachineData = function (props) {
         }); };
         fetchData().then(function (json) {
             console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Data ophalen voltooid."), json);
+            setStatusLog(function (prev) { return __spreadArray(__spreadArray([], prev, true), ["Data verwerken voltooid."], false); });
+            setStatusLog(function (prev) { return __spreadArray(__spreadArray([], prev, true), ["Opstellen e-mail..."], false); });
             // Open new mail venster met data erin
             displayNewMail(json);
         }).catch(function (error) {
@@ -34002,7 +34022,12 @@ var MachineData = function (props) {
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_1__.Image, { src: imageUrl, alt: props.title })),
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { className: styles.actionButtons },
-            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding"))));
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_2__.Button, { appearance: "primary", onClick: openDialog }, "Maak aanbieding")),
+        react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
+            react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", { style: { marginTop: "20px", padding: "10px", backgroundColor: "#fff", border: "1px solid #ddd", borderRadius: "4px", fontSize: "12px", maxHeight: "200px", overflowY: "auto" } },
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("strong", null, "Status Log:"),
+                react__WEBPACK_IMPORTED_MODULE_0__.createElement("pre", { style: { margin: "10px 0 0 0", whiteSpace: "pre-wrap", wordWrap: "break-word" } }, statusLog.length > 0 ? statusLog.join("\n")
+                    : "Hier komen statusupdates te staan...")))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (MachineData);
 
@@ -34181,12 +34206,15 @@ var HeftruckElectroNLTemplate = function (json) { return (
 // Import generieke css vanuit tsx als inline styles in de template zelf
 react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p },
-        "Geachte heer ",
+        "Geachte heer/mevrouw ",
         json.Applicant.fullname,
         ","),
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.p },
         "Hierbij doen wij u een vrijblijvende aanbieding voor een ",
-        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null, "elektrische hef_merk vorkheftruck"),
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("b", null,
+            "elektrische ",
+            json.hef_merk,
+            " vorkheftruck"),
         " toekomen."),
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blueBold }, "Foto als bijlage"),
     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { border: 0, cellSpacing: 0, cellPadding: 0, width: 700, style: { width: "700px" } },
@@ -34196,35 +34224,39 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPOR
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.specificationsTable, cellSpacing: 0, cellPadding: 6 },
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Merk:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_merk")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_merk)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Type:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_type")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_type)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Serie.nr:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_serienummer")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_serienummer)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Bouwjaar:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_bouwjaar")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_bouwjaar)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Draaiuren:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue }, "hef_urenstand uur")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue },
+                            json.hef_urenstand,
+                            " uur")),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Motor:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Elektrisch")),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Hefvermogen:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_hefvermogen Kg.")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null,
+                            json.hef_hefvermogen,
+                            " Kg.")),
                     "__SPECIFIC__SPECIFICATIONS__",
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Masttype:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_masttype")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_masttype)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Banden:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Vol Rubber")),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Batterij:"),
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "hef_batterijemail")),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_batterijemail)),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.odd },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Capaciteit batterij:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue }, "100 %")),
@@ -34235,7 +34267,7 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPOR
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Verlichting:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Ja")),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { colSpan: 2 }, "hef_extratekst_email\u00A0"))))),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { colSpan: 2 }, "\u00A0"))))),
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "15px 0" } },
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { cellSpacing: 0, cellPadding: 0, border: 0 },
