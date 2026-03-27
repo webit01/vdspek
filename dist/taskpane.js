@@ -33659,14 +33659,6 @@ function xmlToJson(xmlDoc) {
           obj[childName] = childObj;
         }
       } else if (child.nodeType === Node.TEXT_NODE) {
-        // TODO: 
-        // Nu is het bijv. 
-        // "hef_bouwjaar": {
-        //     "#text": "2023"
-        // },
-        //
-        // Moet worden: 
-        // "hef_bouwjaar": "2023",
         var text = (_a = child.nodeValue) === null || _a === void 0 ? void 0 : _a.trim();
         if (text) {
           obj = text;
@@ -34200,6 +34192,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _template_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-styles */ "./src/templates/template-styles.ts");
+/* harmony import */ var _mail_footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mail-footer */ "./src/templates/mail-footer.tsx");
+
 
 
 var HeftruckElectroNLTemplate = function (json) { return (
@@ -34247,7 +34241,6 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPOR
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null,
                             json.hef_hefvermogen,
                             " Kg.")),
-                    "__SPECIFIC__SPECIFICATIONS__",
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.even },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "Masttype:"),
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, json.hef_masttype)),
@@ -34272,8 +34265,8 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPOR
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "15px 0" } },
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { cellSpacing: 0, cellPadding: 0, border: 0 },
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
-                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { borderTop: "5px solid #ff5800", borderBottom: "5px solid #ff5800", padding: "20px 0", width: "700px" } },
-                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { className: "pullquote" }, "\u201CCompleet nieuw-waardige hef_merk vorkheftruck\u201D")))))),
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.pullquoteContainer },
+                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.pullquote }, "\u201CCompleet nieuw-waardige hef_merk vorkheftruck\u201D")))))),
         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
             react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "8px 15px 8px", width: "500px", backgroundColor: "#edeeef" } },
                 react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { className: "specifications-table", cellSpacing: 0, cellPadding: 6 },
@@ -34289,7 +34282,74 @@ react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPOR
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { className: "greenText" }, "Garantie\u00A0\u00A0\u00A06.00 maanden compleet op machine")),
                     react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", { className: "even" },
                         react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { className: "greenText" }, "Levering Franco"))))),
-        "__MAILFOOTER__"))); };
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_mail_footer__WEBPACK_IMPORTED_MODULE_2__.MailFooter, null)))); };
+
+
+/***/ }),
+
+/***/ "./src/templates/mail-footer.tsx":
+/*!***************************************!*\
+  !*** ./src/templates/mail-footer.tsx ***!
+  \***************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   MailFooter: function() { return /* binding */ MailFooter; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _template_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template-styles */ "./src/templates/template-styles.ts");
+
+
+var MailFooter = function () { return (
+// Import generieke css vanuit tsx als inline styles in de template zelf
+react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null,
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "10px 0" } },
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.pricingCell },
+                "De vorkheftruck in beschreven uitvoering kunnen wij u aanbieden voor de prijs van: ",
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "\u20AC\u00A0hef_prijs\u00A0excl. 21% b.t.w.")),
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blueBold }, "Al onze aangeboden vorkheftrucks kunnen vrijblijvend bij u op locatie getest worden."))),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "15px 0" } },
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { cellSpacing: 0, cellPadding: 0, border: 0 },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.pullquoteContainer },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.pullquote }, "\u201CWij bieden een landelijk dekkend servicenetwerk.\u201D")))))),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "\u00A0")),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null,
+                "Hopende u een passende aanbieding te hebben gedaan,",
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null),
+                "Met vriendelijke groet,",
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("br", null),
+                "sendername"))),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("table", { cellSpacing: 0, cellPadding: 0, border: 0, style: { width: "380px" }, width: "380" },
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { colSpan: 2 }, "\u00A0")),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.telephoneIconContainer, height: "20" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "tel:0031180632784" },
+                            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", { src: "file:///C:/OutlookAddInVdSpek/Imgs/telefoon.png" }))),
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.telephoneTextContainer, height: "20" },
+                        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "tel:0031180632784", style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.black }, "Bel direct 0180 - 63 27 84"))),
+                react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+                    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { colSpan: 2 }, "\u00A0"))))),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", { style: { padding: "5px 0", fontWeight: "bold" } },
+            "Bezoek onze website:\u00A0",
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", { href: "https://www.gebruikteheftrucks.nl", style: _template_styles__WEBPACK_IMPORTED_MODULE_1__.styles.blue }, "www.gebruikteheftrucks.nl"))),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null, "\u00A0")),
+    react__WEBPACK_IMPORTED_MODULE_0___default().createElement("tr", null,
+        react__WEBPACK_IMPORTED_MODULE_0___default().createElement("td", null,
+            react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", { src: "file:///C:/OutlookAddInVdSpek/Imgs/20180601Logo.png" }))))); };
 
 
 /***/ }),
@@ -34304,7 +34364,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   styles: function() { return /* binding */ styles; }
 /* harmony export */ });
-// emailStyles.ts
 var styles = {
   body: {
     fontSize: "14px",
@@ -34358,8 +34417,46 @@ var styles = {
   even: {
     backgroundColor: "#edeeef"
   },
+  black: {
+    color: "#000000"
+  },
   blue: {
     color: "#0000CC"
+  },
+  bold: {
+    fontWeight: "bold"
+  },
+  pullquote: {
+    fontSize: "18px",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    color: "#0000CC"
+  },
+  pullquoteContainer: {
+    borderTop: "5px solid #ff5800",
+    borderBottom: "5px solid #ff5800",
+    padding: "20px 0",
+    width: "700px"
+  },
+  pricingCell: {
+    color: "#FF0000",
+    fontWeight: "bold"
+  },
+  telephoneIconContainer: {
+    color: "#000000",
+    //textAlign: "right", 
+    backgroundColor: "#ff5800",
+    fontWeight: "bold",
+    fontSize: "18px",
+    padding: "20px"
+  },
+  telephoneTextContainer: {
+    color: "#000000",
+    textAlign: "left",
+    backgroundColor: "#ff5800",
+    fontWeight: "bold",
+    fontSize: "18px",
+    padding: "20px 0"
   }
 };
 
