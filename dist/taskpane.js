@@ -33865,41 +33865,30 @@ var useStyles = (0,_fluentui_react_components__WEBPACK_IMPORTED_MODULE_3__.makeS
 var MachineData = function (props) {
     var styles = useStyles();
     var _a = react__WEBPACK_IMPORTED_MODULE_0__.useState('https://webit01.github.io/vdspek/dist/assets/logo-filled.png'), imageUrl = _a[0], setImageUrl = _a[1];
-    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-        var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
-            var machineDataUrl, machine, result, parser, xmlDoc, json, hefFototElement, hefFototValue;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        machineDataUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=".concat(props.machineNr, "&mrid=").concat(props.referenceNr);
-                        return [4 /*yield*/, fetch(machineDataUrl)];
-                    case 1:
-                        machine = _b.sent();
-                        return [4 /*yield*/, machine.text()];
-                    case 2:
-                        result = _b.sent();
-                        parser = new DOMParser();
-                        xmlDoc = parser.parseFromString(result, "application/xml");
-                        json = (0,_services_Converter__WEBPACK_IMPORTED_MODULE_5__.xmlToJson)(xmlDoc);
-                        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Geconverteerde JSON:"), json);
-                        hefFototElement = xmlDoc.querySelector("hef_fotot");
-                        hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
-                        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Waarde van hef_fotot:"), hefFototValue);
-                        // De waarde is zonder host ervoor, voorbeeld:
-                        // www.gebruikteheftrucks.nl/site/55A64E6502B345A6C125899B004B519E/$File/Dutchlift DL-50 intro.png
-                        if (!hefFototValue.startsWith("https")) {
-                            hefFototValue = "https://" + hefFototValue;
-                        }
-                        setImageUrl(hefFototValue);
-                        return [2 /*return*/];
-                }
-            });
-        }); };
-        fetchData();
-    }, []);
-    // https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=2839&mrid=2017.00000571
     var dialog = null;
+    var displayNewMail = function () {
+        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
+        // Lees html vanuit template bestand => heftruck-electro-nl.html
+        // const html = await fetch("/template.html").then(res => res.text());
+        var htmlBody = (0,_services_RenderTemplate__WEBPACK_IMPORTED_MODULE_6__.getEmailHtml)();
+        // Vul de placeholders
+        // const filledHtml = html.replace("{{machineNr}}", props.machineNr).replace("{{referenceNr}}", props.referenceNr);
+        Office.context.mailbox.displayNewMessageFormAsync({
+            toRecipients: ["test@example.com"],
+            subject: "Voorbeeld onderwerp",
+            htmlBody: htmlBody
+        }, function (result) {
+            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Resultaat displayNewMessageFormAsync"), result);
+            // Wacht een fractie van een seconde zodat compose-mode actief is
+            // waitForComposeMode(() => {
+            //     Office.context.mailbox.item.addFileAttachmentFromBase64Async(
+            //         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=",
+            //         "bestand.pdf",
+            //         result => console.log("Bijlage toegevoegd:", result)
+            //     );
+            // });
+        });
+    };
     var openDialog = function () {
         console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Open test dialog"));
         if (dialog) {
@@ -33939,6 +33928,46 @@ var MachineData = function (props) {
             }
         });
     };
+    react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+        var fetchData = function () { return __awaiter(void 0, void 0, void 0, function () {
+            var machineDataUrl, machine, result, parser, xmlDoc, json, hefFototElement, hefFototValue;
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        machineDataUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=".concat(props.machineNr, "&mrid=").concat(props.referenceNr);
+                        return [4 /*yield*/, fetch(machineDataUrl)];
+                    case 1:
+                        machine = _b.sent();
+                        return [4 /*yield*/, machine.text()];
+                    case 2:
+                        result = _b.sent();
+                        parser = new DOMParser();
+                        xmlDoc = parser.parseFromString(result, "application/xml");
+                        json = (0,_services_Converter__WEBPACK_IMPORTED_MODULE_5__.xmlToJson)(xmlDoc);
+                        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Geconverteerde JSON:"), json);
+                        hefFototElement = xmlDoc.querySelector("hef_fotot");
+                        hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
+                        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Waarde van hef_fotot:"), hefFototValue);
+                        // De waarde is zonder host ervoor, voorbeeld:
+                        // www.gebruikteheftrucks.nl/site/55A64E6502B345A6C125899B004B519E/$File/Dutchlift DL-50 intro.png
+                        if (!hefFototValue.startsWith("https")) {
+                            hefFototValue = "https://" + hefFototValue;
+                        }
+                        setImageUrl(hefFototValue);
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        fetchData().then(function () {
+            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Data ophalen voltooid."));
+            // Open new mail venster met data erin
+            displayNewMail();
+        }).catch(function (error) {
+            console.error((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Fout bij ophalen data:"), error);
+        });
+    }, []);
+    // https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=2839&mrid=2017.00000571
     function waitForComposeMode(callback) {
         var interval = setInterval(function () {
             try {
@@ -33957,29 +33986,6 @@ var MachineData = function (props) {
             }
         }, 300);
     }
-    var displayNewMail = function () {
-        console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Display new mail with attachment"));
-        // Lees html vanuit template bestand => heftruck-electro-nl.html
-        // const html = await fetch("/template.html").then(res => res.text());
-        var htmlBody = (0,_services_RenderTemplate__WEBPACK_IMPORTED_MODULE_6__.getEmailHtml)();
-        // Vul de placeholders
-        // const filledHtml = html.replace("{{machineNr}}", props.machineNr).replace("{{referenceNr}}", props.referenceNr);
-        Office.context.mailbox.displayNewMessageFormAsync({
-            toRecipients: ["test@example.com"],
-            subject: "Voorbeeld onderwerp",
-            htmlBody: htmlBody
-        }, function (result) {
-            console.log((0,_util_log__WEBPACK_IMPORTED_MODULE_4__.formatLog)("Resultaat displayNewMessageFormAsync"), result);
-            // Wacht een fractie van een seconde zodat compose-mode actief is
-            // waitForComposeMode(() => {
-            //     Office.context.mailbox.item.addFileAttachmentFromBase64Async(
-            //         "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+X2ioAAAAASUVORK5CYII=",
-            //         "bestand.pdf",
-            //         result => console.log("Bijlage toegevoegd:", result)
-            //     );
-            // });
-        });
-    };
     return (react__WEBPACK_IMPORTED_MODULE_0__.createElement("section", { className: styles.backgroundPanel },
         react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null,
             react__WEBPACK_IMPORTED_MODULE_0__.createElement(_fluentui_react_components__WEBPACK_IMPORTED_MODULE_1__.Image, { src: imageUrl, alt: props.title })),
