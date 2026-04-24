@@ -1391,6 +1391,118 @@ function formatLog(message) {
   var formattedTime = "".concat(pad(now.getHours()), ":").concat(pad(now.getMinutes()), ":").concat(pad(now.getSeconds()), ":").concat(padMilliseconds(now.getMilliseconds()));
   return "[VdSpek ".concat(formattedTime, "] ").concat(message);
 }
+;// ./src/util/mailitem.ts
+
+var MachineType;
+(function (MachineType) {
+  MachineType["ForkLiftTruck"] = "ForkLiftTruck";
+  MachineType["PalletLifter"] = "PalletLifter";
+  MachineType["Stacker"] = "Stacker";
+  MachineType["TractionBattery"] = "TractionBattery";
+  MachineType["MobileElevatedWorkPlatform"] = "MobileElevatedWorkPlatform";
+  MachineType["ReachTruck"] = "ReachTruck";
+  MachineType["TowingTractor"] = "TowingTractor";
+  MachineType["Sweeper"] = "Sweeper";
+  MachineType["Scrubber"] = "Scrubber";
+  MachineType["Unknown"] = "Unknown";
+})(MachineType || (MachineType = {}));
+function isQuotationRequest(subject) {
+  if (!subject) {
+    return false;
+  }
+  if ((subject.includes("Prijsopgave") || subject.includes("Quotation") || subject.includes("Preisauskunft")) && subject.includes("[") && subject.includes("]")) {
+    return true;
+  }
+  return false;
+}
+function getReferenceFromSubject(subject) {
+  /*
+    Voorbeeld subject:
+       Prijsopgave - [2603] Hyster H 4.00 XLS-6 - Van der Spek Heftrucks B.V. (ref. 2016.00000283)
+       2019-09-20 aanpassing in subject door VIP
+    Prijsopgave - [Heftruck; 3216] Toyota 02-8 FDF 25 - Van der Spek Heftrucks B.V. (ref nr 2019.00002871)
+  */
+  // Met regex het laatste nummer uitlezen/matchen
+  var regex = /([0-9.]*[0-9]*?)\)/;
+  var match = subject.match(regex);
+  if (!match || match.length < 2) {
+    throw new Error("Kan referentienummer niet achterhalen.");
+  }
+  var reference = match[1];
+  // Verwijder het laatste haakje (voor de zekerheid)
+  return reference.replace(/\)+$/, '');
+}
+function getMachineNumberFromSubject(subject) {
+  var regex = /\[.*?(\d+)\]/;
+  var match = subject.match(regex);
+  if (!match || match.length < 2) {
+    throw new Error("Geen machinenummer gevonden in het onderwerp van de mail.");
+  }
+  return match[1];
+}
+function getMachineTypeFromSubject(subject) {
+  // Eerst het type als string uitlezen
+  var regex = /\[([^;\]]+);/;
+  var match = subject.match(regex);
+  if (!match) {
+    throw new Error("Kan type machine niet bepalen.");
+  }
+  var typeString = match[1];
+  console.log(formatLog('Machine type:'), typeString);
+  //Machine type: [Heftruck; 4605]
+  var lowerTypeString = typeString.toLowerCase();
+  switch (lowerTypeString) {
+    // Nederlands
+    case "heftruck":
+    case "vorkheftruck":
+    case "ruwterrein":
+      return MachineType.ForkLiftTruck;
+    case "palletheffer":
+      return MachineType.PalletLifter;
+    case "stapelaar":
+      return MachineType.Stacker;
+    case "tractiebatterij":
+      return MachineType.TractionBattery;
+    case "hoogwerker":
+      return MachineType.MobileElevatedWorkPlatform;
+    case "reachtruck":
+      return MachineType.ReachTruck;
+    case "elektrotrekker":
+      return MachineType.TowingTractor;
+    case "veegmachine":
+      return MachineType.Sweeper;
+    case "schrobmachine":
+      return MachineType.Scrubber;
+    // Engels
+    case "forklift truck":
+      return MachineType.ForkLiftTruck;
+    case "mewp":
+      return MachineType.MobileElevatedWorkPlatform;
+    case "reach truck":
+      return MachineType.ReachTruck;
+    case "stacker / pallet lifter":
+      return MachineType.Stacker;
+    case "towing tractor":
+      return MachineType.TowingTractor;
+    case "sweeper":
+      return MachineType.Sweeper;
+    // Duits
+    case "gabelstapler":
+      return MachineType.ForkLiftTruck;
+    case "hebebühnen":
+      return MachineType.MobileElevatedWorkPlatform;
+    case "schubmaststapler":
+      return MachineType.ReachTruck;
+    case "stapler/palettenheber":
+      return MachineType.Stacker;
+    case "schlepper":
+      return MachineType.TowingTractor;
+    case "kehrmaschine":
+      return MachineType.Sweeper;
+    default:
+      return MachineType.Unknown;
+  }
+}
 ;// ./src/commands/commands.ts
 /* provided dependency */ var commands_Promise = __webpack_require__(64583)["Promise"];
 var commands_awaiter = undefined && undefined.__awaiter || function (thisArg, _arguments, P, generator) {
@@ -1506,19 +1618,31 @@ var commands_generator = undefined && undefined.__generator || function (thisArg
 };
 
 
+
 /* global Office */
 Office.onReady(function () {
   console.log(formatLog("Office.js is ready to be called"));
 });
 function addAttachment(event) {
   return commands_awaiter(this, void 0, void 0, function () {
-    var heftruckImageUrl, heftruckImageBase64;
+    var mailItem, subject, isQ, machType, machNr, refNr, heftruckImageUrl, heftruckImageBase64;
     return commands_generator(this, function (_a) {
       switch (_a.label) {
         case 0:
           console.log(formatLog("Create HTML mail with attachment"));
-          console.log("Itemtype:", Office.context.mailbox.item.itemType);
-          console.log("Hostname:", Office.context.mailbox.diagnostics.hostName);
+          console.log(formatLog("Itemtype"), Office.context.mailbox.item.itemType);
+          console.log(formatLog("Hostname"), Office.context.mailbox.diagnostics.hostName);
+          mailItem = Office.context.mailbox.item;
+          subject = mailItem.subject;
+          console.log(formatLog("Subject"), subject);
+          isQ = isQuotationRequest(subject);
+          console.log(formatLog("Is quotation request?"), isQ);
+          machType = getMachineTypeFromSubject(subject);
+          console.log(formatLog("Machine type"), machType);
+          machNr = getMachineNumberFromSubject(subject);
+          console.log(formatLog("MachineNr"), machNr);
+          refNr = getReferenceFromSubject(subject);
+          console.log(formatLog("ReferenceNr"), refNr);
           heftruckImageUrl = "https://www.gebruikteheftrucks.nl/site/11D0786E77E34E1BC1258D6F00454D14/$File/4594%20Toyota%201800x1200-1.jpg";
           return [4 /*yield*/, AttachmentService.downloadImageAsBase64(heftruckImageUrl)];
         case 1:
