@@ -2088,9 +2088,22 @@ function addAttachment(event) {
           console.log(formatLog("Itemtype"), mailItem.itemType);
           console.log(formatLog("Hostname"), Office.context.mailbox.diagnostics.hostName);
           subject = mailItem.subject;
+          subjectInfo = null;
+          if (typeof subject === "string") {
+            console.log(formatLog("Subject (read mode)"), subject);
+            subjectInfo = readInfoFromSubject(subject);
+          } else {
+            subject.getAsync(function (result) {
+              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                console.log("Subject (compose mode):", result.value);
+                subjectInfo = readInfoFromSubject(result.value);
+              } else {
+                console.error("Fout bij ophalen subject:", result.error.message);
+              }
+            });
+          }
           console.log(formatLog("Subject"), subject);
           // Probeer de mail te herkennen
-          subjectInfo = readInfoFromSubject(subject);
           console.log(formatLog("subjectInfo"), subjectInfo);
           heftruckImageUrl = "https://www.gebruikteheftrucks.nl/site/11D0786E77E34E1BC1258D6F00454D14/$File/4594%20Toyota%201800x1200-1.jpg";
           _context.n = 2;
