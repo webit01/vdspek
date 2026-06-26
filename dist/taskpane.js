@@ -9126,7 +9126,7 @@ const MachineData = (props) => {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(result, "application/xml");
             // Converteer XML naar JSON
-            const json = xmlToJson(xmlDoc);
+            const heftruckData = xmlToJson(xmlDoc);
             // Waarde van <hef_fotot> ophalen
             setStatusLog(prev => [...prev, "Foto lezen..."]);
             const hefFototElement = xmlDoc.querySelector("hef_fotot");
@@ -9138,7 +9138,7 @@ const MachineData = (props) => {
                 hefFototValue = "https://" + hefFototValue;
             }
             setImageUrl(hefFototValue);
-            return json;
+            return heftruckData;
         });
         fetchData().then((heftruckData) => {
             console.log((0,log/* formatLog */.e)("Data ophalen voltooid."), heftruckData);
@@ -9185,6 +9185,7 @@ const MachineData = (props) => {
 /* harmony default export */ var components_MachineData = (MachineData);
 
 ;// ./src/util/mailitem.ts
+/* unused harmony import specifier */ var formatLog;
 
 var MachineType;
 (function (MachineType) {
@@ -9199,6 +9200,30 @@ var MachineType;
   MachineType["Scrubber"] = "Scrubber";
   MachineType["Unknown"] = "Unknown";
 })(MachineType || (MachineType = {}));
+var readInfoFromSubject = function readInfoFromSubject(subject) {
+  var isQ = isQuotationRequest(subject);
+  console.log(formatLog("IsQuotationRequest2"), isQ);
+  if (!isQ) {
+    return {
+      isQuotationRequest: false,
+      machineType: null,
+      machineNr: null,
+      referenceNr: null
+    };
+  }
+  var machType = getMachineTypeFromSubject(subject);
+  console.log(formatLog("Machine type"), machType);
+  var machNr = getMachineNumberFromSubject(subject);
+  console.log(formatLog("MachineNr"), machNr);
+  var refNr = getReferenceFromSubject(subject);
+  console.log(formatLog("ReferenceNr"), refNr);
+  return {
+    isQuotationRequest: true,
+    machineType: machType,
+    machineNr: machNr,
+    referenceNr: refNr
+  };
+};
 function isQuotationRequest(subject) {
   if (!subject) {
     return false;
