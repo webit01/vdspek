@@ -1,42 +1,408 @@
 "use strict";
 (self["webpackChunkvdspek_office_appp"] = self["webpackChunkvdspek_office_appp"] || []).push([[202],{
 
-/***/ 3808:
+/***/ 35137:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   E: function() { return /* binding */ useIsomorphicLayoutEffect; }
+/* harmony export */   A: function() { return /* binding */ murmur2; }
 /* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-/* harmony import */ var _ssr_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40206);
+/* eslint-disable */
+// Inspired by https://github.com/garycourt/murmurhash-js
+// Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
+function murmur2(str) {
+  // 'm' and 'r' are mixing constants generated offline.
+  // They're not really 'magic', they just happen to work well.
+  // const m = 0x5bd1e995;
+  // const r = 24;
+  // Initialize the hash
+  var h = 0; // Mix 4 bytes at a time into the hash
+
+  var k,
+      i = 0,
+      len = str.length;
+
+  for (; len >= 4; ++i, len -= 4) {
+    k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
+    k =
+    /* Math.imul(k, m): */
+    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16);
+    k ^=
+    /* k >>> r: */
+    k >>> 24;
+    h =
+    /* Math.imul(k, m): */
+    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16) ^
+    /* Math.imul(h, m): */
+    (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
+  } // Handle the last few bytes of the input array
 
 
-/**
- * React currently throws a warning when using useLayoutEffect on the server. To get around it, we can conditionally
- * useEffect on the server (no-op) and useLayoutEffect in the browser. We occasionally need useLayoutEffect to
- * ensure we don't get a render flash for certain operations, but we may also need affected components to render on
- * the server.
- *
- * https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
- * https://github.com/reduxjs/react-redux/blob/master/src/utils/useIsomorphicLayoutEffect.js
- */ // eslint-disable-next-line no-restricted-properties
-const useIsomorphicLayoutEffect = (0,_ssr_index__WEBPACK_IMPORTED_MODULE_1__/* .canUseDOM */ .S)() ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+  switch (len) {
+    case 3:
+      h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
+
+    case 2:
+      h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
+
+    case 1:
+      h ^= str.charCodeAt(i) & 0xff;
+      h =
+      /* Math.imul(h, m): */
+      (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
+  } // Do a few final mixes of the hash to ensure the last few
+  // bytes are well-incorporated.
+
+
+  h ^= h >>> 13;
+  h =
+  /* Math.imul(h, m): */
+  (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
+  return ((h ^ h >>> 15) >>> 0).toString(36);
+}
+
+
 
 
 /***/ }),
 
-/***/ 5338:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/***/ 93700:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
-var __webpack_unused_export__;
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+
+const IconDirectionContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
+const IconDirectionContextDefaultValue = {};
+const IconDirectionContextProvider = IconDirectionContext.Provider;
+const useIconContext = () => {
+    const context = react__WEBPACK_IMPORTED_MODULE_0__.useContext(IconDirectionContext);
+    return context !== null && context !== void 0 ? context : IconDirectionContextDefaultValue;
+};
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "F", 0, /* binding */ IconDirectionContextProvider,
+/* harmony export */   "U", 0, /* binding */ useIconContext
+/* harmony export */ ]);
 
 
-var m = __webpack_require__(40961);
-if (true) {
-  exports.H = m.createRoot;
-  __webpack_unused_export__ = m.hydrateRoot;
-} else // removed by dead control flow
-{ var i; }
+/***/ }),
+
+/***/ 55883:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  _: function() { return /* binding */ Image; }
+});
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(96540);
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-jsx-runtime/lib/jsx-runtime.js + 8 modules
+var jsx_runtime = __webpack_require__(95395);
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/assertSlots.js
+var assertSlots = __webpack_require__(82222);
+;// ./node_modules/@fluentui/react-image/lib/components/Image/renderImage.js
+  
+
+/**
+ * Define the render function.
+ * Given the state of an image, renders it.
+ */ const renderImage_unstable = (state)=>{
+    (0,assertSlots/* assertSlots */.C)(state);
+    return /*#__PURE__*/ (0,jsx_runtime/* jsx */.Y)(state.root, {});
+};
+
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/slot.js
+var slot = __webpack_require__(56257);
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/getIntrinsicElementProps.js + 2 modules
+var getIntrinsicElementProps = __webpack_require__(30460);
+;// ./node_modules/@fluentui/react-image/lib/components/Image/useImage.js
+
+
+/**
+ * Given user props, returns state and render function for an Image.
+ */ const useImage_unstable = (props, ref)=>{
+    const { bordered = false, fit = 'default', block = false, shape = 'square', shadow = false } = props;
+    const state = {
+        bordered,
+        fit,
+        block,
+        shape,
+        shadow,
+        components: {
+            root: 'img'
+        },
+        root: slot/* always */.Gk((0,getIntrinsicElementProps/* getIntrinsicElementProps */.g)('img', {
+            ref,
+            ...props
+        }), {
+            elementType: 'img'
+        })
+    };
+    return state;
+};
+
+// EXTERNAL MODULE: ./node_modules/@griffel/react/__styles.esm.js
+var _styles_esm = __webpack_require__(99159);
+// EXTERNAL MODULE: ./node_modules/@griffel/core/mergeClasses.esm.js
+var mergeClasses_esm = __webpack_require__(20677);
+;// ./node_modules/@fluentui/react-image/lib/components/Image/useImageStyles.styles.js
+
+
+const imageClassNames = {
+  root: 'fui-Image'
+};
+const useStyles = /*#__PURE__*/(0,_styles_esm/* __styles */.X)({
+  base: {
+    g2u3we: "fj3muxo",
+    h3c5rm: ["f1akhkt", "f1lxtadh"],
+    B9xav0g: "f1aperda",
+    zhjwy3: ["f1lxtadh", "f1akhkt"],
+    Beyfa6y: 0,
+    Bbmb7ep: 0,
+    Btl43ni: 0,
+    B7oj6ja: 0,
+    Dimara: "f1fabniw",
+    B7ck84d: "f1ewtqcl",
+    mc9l5x: "f14t3ns0"
+  },
+  bordered: {
+    icvyot: "fzkkow9",
+    vrafjx: ["fcdblym", "fjik90z"],
+    oivjwe: "fg706s2",
+    wvpqe5: ["fjik90z", "fcdblym"],
+    B4j52fo: "f192inf7",
+    Bekrc4i: ["f5tn483", "f1ojsxk5"],
+    Bn0qgzm: "f1vxd6vx",
+    ibv6hh: ["f1ojsxk5", "f5tn483"]
+  },
+  circular: {
+    Beyfa6y: 0,
+    Bbmb7ep: 0,
+    Btl43ni: 0,
+    B7oj6ja: 0,
+    Dimara: "f44lkw9"
+  },
+  rounded: {
+    Beyfa6y: 0,
+    Bbmb7ep: 0,
+    Btl43ni: 0,
+    B7oj6ja: 0,
+    Dimara: "ft85np5"
+  },
+  square: {},
+  shadow: {
+    E5pizo: "f1whvlc6"
+  },
+  center: {
+    st4lth: "f1plgu50",
+    Ermj5k: "f14xojzb",
+    Bqenvij: "f1l02sjl",
+    a9b677: "fly5x3f"
+  },
+  contain: {
+    st4lth: "f1kle4es",
+    Ermj5k: "f14xojzb",
+    Bqenvij: "f1l02sjl",
+    a9b677: "fly5x3f"
+  },
+  "default": {},
+  cover: {
+    st4lth: "f1ps3kmd",
+    Ermj5k: "f14xojzb",
+    Bqenvij: "f1l02sjl",
+    a9b677: "fly5x3f"
+  },
+  none: {
+    st4lth: "f1plgu50",
+    Ermj5k: ["f13uwng7", "fjmyj0p"],
+    Bqenvij: "f1l02sjl",
+    a9b677: "fly5x3f"
+  },
+  block: {
+    a9b677: "fly5x3f"
+  }
+}, {
+  d: [".fj3muxo{border-top-color:var(--colorNeutralStroke1);}", ".f1akhkt{border-right-color:var(--colorNeutralStroke1);}", ".f1lxtadh{border-left-color:var(--colorNeutralStroke1);}", ".f1aperda{border-bottom-color:var(--colorNeutralStroke1);}", [".f1fabniw{border-radius:var(--borderRadiusNone);}", {
+    p: -1
+  }], ".f1ewtqcl{box-sizing:border-box;}", ".f14t3ns0{display:inline-block;}", ".fzkkow9{border-top-style:solid;}", ".fcdblym{border-right-style:solid;}", ".fjik90z{border-left-style:solid;}", ".fg706s2{border-bottom-style:solid;}", ".f192inf7{border-top-width:var(--strokeWidthThin);}", ".f5tn483{border-right-width:var(--strokeWidthThin);}", ".f1ojsxk5{border-left-width:var(--strokeWidthThin);}", ".f1vxd6vx{border-bottom-width:var(--strokeWidthThin);}", [".f44lkw9{border-radius:var(--borderRadiusCircular);}", {
+    p: -1
+  }], [".ft85np5{border-radius:var(--borderRadiusMedium);}", {
+    p: -1
+  }], ".f1whvlc6{box-shadow:var(--shadow4);}", ".f1plgu50{object-fit:none;}", ".f14xojzb{object-position:center;}", ".f1l02sjl{height:100%;}", ".fly5x3f{width:100%;}", ".f1kle4es{object-fit:contain;}", ".f1ps3kmd{object-fit:cover;}", ".f13uwng7{object-position:left top;}", ".fjmyj0p{object-position:right top;}"]
+});
+const useImageStyles_unstable = state => {
+  'use no memo';
+
+  const styles = useStyles();
+  state.root.className = (0,mergeClasses_esm/* mergeClasses */.z)(imageClassNames.root, styles.base, state.block && styles.block, state.bordered && styles.bordered, state.shadow && styles.shadow, styles[state.fit], styles[state.shape], state.root.className);
+  return state;
+};
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-shared-contexts/lib/CustomStyleHooksContext/CustomStyleHooksContext.js
+var CustomStyleHooksContext = __webpack_require__(68909);
+;// ./node_modules/@fluentui/react-image/lib/components/Image/Image.js
+
+
+
+
+
+/**
+ * The Image component ensures the consistent styling of images.
+ */ const Image = /*#__PURE__*/ react.forwardRef((props, ref)=>{
+    const state = useImage_unstable(props, ref);
+    useImageStyles_unstable(state);
+    (0,CustomStyleHooksContext/* useCustomStyleHook */.$e)('useImageStyles_unstable')(state);
+    return renderImage_unstable(state);
+});
+Image.displayName = 'Image';
+
+
+/***/ }),
+
+/***/ 95395:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  Y: function() { return /* binding */ jsx; },
+  F: function() { return /* binding */ jsxs; }
+});
+
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/constants.js
+var constants = __webpack_require__(86800);
+;// ./node_modules/@fluentui/react-utilities/lib/compose/isSlot.js
+
+/**
+ * Guard method to ensure a given element is a slot.
+ * This is mainly used internally to ensure a slot is being used as a component.
+ */ function isSlot(element) {
+    return Boolean(element === null || element === void 0 ? void 0 : element.hasOwnProperty(constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on));
+}
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/createCompatSlotComponent.js
+
+
+// TODO:
+// this is for backwards compatibility with getSlotsNext
+// it should be removed once getSlotsNext is obsolete
+function createCompatSlotComponent(type, props) {
+    return {
+        ...props,
+        [constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on]: type
+    };
+}
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/warnIfElementTypeIsInvalid.js
+
+
+function warnIfElementTypeIsInvalid(type) {
+    if (false) // removed by dead control flow
+{}
+}
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/createJSX.js
+
+
+
+
+function createJSX(runtime, slotRuntime) {
+    return function jsx(type, overrideProps, key, source, self) {
+        // TODO:
+        // this is for backwards compatibility with getSlotsNext
+        // it should be removed once getSlotsNext is obsolete
+        if (isSlot(overrideProps)) {
+            return slotRuntime(createCompatSlotComponent(type, overrideProps), null, key, source, self);
+        }
+        if (isSlot(type)) {
+            return slotRuntime(type, overrideProps, key, source, self);
+        }
+        warnIfElementTypeIsInvalid(type);
+        return runtime(type, overrideProps, key, source, self);
+    };
+}
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(96540);
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/getMetadataFromSlotComponent.js
+
+/**
+ * @internal
+ */ function getMetadataFromSlotComponent(type) {
+    const { as, [constants/* SLOT_CLASS_NAME_PROP_SYMBOL */.b9]: _classNameProp, [constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on]: baseElementType, [constants/* SLOT_RENDER_FUNCTION_SYMBOL */.Y9]: renderFunction, ...propsWithoutMetadata } = type;
+    const props = propsWithoutMetadata;
+    const elementType = typeof baseElementType === 'string' ? as !== null && as !== void 0 ? as : baseElementType : baseElementType;
+    if (typeof elementType !== 'string' && as) {
+        props.as = as;
+    }
+    return {
+        elementType,
+        props,
+        renderFunction
+    };
+}
+
+// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
+var jsx_runtime = __webpack_require__(74848);
+var jsx_runtime_namespaceObject = /*#__PURE__*/__webpack_require__.t(jsx_runtime, 2);
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/Runtime.js
+
+const Runtime = jsx_runtime_namespaceObject;
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/jsxSlot.js
+
+
+
+const jsxSlot = (type, overrideProps, key)=>{
+    const { elementType, renderFunction, props: slotProps } = getMetadataFromSlotComponent(type);
+    const props = {
+        ...slotProps,
+        ...overrideProps
+    };
+    if (renderFunction) {
+        return Runtime.jsx(react.Fragment, {
+            children: renderFunction(elementType, props)
+        }, key);
+    }
+    return Runtime.jsx(elementType, props, key);
+};
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/jsxsSlot.js
+
+
+
+const jsxsSlot = (type, overrideProps, key)=>{
+    const { elementType, renderFunction, props: slotProps } = getMetadataFromSlotComponent(type);
+    const props = {
+        ...slotProps,
+        ...overrideProps
+    };
+    if (renderFunction) {
+        /**
+     * In static runtime then children is an array and this array won't be keyed.
+     * We should wrap children by a static fragment
+     * as there's no way to know if renderFunction will render statically or dynamically
+     */ return Runtime.jsx(react.Fragment, {
+            children: renderFunction(elementType, {
+                ...props,
+                children: Runtime.jsxs(react.Fragment, {
+                    children: props.children
+                }, undefined)
+            })
+        }, key);
+    }
+    return Runtime.jsxs(elementType, props, key);
+};
+
+;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx-runtime.js
+
+
+
+
+
+const jsx = createJSX(Runtime.jsx, jsxSlot);
+const jsxs = createJSX(Runtime.jsxs, jsxsSlot);
 
 
 /***/ }),
@@ -73,6 +439,7 @@ var ProviderContext = __webpack_require__(97073);
  */ const ThemeProvider = ThemeContext.Provider;
 
 ;// ./node_modules/@fluentui/react-shared-contexts/lib/ThemeClassNameContext/ThemeClassNameContext.js
+/* unused harmony import specifier */ var React;
 
 /**
  * @internal
@@ -92,18 +459,19 @@ const ThemeClassNameProvider = ThemeClassNameContext.Provider;
 // EXTERNAL MODULE: ./node_modules/@fluentui/react-shared-contexts/lib/CustomStyleHooksContext/CustomStyleHooksContext.js
 var CustomStyleHooksContext = __webpack_require__(68909);
 ;// ./node_modules/@fluentui/react-shared-contexts/lib/TooltipVisibilityContext/TooltipContext.js
+/* unused harmony import specifier */ var TooltipContext_React;
 
 /**
  * @internal
  * Context shared by all of the tooltips in the app
  */ const TooltipVisibilityContext = react.createContext(undefined);
-const tooltipVisibilityContextDefaultValue = {};
+const tooltipVisibilityContextDefaultValue = (/* unused pure expression or super */ null && ({}));
 /**
  * @internal
  */ const TooltipVisibilityProvider = TooltipVisibilityContext.Provider;
 function useTooltipVisibility() {
     var _React_useContext;
-    return (_React_useContext = React.useContext(TooltipVisibilityContext)) !== null && _React_useContext !== void 0 ? _React_useContext : tooltipVisibilityContextDefaultValue;
+    return (_React_useContext = TooltipContext_React.useContext(TooltipVisibilityContext)) !== null && _React_useContext !== void 0 ? _React_useContext : tooltipVisibilityContextDefaultValue;
 }
 
 ;// ./node_modules/@fluentui/react-shared-contexts/lib/OverridesContext/OverridesContext.js
@@ -150,7 +518,7 @@ var IconDirectionContext = __webpack_require__(93700);
                                 value: contextValues.iconDirection,
                                 children: /*#__PURE__*/ (0,jsx_runtime/* jsx */.Y)(OverridesProvider, {
                                     value: contextValues.overrides_unstable,
-                                    children: /*#__PURE__*/ (0,jsx_runtime/* jsxs */.FD)(state.root, {
+                                    children: /*#__PURE__*/ (0,jsx_runtime/* jsxs */.F)(state.root, {
                                         children: [
                                             (0,canUseDOM/* canUseDOM */.S)() ? null : /*#__PURE__*/ (0,jsx_runtime/* jsx */.Y)("style", {
                                                 // Using dangerous HTML because react can escape characters
@@ -651,11 +1019,11 @@ const KEYBOARD_NAV_SELECTOR = (/* unused pure expression or super */ null && (`:
 /**
  * @internal
  */ const FOCUS_WITHIN_ATTR = 'data-fui-focus-within';
-const defaultOptions = {
+const defaultOptions = (/* unused pure expression or super */ null && ({
     style: {},
     selector: 'focus',
     customizeSelector: (selector)=>selector
-};
+}));
 
 ;// ./node_modules/@fluentui/react-tabster/lib/focus/focusVisiblePolyfill.js
 
@@ -1049,6 +1417,957 @@ FluentProvider.displayName = 'FluentProvider';
 
 /***/ }),
 
+/***/ 68909:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+/* eslint-disable */ 
+/**
+ * @internal
+ */ const CustomStyleHooksContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
+const noop = ()=>{};
+/**
+ * @internal
+ */ const CustomStyleHooksProvider = CustomStyleHooksContext.Provider;
+/**
+ * Gets a custom style hook
+ * @param hook - One of the hook properties in CustomStyleHooksContextValue
+ * @returns The corresponding hook when defined, otherwise a no-op function.
+ */ const useCustomStyleHook = (hook)=>{
+    var _React_useContext;
+    var _React_useContext_hook;
+    return (_React_useContext_hook = (_React_useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(CustomStyleHooksContext)) === null || _React_useContext === void 0 ? void 0 : _React_useContext[hook]) !== null && _React_useContext_hook !== void 0 ? _React_useContext_hook : noop;
+};
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "$e", 0, /* binding */ useCustomStyleHook,
+/* harmony export */   "gH", 0, /* binding */ CustomStyleHooksProvider,
+/* harmony export */   "k7", 0, /* binding */ CustomStyleHooksContext
+/* harmony export */ ]);
+
+
+/***/ }),
+
+/***/ 97073:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Y: function() { return /* binding */ useFluent; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+
+/**
+ * @internal
+ */ const ProviderContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
+const providerContextDefaultValue = {
+    // eslint-disable-next-line @nx/workspace-no-restricted-globals -- expected ignore ( SSR friendly acquisition of globals )
+    targetDocument: typeof document === 'object' ? document : undefined,
+    dir: 'ltr'
+};
+/**
+ * @internal
+ */ const Provider = ProviderContext.Provider;
+function useFluent() {
+    var _React_useContext;
+    return (_React_useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(ProviderContext)) !== null && _React_useContext !== void 0 ? _React_useContext : providerContextDefaultValue;
+}
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "K", 0, /* binding */ Provider
+/* harmony export */ ]);
+
+
+/***/ }),
+
+/***/ 82222:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   C: function() { return /* binding */ assertSlots; }
+/* harmony export */ });
+
+
+
+
+/**
+ * @internal
+ * Assertion method to ensure state slots properties are properly declared.
+ * A properly declared slot must be declared by using the `slot` method.
+ *
+ * @example
+ * ```tsx
+ * export const renderInput_unstable = (state: InputState) => {
+    assertSlots<InputSlots>(state);
+    return (
+      <state.root>
+        {state.contentBefore && <state.contentBefore />}
+        <state.input />
+        {state.contentAfter && <state.contentAfter />}
+      </state.root>
+    );
+  };
+ * ```
+ */ function assertSlots(state) {
+    /**
+   * This verification is not necessary in production
+   * as we're verifying static properties that will not change between environments
+   */ if (false) // removed by dead control flow
+{}
+}
+
+
+/***/ }),
+
+/***/ 86800:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/**
+ * @internal
+ * Internal reference for the render function
+ */ const SLOT_RENDER_FUNCTION_SYMBOL = Symbol.for('fui.slotRenderFunction');
+/**
+ * @internal
+ * Internal reference for the render function
+ */ const SLOT_ELEMENT_TYPE_SYMBOL = Symbol.for('fui.slotElementType');
+/**
+ * @internal
+ * Internal cache of the original className prop for the slot, before being modified by the useStyles hook.
+ */ const SLOT_CLASS_NAME_PROP_SYMBOL = Symbol.for('fui.slotClassNameProp');
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "Y9", 0, /* binding */ SLOT_RENDER_FUNCTION_SYMBOL,
+/* harmony export */   "b9", 0, /* binding */ SLOT_CLASS_NAME_PROP_SYMBOL,
+/* harmony export */   "on", 0, /* binding */ SLOT_ELEMENT_TYPE_SYMBOL
+/* harmony export */ ]);
+
+
+/***/ }),
+
+/***/ 30460:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  g: function() { return /* binding */ getIntrinsicElementProps; }
+});
+
+;// ./node_modules/@fluentui/react-utilities/lib/utils/properties.js
+const toObjectMap = (...items)=>{
+    const result = {};
+    for (const item of items){
+        const keys = Array.isArray(item) ? item : Object.keys(item);
+        for (const key of keys){
+            result[key] = 1;
+        }
+    }
+    return result;
+};
+/**
+ * An array of events that are allowed on every html element type.
+ *
+ * @public
+ */ const baseElementEvents = toObjectMap([
+    'onAuxClick',
+    'onAnimationEnd',
+    'onAnimationStart',
+    'onCopy',
+    'onCut',
+    'onPaste',
+    'onCompositionEnd',
+    'onCompositionStart',
+    'onCompositionUpdate',
+    'onFocus',
+    'onFocusCapture',
+    'onBlur',
+    'onBlurCapture',
+    'onChange',
+    'onInput',
+    'onSubmit',
+    'onLoad',
+    'onError',
+    'onKeyDown',
+    'onKeyDownCapture',
+    'onKeyPress',
+    'onKeyUp',
+    'onAbort',
+    'onCanPlay',
+    'onCanPlayThrough',
+    'onDurationChange',
+    'onEmptied',
+    'onEncrypted',
+    'onEnded',
+    'onLoadedData',
+    'onLoadedMetadata',
+    'onLoadStart',
+    'onPause',
+    'onPlay',
+    'onPlaying',
+    'onProgress',
+    'onRateChange',
+    'onSeeked',
+    'onSeeking',
+    'onStalled',
+    'onSuspend',
+    'onTimeUpdate',
+    'onVolumeChange',
+    'onWaiting',
+    'onClick',
+    'onClickCapture',
+    'onContextMenu',
+    'onDoubleClick',
+    'onDrag',
+    'onDragEnd',
+    'onDragEnter',
+    'onDragExit',
+    'onDragLeave',
+    'onDragOver',
+    'onDragStart',
+    'onDrop',
+    'onMouseDown',
+    'onMouseDownCapture',
+    'onMouseEnter',
+    'onMouseLeave',
+    'onMouseMove',
+    'onMouseOut',
+    'onMouseOver',
+    'onMouseUp',
+    'onMouseUpCapture',
+    'onSelect',
+    'onTouchCancel',
+    'onTouchEnd',
+    'onTouchMove',
+    'onTouchStart',
+    'onScroll',
+    'onWheel',
+    'onPointerCancel',
+    'onPointerDown',
+    'onPointerEnter',
+    'onPointerLeave',
+    'onPointerMove',
+    'onPointerOut',
+    'onPointerOver',
+    'onPointerUp',
+    'onGotPointerCapture',
+    'onLostPointerCapture'
+]);
+/**
+ * An array of element attributes which are allowed on every html element type.
+ *
+ * @public
+ */ const baseElementProperties = toObjectMap([
+    'accessKey',
+    'children',
+    'className',
+    'contentEditable',
+    'dir',
+    'draggable',
+    'hidden',
+    'htmlFor',
+    'id',
+    'lang',
+    'ref',
+    'role',
+    'style',
+    'tabIndex',
+    'title',
+    'translate',
+    'spellCheck',
+    'name'
+]);
+/**
+ * An array of microdata attributes that are allowed on every html element type.
+ *
+ * @public
+ */ const microdataProperties = toObjectMap([
+    'itemID',
+    'itemProp',
+    'itemRef',
+    'itemScope',
+    'itemType'
+]);
+/**
+ * An array of HTML element properties and events.
+ *
+ * @public
+ */ const htmlElementProperties = toObjectMap(baseElementProperties, baseElementEvents, microdataProperties);
+/**
+ * An array of LABEL tag properties and events.
+ *
+ * @public
+ */ const labelProperties = toObjectMap(htmlElementProperties, [
+    'form'
+]);
+/**
+ * An array of AUDIO tag properties and events.
+
+ * @public
+ */ const audioProperties = toObjectMap(htmlElementProperties, [
+    'height',
+    'loop',
+    'muted',
+    'preload',
+    'src',
+    'width'
+]);
+/**
+ * An array of VIDEO tag properties and events.
+ *
+ * @public
+ */ const videoProperties = toObjectMap(audioProperties, [
+    'poster'
+]);
+/**
+ * An array of OL tag properties and events.
+ *
+ * @public
+ */ const olProperties = toObjectMap(htmlElementProperties, [
+    'start'
+]);
+/**
+ * An array of LI tag properties and events.
+ *
+ * @public
+ */ const liProperties = toObjectMap(htmlElementProperties, [
+    'value'
+]);
+/**
+ * An array of A tag properties and events.
+ *
+ * @public
+ */ const anchorProperties = toObjectMap(htmlElementProperties, [
+    'download',
+    'href',
+    'hrefLang',
+    'media',
+    'rel',
+    'target',
+    'type'
+]);
+/**
+ * An array of TIME tag properties and events.
+ *
+ * @public
+ */ const timeProperties = toObjectMap(htmlElementProperties, [
+    'dateTime'
+]);
+/**
+ * An array of BUTTON tag properties and events.
+ *
+ * @public
+ */ const buttonProperties = toObjectMap(htmlElementProperties, [
+    'autoFocus',
+    'disabled',
+    'form',
+    'formAction',
+    'formEncType',
+    'formMethod',
+    'formNoValidate',
+    'formTarget',
+    'type',
+    'value'
+]);
+/**
+ * An array of INPUT tag properties and events.
+ *
+ * @public
+ */ const inputProperties = toObjectMap(buttonProperties, [
+    'accept',
+    'alt',
+    'autoCorrect',
+    'autoCapitalize',
+    'autoComplete',
+    'checked',
+    'dirname',
+    'form',
+    'height',
+    'inputMode',
+    'list',
+    'max',
+    'maxLength',
+    'min',
+    'minLength',
+    'multiple',
+    'pattern',
+    'placeholder',
+    'readOnly',
+    'required',
+    'src',
+    'step',
+    'size',
+    'type',
+    'value',
+    'width'
+]);
+/**
+ * An array of TEXTAREA tag properties and events.
+ *
+ * @public
+ */ const textAreaProperties = toObjectMap(buttonProperties, [
+    'autoCapitalize',
+    'cols',
+    'dirname',
+    'form',
+    'maxLength',
+    'placeholder',
+    'readOnly',
+    'required',
+    'rows',
+    'wrap'
+]);
+/**
+ * An array of SELECT tag properties and events.
+ *
+ * @public
+ */ const selectProperties = toObjectMap(buttonProperties, [
+    'form',
+    'multiple',
+    'required'
+]);
+const optionProperties = toObjectMap(htmlElementProperties, [
+    'selected',
+    'value'
+]);
+/**
+ * An array of TABLE tag properties and events.
+ *
+ * @public
+ */ const tableProperties = toObjectMap(htmlElementProperties, [
+    'cellPadding',
+    'cellSpacing'
+]);
+/**
+ * An array of TR tag properties and events.
+ *
+ * @public
+ */ const trProperties = htmlElementProperties;
+/**
+ * An array of TH tag properties and events.
+ *
+ * @public
+ */ const thProperties = toObjectMap(htmlElementProperties, [
+    'colSpan',
+    'rowSpan',
+    'scope'
+]);
+/**
+ * An array of TD tag properties and events.
+ *
+ * @public
+ */ const tdProperties = toObjectMap(htmlElementProperties, [
+    'colSpan',
+    'headers',
+    'rowSpan',
+    'scope'
+]);
+const colGroupProperties = toObjectMap(htmlElementProperties, [
+    'span'
+]);
+const colProperties = toObjectMap(htmlElementProperties, [
+    'span'
+]);
+/**
+ * An array of FIELDSET tag properties and events.
+ *
+ * @public
+ */ const fieldsetProperties = toObjectMap(htmlElementProperties, [
+    'disabled',
+    'form'
+]);
+/**
+ * An array of FORM tag properties and events.
+ *
+ * @public
+ */ const formProperties = toObjectMap(htmlElementProperties, [
+    'acceptCharset',
+    'action',
+    'encType',
+    'encType',
+    'method',
+    'noValidate',
+    'target'
+]);
+/**
+ * An array of IFRAME tag properties and events.
+ *
+ * @public
+ */ const iframeProperties = toObjectMap(htmlElementProperties, [
+    'allow',
+    'allowFullScreen',
+    'allowPaymentRequest',
+    'allowTransparency',
+    'csp',
+    'height',
+    'importance',
+    'referrerPolicy',
+    'sandbox',
+    'src',
+    'srcDoc',
+    'width'
+]);
+/**
+ * An array of IMAGE tag properties and events.
+ *
+ * @public
+ */ const imgProperties = toObjectMap(htmlElementProperties, [
+    'alt',
+    'crossOrigin',
+    'height',
+    'src',
+    'srcSet',
+    'useMap',
+    'width'
+]);
+/**
+ * An array of DIALOG tag properties and events.
+ *
+ * @public
+ */ const dialogProperties = toObjectMap(htmlElementProperties, [
+    'open',
+    'onCancel',
+    'onClose'
+]);
+/**
+ * An array of DIV tag properties and events.
+ *
+ * @public
+ */ const divProperties = (/* unused pure expression or super */ null && (htmlElementProperties));
+/**
+ * Gets native supported props for an html element provided the allowance set. Use one of the property
+ * sets defined (divProperties, buttonPropertes, etc) to filter out supported properties from a given
+ * props set. Note that all data- and aria- prefixed attributes will be allowed.
+ * NOTE: getNativeProps should always be applied first when adding props to a react component. The
+ * non-native props should be applied second. This will prevent getNativeProps from overriding your custom props.
+ * For example, if props passed to getNativeProps has an onClick function and getNativeProps is added to
+ * the component after an onClick function is added, then the getNativeProps onClick will override it.
+ *
+ * @public
+ * @param props - The unfiltered input props
+ * @param allowedPropNames - The array or record of allowed prop names.
+ * @param excludedPropNames
+ * @returns The filtered props
+ */ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getNativeProps(// eslint-disable-next-line @typescript-eslint/no-explicit-any
+props, allowedPropNames, excludedPropNames) {
+    // It'd be great to properly type this while allowing 'aria-` and 'data-' attributes like TypeScript does for
+    // JSX attributes, but that ability is hardcoded into the TS compiler with no analog in TypeScript typings.
+    // Then we'd be able to enforce props extends native props (including aria- and data- attributes), and then
+    // return native props.
+    // We should be able to do this once this PR is merged: https://github.com/microsoft/TypeScript/pull/26797
+    const isArray = Array.isArray(allowedPropNames);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = {};
+    const keys = Object.keys(props);
+    for (const key of keys){
+        const isNativeProp = !isArray && allowedPropNames[key] || isArray && allowedPropNames.indexOf(key) >= 0 || key.indexOf('data-') === 0 || key.indexOf('aria-') === 0;
+        if (isNativeProp && (!excludedPropNames || (excludedPropNames === null || excludedPropNames === void 0 ? void 0 : excludedPropNames.indexOf(key)) === -1)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            result[key] = props[key];
+        }
+    }
+    return result;
+}
+
+;// ./node_modules/@fluentui/react-utilities/lib/utils/getNativeElementProps.js
+
+
+const nativeElementMap = {
+    label: labelProperties,
+    audio: audioProperties,
+    video: videoProperties,
+    ol: olProperties,
+    li: liProperties,
+    a: anchorProperties,
+    button: buttonProperties,
+    input: inputProperties,
+    textarea: textAreaProperties,
+    select: selectProperties,
+    option: optionProperties,
+    table: tableProperties,
+    tr: trProperties,
+    th: thProperties,
+    td: tdProperties,
+    colGroup: colGroupProperties,
+    col: colProperties,
+    fieldset: fieldsetProperties,
+    form: formProperties,
+    iframe: iframeProperties,
+    img: imgProperties,
+    time: timeProperties,
+    dialog: dialogProperties
+};
+/**
+ * Given an element tagname and user props, filters the props to only allowed props for the given
+ * element type.
+ * @param tagName - Tag name (e.g. "div")
+ * @param props - Props object
+ * @param excludedPropNames - List of props to disallow
+ *
+ * @deprecated use getIntrinsicElementProps instead, it is a type-safe version of this method
+ */ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+function getNativeElementProps(tagName, props, excludedPropNames) {
+    const allowedPropNames = tagName && nativeElementMap[tagName] || htmlElementProperties;
+    allowedPropNames.as = 1;
+    return getNativeProps(props, allowedPropNames, excludedPropNames);
+}
+/**
+ * Splits the native props into ones that go to the `root` slot, and ones that go to the primary slot.
+ *
+ * This function is only for use with components that have a primary slot other than `root`.
+ * Most components should use {@link getNativeElementProps} for their root slot if it is the primary slot.
+ *
+ * @returns An object containing the native props for the `root` and primary slots.
+ */ const getPartitionedNativeProps = ({ primarySlotTagName, props, excludedPropNames })=>{
+    return {
+        root: {
+            style: props.style,
+            className: props.className
+        },
+        // eslint-disable-next-line @typescript-eslint/no-deprecated
+        primary: getNativeElementProps(primarySlotTagName, props, [
+            ...excludedPropNames || [],
+            'style',
+            'className'
+        ])
+    };
+};
+
+;// ./node_modules/@fluentui/react-utilities/lib/compose/getIntrinsicElementProps.js
+
+
+/**
+ * Given an element tagname and user props, filters the props to only allowed props for the given
+ * element type.
+ *
+ * Equivalent to {@link getNativeElementProps}, but more type-safe.
+ *
+ * @param tagName - The slot's default element type (e.g. 'div')
+ * @param props - The component's props object
+ * @param excludedPropNames - List of native props to exclude from the returned value
+ */ const getIntrinsicElementProps = (tagName, // eslint-disable-next-line @typescript-eslint/no-restricted-types -- in order to not introduce Type Restriction CHANGe which is kinda "breaking change from Types POV", we don't enforce our custom `RefAttributes` in this API, to be compatible with scenarios where non v9 interfaces might be used. This may/will change with React 19
+props, excludedPropNames)=>{
+    var _props_as;
+    // eslint-disable-next-line @typescript-eslint/no-deprecated
+    return getNativeElementProps((_props_as = props.as) !== null && _props_as !== void 0 ? _props_as : tagName, props, excludedPropNames);
+};
+
+
+/***/ }),
+
+/***/ 56257:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Gk: function() { return /* binding */ always; },
+/* harmony export */   lq: function() { return /* binding */ optional; }
+/* harmony export */ });
+/* unused harmony export resolveShorthand */
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(86800);
+
+
+/**
+ * Creates a slot from a slot shorthand or properties (`props.SLOT_NAME` or `props` itself)
+ * @param value - the value of the slot, it can be a slot shorthand, a slot component or a slot properties
+ * @param options - values you can pass to alter the signature of a slot, those values are:
+ *
+ * * `elementType` - the base element type of a slot, defaults to `'div'`
+ * * `defaultProps` - similar to a React component declaration, you can provide a slot default properties to be merged with the shorthand/properties provided.
+ */ function always(value, options) {
+    const { defaultProps, elementType } = options;
+    const props = resolveShorthand(value);
+    /**
+   * Casting is required here as SlotComponentType is a function, not an object.
+   * Although SlotComponentType has a function signature, it is still just an object.
+   * This is required to make a slot callable (JSX compatible), this is the exact same approach
+   * that is used on `@types/react` components
+   */ const propsWithMetadata = {
+        ...defaultProps,
+        ...props,
+        [_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_ELEMENT_TYPE_SYMBOL */ .on]: elementType,
+        [_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_CLASS_NAME_PROP_SYMBOL */ .b9]: props === null || props === void 0 ? void 0 : props.className
+    };
+    if (props && typeof props.children === 'function') {
+        propsWithMetadata[_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_RENDER_FUNCTION_SYMBOL */ .Y9] = props.children;
+        propsWithMetadata.children = defaultProps === null || defaultProps === void 0 ? void 0 : defaultProps.children;
+    }
+    return propsWithMetadata;
+}
+/**
+ * Creates a slot from a slot shorthand or properties (`props.SLOT_NAME` or `props` itself)
+ * @param value - the value of the slot, it can be a slot shorthand, a slot component or a slot properties
+ * @param options - values you can pass to alter the signature of a slot, those values are:
+ *
+ * * `elementType` - the base element type of a slot, defaults to `'div'`
+ * * `defaultProps` - similar to a React component declaration, you can provide a slot default properties to be merged with the shorthand/properties provided
+ * * `renderByDefault` - a boolean that indicates if a slot will be rendered even if it's base value is `undefined`.
+ * By default if `props.SLOT_NAME` is `undefined` then `state.SLOT_NAME` becomes `undefined`
+ * and nothing will be rendered, but if `renderByDefault = true` then `state.SLOT_NAME` becomes an object
+ * with the values provided by `options.defaultProps` (or `{}`). This is useful for cases such as providing a default content
+ * in case no shorthand is provided, like the case of the `expandIcon` slot for the `AccordionHeader`
+ */ function optional(value, options) {
+    if (value === null || value === undefined && !options.renderByDefault) {
+        return undefined;
+    }
+    return always(value, options);
+}
+/**
+ * Helper function that converts a slot shorthand or properties to a slot properties object
+ * The main difference between this function and `slot` is that this function does not return the metadata required for a slot to be considered a properly renderable slot, it only converts the value to a slot properties object
+ * @param value - the value of the slot, it can be a slot shorthand or a slot properties object
+ */ function resolveShorthand(value) {
+    if (typeof value === 'string' || typeof value === 'number' || isIterable(value) || // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    react__WEBPACK_IMPORTED_MODULE_0__.isValidElement(value)) {
+        return {
+            children: value
+        };
+    }
+    if (value && typeof value !== 'object' && "production" !== 'production') // removed by dead control flow
+{}
+    return value;
+}
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isIterable = (value)=>typeof value === 'object' && value !== null && Symbol.iterator in value;
+
+
+/***/ }),
+
+/***/ 93564:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  Bi: function() { return /* binding */ useId; }
+});
+
+// UNUSED EXPORTS: IdPrefixProvider, resetIdsForTests
+
+// EXTERNAL MODULE: ./node_modules/react/index.js
+var react = __webpack_require__(96540);
+var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
+;// ./node_modules/@fluentui/react-utilities/lib/ssr/SSRContext.js
+/* unused harmony import specifier */ var React;
+/* unused harmony import specifier */ var canUseDOM;
+
+
+/**
+ * Default context value to use in case there is no SSRProvider. This is fine for client-only apps.
+ *
+ * @internal
+ */ const defaultSSRContextValue = {
+    current: 0
+};
+const SSRContext = /*#__PURE__*/ react.createContext(undefined);
+/**
+ * @internal
+ */ function useSSRContext() {
+    var _React_useContext;
+    return (_React_useContext = react.useContext(SSRContext)) !== null && _React_useContext !== void 0 ? _React_useContext : defaultSSRContextValue;
+}
+/**
+ * When using SSR with Fluent UI, applications must be wrapped in an SSRProvider. This ensures that auto generated ids
+ * are consistent between the client and server.
+ *
+ * @public
+ */ const SSRProvider = (props)=>{
+    const [value] = React.useState(()=>({
+            current: 0
+        }));
+    return /*#__PURE__*/ React.createElement(SSRContext.Provider, {
+        value: value
+    }, props.children);
+};
+/**
+ * Returns whether the component is currently being server side rendered or hydrated on the client. Can be used to delay
+ * browser-specific rendering until after hydration. May cause re-renders on a client when is used within SSRProvider.
+ */ function useIsSSR() {
+    const isInSSRContext = useSSRContext() !== defaultSSRContextValue;
+    const [isSSR, setIsSSR] = React.useState(isInSSRContext);
+    // If we are rendering in a non-DOM environment, and there's no SSRProvider, provide a warning to hint to the
+    // developer to add one.
+    if (false) // removed by dead control flow
+{}
+    // If on the client, and the component was initially server rendered, then schedule a layout effect to update the
+    // component after hydration.
+    if (canUseDOM() && isInSSRContext) {
+        // This if statement technically breaks the rules of hooks, but is safe because the condition never changes after
+        // mounting.
+        // eslint-disable-next-line
+        React.useLayoutEffect(()=>{
+            setIsSSR(false);
+        }, []);
+    }
+    return isSSR;
+}
+
+;// ./node_modules/@fluentui/react-utilities/lib/hooks/useId.js
+/* unused harmony import specifier */ var useId_defaultSSRContextValue;
+
+
+const IdPrefixContext = react.createContext(undefined);
+/**
+ * Allows to define a prefix that will be used for all IDs generated by useId() hook. It's useful to avoid collisions
+ * between different bundles.
+ */ const IdPrefixProvider = IdPrefixContext.Provider;
+function useIdPrefix() {
+    return react.useContext(IdPrefixContext) || '';
+}
+/**
+ * Resets generated IDs, should be used only in tests.
+ */ function resetIdsForTests() {
+    useId_defaultSSRContextValue.current = 0;
+}
+/**
+ * Hook to generate a unique ID.
+ *
+ * @param prefix - Optional prefix for the ID. Defaults to 'fui-'.
+ * @param providedId - Optional id provided by a parent component. Defaults to the provided value if present,
+ *  without conditioning the hook call
+ * @returns The ID
+ */ function useId(prefix = 'fui-', providedId) {
+    'use no memo';
+    const contextValue = useSSRContext();
+    const idPrefix = useIdPrefix();
+    // Checking if useId is available on React, if it is, we use it to generate the id. String concatenation is used to
+    // prevent bundlers from complaining with older versions of React.
+    const _useId = react_namespaceObject['use' + 'Id'];
+    if (_useId) {
+        const generatedId = _useId();
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const escapedId = react.useMemo(()=>generatedId.replace(/:/g, ''), [
+            generatedId
+        ]);
+        return providedId || `${idPrefix}${prefix}${escapedId}`;
+    }
+    // Hooks appear to be running conditionally, but they will always run in the same order since it's based on
+    // the version of React being used. This is safe to ignore.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return react.useMemo(()=>{
+        if (providedId) {
+            return providedId;
+        }
+        return `${idPrefix}${prefix}${++contextValue.current}`;
+    }, [
+        idPrefix,
+        prefix,
+        providedId,
+        contextValue
+    ]);
+}
+
+
+/***/ }),
+
+/***/ 3808:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+/* harmony import */ var _ssr_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40206);
+
+
+/**
+ * React currently throws a warning when using useLayoutEffect on the server. To get around it, we can conditionally
+ * useEffect on the server (no-op) and useLayoutEffect in the browser. We occasionally need useLayoutEffect to
+ * ensure we don't get a render flash for certain operations, but we may also need affected components to render on
+ * the server.
+ *
+ * https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+ * https://github.com/reduxjs/react-redux/blob/master/src/utils/useIsomorphicLayoutEffect.js
+ */ // eslint-disable-next-line no-restricted-properties
+const useIsomorphicLayoutEffect = (0,_ssr_index__WEBPACK_IMPORTED_MODULE_1__/* .canUseDOM */ .S)() ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "E", 0, /* binding */ useIsomorphicLayoutEffect
+/* harmony export */ ]);
+
+
+/***/ }),
+
+/***/ 85532:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   a: function() { return /* binding */ useMergedRefs; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
+
+/**
+ * React hook to merge multiple React refs (either MutableRefObjects or ref callbacks) into a single ref callback that
+ * updates all provided refs
+ * @param refs - Refs to collectively update with one ref value.
+ * @returns A function with an attached "current" prop, so that it can be treated like a RefObject.
+ */ // LegacyRef is actually not supported, but in React v18 types this is leaking directly from forwardRef component declaration
+function useMergedRefs(...refs) {
+    'use no memo';
+    const mergedCallback = react__WEBPACK_IMPORTED_MODULE_0__.useCallback((value)=>{
+        // Update the "current" prop hanging on the function.
+        mergedCallback.current = value;
+        for (const ref of refs){
+            if (typeof ref === 'string' && "production" !== 'production') // removed by dead control flow
+{}
+            if (typeof ref === 'function') {
+                ref(value);
+            } else if (ref) {
+                // work around the immutability of the React.Ref type
+                ref.current = value;
+            }
+        }
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps -- already exhaustive
+    [
+        ...refs
+    ]);
+    return mergedCallback;
+}
+
+
+/***/ }),
+
+/***/ 40206:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   S: function() { return /* binding */ canUseDOM; }
+/* harmony export */ });
+/**
+ * Verifies if an application can use DOM.
+ */ function canUseDOM() {
+    return /* eslint-disable @nx/workspace-no-restricted-globals -- expected ignore ( SSR friendly acquisition of globals )*/ typeof window !== 'undefined' && !!(window.document && // eslint-disable-next-line @typescript-eslint/no-deprecated
+    window.document.createElement);
+}
+
+
+/***/ }),
+
+/***/ 96631:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   s: function() { return /* binding */ isHTMLElement; }
+/* harmony export */ });
+/**
+ * Verifies if a given node is an HTMLElement,
+ * this method works seamlessly with frames and elements from different documents
+ *
+ * This is preferred over simply using `instanceof`.
+ * Since `instanceof` might be problematic while operating with [multiple realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms)
+ *
+ * @example
+ * ```ts
+ * isHTMLElement(event.target) && event.target.focus()
+ * isHTMLElement(event.target, {constructorName: 'HTMLInputElement'}) && event.target.value // some value
+ * ```
+ *
+ */ function isHTMLElement(element, options) {
+    var _typedElement_ownerDocument;
+    const typedElement = element;
+    var _options_constructorName;
+    return Boolean((typedElement === null || typedElement === void 0 ? void 0 : (_typedElement_ownerDocument = typedElement.ownerDocument) === null || _typedElement_ownerDocument === void 0 ? void 0 : _typedElement_ownerDocument.defaultView) && typedElement instanceof typedElement.ownerDocument.defaultView[(_options_constructorName = options === null || options === void 0 ? void 0 : options.constructorName) !== null && _options_constructorName !== void 0 ? _options_constructorName : 'HTMLElement']);
+}
+
+
+/***/ }),
+
 /***/ 12272:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
@@ -1134,7 +2453,7 @@ const blackAlpha = {
     '80': 'rgba(0, 0, 0, 0.8)',
     '90': 'rgba(0, 0, 0, 0.9)'
 };
-const grey10Alpha = {
+const grey10Alpha = (/* unused pure expression or super */ null && ({
     '5': 'rgba(26, 26, 26, 0.05)',
     '10': 'rgba(26, 26, 26, 0.1)',
     '20': 'rgba(26, 26, 26, 0.2)',
@@ -1145,8 +2464,8 @@ const grey10Alpha = {
     '70': 'rgba(26, 26, 26, 0.7)',
     '80': 'rgba(26, 26, 26, 0.8)',
     '90': 'rgba(26, 26, 26, 0.9)'
-};
-const grey12Alpha = {
+}));
+const grey12Alpha = (/* unused pure expression or super */ null && ({
     '5': 'rgba(31, 31, 31, 0.05)',
     '10': 'rgba(31, 31, 31, 0.1)',
     '20': 'rgba(31, 31, 31, 0.2)',
@@ -1157,8 +2476,8 @@ const grey12Alpha = {
     '70': 'rgba(31, 31, 31, 0.7)',
     '80': 'rgba(31, 31, 31, 0.8)',
     '90': 'rgba(31, 31, 31, 0.9)'
-};
-const grey14Alpha = {
+}));
+const grey14Alpha = (/* unused pure expression or super */ null && ({
     '5': 'rgba(36, 36, 36, 0.05)',
     '10': 'rgba(36, 36, 36, 0.1)',
     '20': 'rgba(36, 36, 36, 0.2)',
@@ -1169,7 +2488,7 @@ const grey14Alpha = {
     '70': 'rgba(36, 36, 36, 0.7)',
     '80': 'rgba(36, 36, 36, 0.8)',
     '90': 'rgba(36, 36, 36, 0.9)'
-};
+}));
 const white = '#ffffff';
 const black = '#000000';
 const hcHyperlink = '#ffff00';
@@ -1194,7 +2513,7 @@ const darkRed = {
     tint50: '#e9c7cd',
     tint60: '#f9f0f2'
 };
-const burgundy = {
+const burgundy = (/* unused pure expression or super */ null && ({
     shade50: '#1a0607',
     shade40: '#310b0d',
     shade30: '#5c1519',
@@ -1207,7 +2526,7 @@ const burgundy = {
     tint40: '#e4afb2',
     tint50: '#f0d3d4',
     tint60: '#fbf4f4'
-};
+}));
 const cranberry = {
     shade50: '#200205',
     shade40: '#3b0509',
@@ -1250,7 +2569,7 @@ const darkOrange = {
     tint50: '#f9dcd1',
     tint60: '#fdf6f3'
 };
-const bronze = {
+const bronze = (/* unused pure expression or super */ null && ({
     shade50: '#1b0a01',
     shade40: '#321303',
     shade30: '#5e2405',
@@ -1263,7 +2582,7 @@ const bronze = {
     tint40: '#e5bba4',
     tint50: '#f1d9cc',
     tint60: '#fbf5f2'
-};
+}));
 const pumpkin = {
     shade50: '#200d03',
     shade40: '#3d1805',
@@ -1376,7 +2695,7 @@ const brown = {
     tint50: '#edded3',
     tint60: '#faf7f4'
 };
-const darkBrown = {
+const darkBrown = (/* unused pure expression or super */ null && ({
     shade50: '#0c0704',
     shade40: '#170c08',
     shade30: '#2b1710',
@@ -1389,8 +2708,8 @@ const darkBrown = {
     tint40: '#caada3',
     tint50: '#e3d2cb',
     tint60: '#f8f3f2'
-};
-const lime = {
+}));
+const lime = (/* unused pure expression or super */ null && ({
     shade50: '#121b06',
     shade40: '#23330b',
     shade30: '#405f14',
@@ -1403,7 +2722,7 @@ const lime = {
     tint40: '#cfe5af',
     tint50: '#e5f1d3',
     tint60: '#f8fcf4'
-};
+}));
 const forest = {
     shade50: '#0c1501',
     shade40: '#162702',
@@ -1502,7 +2821,7 @@ const teal = {
     tint50: '#c7ebec',
     tint60: '#f0fafa'
 };
-const darkTeal = {
+const darkTeal = (/* unused pure expression or super */ null && ({
     shade50: '#001010',
     shade40: '#001f1f',
     shade30: '#003939',
@@ -1515,8 +2834,8 @@ const darkTeal = {
     tint40: '#92d1d1',
     tint50: '#c2e7e7',
     tint60: '#eff9f9'
-};
-const cyan = {
+}));
+const cyan = (/* unused pure expression or super */ null && ({
     shade50: '#00181e',
     shade40: '#002e38',
     shade30: '#005669',
@@ -1529,7 +2848,7 @@ const cyan = {
     tint40: '#a4deeb',
     tint50: '#cdedf4',
     tint60: '#f2fafc'
-};
+}));
 const steel = {
     shade50: '#000f12',
     shade40: '#001b22',
@@ -1544,7 +2863,7 @@ const steel = {
     tint50: '#c3e1e8',
     tint60: '#eff7f9'
 };
-const lightBlue = {
+const lightBlue = (/* unused pure expression or super */ null && ({
     shade50: '#091823',
     shade40: '#112d42',
     shade30: '#20547c',
@@ -1557,7 +2876,7 @@ const lightBlue = {
     tint40: '#bfddf5',
     tint50: '#dcedfa',
     tint60: '#f6fafe'
-};
+}));
 const blue = {
     shade50: '#001322',
     shade40: '#002440',
@@ -1586,7 +2905,7 @@ const royalBlue = {
     tint50: '#c7dced',
     tint60: '#f0f6fa'
 };
-const darkBlue = {
+const darkBlue = (/* unused pure expression or super */ null && ({
     shade50: '#000910',
     shade40: '#00111f',
     shade30: '#002039',
@@ -1599,7 +2918,7 @@ const darkBlue = {
     tint40: '#92b5d1',
     tint50: '#c2d6e7',
     tint60: '#eff4f9'
-};
+}));
 const cornflower = {
     shade50: '#0d1126',
     shade40: '#182047',
@@ -1656,7 +2975,7 @@ const purple = {
     tint50: '#e0d3ed',
     tint60: '#f7f4fb'
 };
-const darkPurple = {
+const darkPurple = (/* unused pure expression or super */ null && ({
     shade50: '#0a0411',
     shade40: '#130820',
     shade30: '#240f3c',
@@ -1669,8 +2988,8 @@ const darkPurple = {
     tint40: '#b9a3d3',
     tint50: '#d8cce7',
     tint60: '#f5f2f9'
-};
-const orchid = {
+}));
+const orchid = (/* unused pure expression or super */ null && ({
     shade50: '#16101d',
     shade40: '#281e37',
     shade30: '#4c3867',
@@ -1683,7 +3002,7 @@ const orchid = {
     tint40: '#d7caea',
     tint50: '#e9e2f4',
     tint60: '#f9f8fc'
-};
+}));
 const grape = {
     shade50: '#160418',
     shade40: '#29072e',
@@ -1740,7 +3059,7 @@ const pink = {
     tint50: '#fbddf0',
     tint60: '#fef6fb'
 };
-const hotPink = {
+const hotPink = (/* unused pure expression or super */ null && ({
     shade50: '#240016',
     shade40: '#44002a',
     shade30: '#7f004e',
@@ -1753,7 +3072,7 @@ const hotPink = {
     tint40: '#f7adda',
     tint50: '#fbd2eb',
     tint60: '#fef4fa'
-};
+}));
 const magenta = {
     shade50: '#1f0013',
     shade40: '#390024',
@@ -1810,7 +3129,7 @@ const mink = {
     tint50: '#e5e4e3',
     tint60: '#f8f8f8'
 };
-const silver = {
+const silver = (/* unused pure expression or super */ null && ({
     shade50: '#151818',
     shade40: '#282d2e',
     shade30: '#4a5356',
@@ -1823,7 +3142,7 @@ const silver = {
     tint40: '#d8dfe0',
     tint50: '#eaeeef',
     tint60: '#fafbfb'
-};
+}));
 const platinum = {
     shade50: '#111314',
     shade40: '#1f2426',
@@ -1852,7 +3171,7 @@ const colors_anchor = {
     tint50: '#dbdfe1',
     tint60: '#f6f7f8'
 };
-const charcoal = {
+const charcoal = (/* unused pure expression or super */ null && ({
     shade50: '#090909',
     shade40: '#111111',
     shade30: '#202020',
@@ -1865,7 +3184,7 @@ const charcoal = {
     tint40: '#c4c4c4',
     tint50: '#dfdfdf',
     tint60: '#f7f7f7'
-};
+}));
 
 ;// ./node_modules/@fluentui/tokens/lib/global/colorPalette.js
 
@@ -2397,7 +3716,7 @@ const brandWeb = {
     150: `#cfe4fa`,
     160: `#ebf3fc`
 };
-const brandTeams = {
+const brandTeams = (/* unused pure expression or super */ null && ({
     10: `#2b2b40`,
     20: `#2f2f4a`,
     30: `#333357`,
@@ -2414,8 +3733,8 @@ const brandTeams = {
     140: `#c5cbfa`,
     150: `#dce0fa`,
     160: `#e8ebfa`
-};
-const brandOffice = {
+}));
+const brandOffice = (/* unused pure expression or super */ null && ({
     10: `#29130b`,
     20: `#4d2415`,
     30: `#792000`,
@@ -2432,8 +3751,8 @@ const brandOffice = {
     140: `#ffb498`,
     150: `#f4beaa`,
     160: `#f9dcd1`
-};
-const brandTeamsV21 = {
+}));
+const brandTeamsV21 = (/* unused pure expression or super */ null && ({
     10: `#29274f`,
     20: `#2f2a5e`,
     30: `#352e70`,
@@ -2450,7 +3769,7 @@ const brandTeamsV21 = {
     140: `#c8c7ff`,
     150: `#dcdbff`,
     160: `#e8e8ff`
-};
+}));
 
 ;// ./node_modules/@fluentui/tokens/lib/themes/web/lightTheme.js
 
@@ -2460,23 +3779,171 @@ const webLightTheme = createLightTheme(brandWeb);
 
 /***/ }),
 
-/***/ 20056:
+/***/ 58413:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   e: function() { return /* binding */ formatLog; }
+/* harmony export */   X: function() { return /* binding */ __styles; }
 /* harmony export */ });
-function pad(num) {
-  return num.toString().padStart(2, '0');
+/* harmony import */ var _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(53864);
+/* harmony import */ var _runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87294);
+
+
+
+
+
+
+
+/**
+ * A version of makeStyles() that accepts build output as an input and skips all runtime transforms.
+ *
+ * @internal
+ */
+function __styles(classesMapBySlot, cssRules, factory = _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .insertionFactory */ .A) {
+  const insertStyles = factory();
+  let ltrClassNamesForSlots = null;
+  let rtlClassNamesForSlots = null;
+  let sourceURL;
+  if (false) // removed by dead control flow
+{}
+  function computeClasses(options) {
+    const {
+      dir,
+      renderer
+    } = options;
+    const isLTR = dir === 'ltr';
+    if (isLTR) {
+      if (ltrClassNamesForSlots === null) {
+        ltrClassNamesForSlots = (0,_runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .reduceToClassNameForSlots */ .N)(classesMapBySlot, dir);
+      }
+    } else {
+      if (rtlClassNamesForSlots === null) {
+        rtlClassNamesForSlots = (0,_runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .reduceToClassNameForSlots */ .N)(classesMapBySlot, dir);
+      }
+    }
+    insertStyles(renderer, cssRules);
+    const classNamesForSlots = isLTR ? ltrClassNamesForSlots : rtlClassNamesForSlots;
+    if (false) // removed by dead control flow
+{}
+    return classNamesForSlots;
+  }
+  return computeClasses;
 }
-function padMilliseconds(ms) {
-  return ms.toString().padStart(3, '0');
+
+
+//# sourceMappingURL=__styles.esm.js.map
+
+
+/***/ }),
+
+/***/ 45614:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* unused harmony exports DEBUG_RESET_CLASSES, DEBUG_SEQUENCE_SEPARATOR, RESET_HASH_PREFIX */
+// ----
+// Heads up!
+// These constants are global and will be shared between Griffel instances.
+// Any change in them should happen only in a MAJOR version. If it happens,
+// please change "__NAMESPACE_PREFIX__" to include a version.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const __GLOBAL__ = typeof window === 'undefined' ? __webpack_require__.g : window;
+const __NAMESPACE_PREFIX__ = '@griffel/';
+function getGlobalVar(name, defaultValue) {
+  if (!__GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)]) {
+    __GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)] = defaultValue;
+  }
+  return __GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)];
 }
-function formatLog(message) {
-  var now = new Date();
-  var formattedTime = "".concat(pad(now.getHours()), ":").concat(pad(now.getMinutes()), ":").concat(pad(now.getSeconds()), ":").concat(padMilliseconds(now.getMilliseconds()));
-  return "[VdSpek ".concat(formattedTime, "] ").concat(message);
-}
+/** @internal */
+const DEBUG_RESET_CLASSES = /*#__PURE__*/(/* unused pure expression or super */ null && (getGlobalVar('DEBUG_RESET_CLASSES', {})));
+/** @internal */
+const DEFINITION_LOOKUP_TABLE = /*#__PURE__*/getGlobalVar('DEFINITION_LOOKUP_TABLE', {});
+// ----
+/** @internal */
+const DATA_BUCKET_ATTR = 'data-make-styles-bucket';
+/** @internal */
+const DATA_PRIORITY_ATTR = 'data-priority';
+/** @internal */
+const HASH_PREFIX = 'f';
+/** @internal */
+const RESET_HASH_PREFIX = 'r';
+/** @internal */
+const SEQUENCE_HASH_LENGTH = 7;
+/** @internal */
+const SEQUENCE_PREFIX = '___';
+/** @internal */
+const DEBUG_SEQUENCE_SEPARATOR = '_';
+/** @internal */
+const SEQUENCE_SIZE =  true ? SEQUENCE_PREFIX.length + SEQUENCE_HASH_LENGTH : 0;
+// indexes for values in LookupItem tuple
+/** @internal */
+const LOOKUP_DEFINITIONS_INDEX = 0;
+/** @internal */
+const LOOKUP_DIR_INDEX = 1;
+// This collection is a map simply for faster access when checking if a CSS property is unsupported
+/** @internal */
+const UNSUPPORTED_CSS_PROPERTIES = {
+  all: 1,
+  borderColor: 1,
+  borderStyle: 1,
+  borderWidth: 1,
+  borderBlock: 1,
+  borderBlockEnd: 1,
+  borderBlockStart: 1,
+  borderInline: 1,
+  borderInlineEnd: 1,
+  borderInlineStart: 1
+};
+/**
+ * Removes a CSS property from the style object.
+ *
+ * @link https://griffel.js.org/react/api/make-styles
+ *
+ * Do not use the value directly, use `RESET` constant instead.
+ */
+const RESET = 'DO_NOT_USE_DIRECTLY: @griffel/reset-value';
+
+
+//# sourceMappingURL=constants.esm.js.map
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "EJ", 0, /* binding */ DATA_PRIORITY_ATTR,
+/* harmony export */   "Ut", 0, /* binding */ RESET,
+/* harmony export */   "ed", 0, /* binding */ DATA_BUCKET_ATTR,
+/* harmony export */   "k1", 0, /* binding */ DEFINITION_LOOKUP_TABLE,
+/* harmony export */   "qw", 0, /* binding */ UNSUPPORTED_CSS_PROPERTIES,
+/* harmony export */   "wn", 0, /* binding */ SEQUENCE_SIZE
+/* harmony export */ ]);
+
+
+/***/ }),
+
+/***/ 53864:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/**
+ * Default implementation of insertion factory. Inserts styles only once per renderer and performs
+ * insertion immediately after styles computation.
+ *
+ * @internal
+ */
+const insertionFactory = () => {
+  const insertionCache = {};
+  return function insertStyles(renderer, cssRules) {
+    if (insertionCache[renderer.id] === undefined) {
+      renderer.insertCSSRules(cssRules);
+      insertionCache[renderer.id] = true;
+    }
+  };
+};
+
+
+//# sourceMappingURL=insertionFactory.esm.js.map
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "A", 0, /* binding */ insertionFactory
+/* harmony export */ ]);
+
 
 /***/ }),
 
@@ -2511,7 +3978,7 @@ function mergeClasses() {
     if (typeof className === 'string' && className !== '') {
       // All classes generated by `makeStyles()` are prefixed by a sequence hash, this allows to identify class sets
       // without parsing each className in a string
-      const sequenceIndex = className.indexOf(_constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .SEQUENCE_PREFIX */ .fj);
+      const sequenceIndex = className.indexOf((/* inlined export .SEQUENCE_PREFIX */"___"));
       if (sequenceIndex === -1) {
         if (false) // removed by dead control flow
 {}
@@ -2546,10 +4013,10 @@ function mergeClasses() {
     if (sequenceId) {
       const sequenceMapping = _constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .DEFINITION_LOOKUP_TABLE */ .k1[sequenceId];
       if (sequenceMapping) {
-        sequenceMappings.push(sequenceMapping[_constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .LOOKUP_DEFINITIONS_INDEX */ .FS]);
+        sequenceMappings.push(sequenceMapping[(/* inlined export .LOOKUP_DEFINITIONS_INDEX */0)]);
         if (false) // removed by dead control flow
 {}
-        dir = sequenceMapping[_constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .LOOKUP_DIR_INDEX */ .AX];
+        dir = sequenceMapping[(/* inlined export .LOOKUP_DIR_INDEX */1)];
       } else {
         if (false) // removed by dead control flow
 {}
@@ -2575,192 +4042,104 @@ function mergeClasses() {
 
 /***/ }),
 
-/***/ 21020:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+/***/ 87294:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   N: function() { return /* binding */ reduceToClassNameForSlots; },
+/* harmony export */   z: function() { return /* binding */ reduceToClassName; }
+/* harmony export */ });
+/* harmony import */ var _constants_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(45614);
+/* harmony import */ var _utils_hashSequence_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29255);
+
+
 
 /**
- * @license React
- * react-jsx-runtime.production.min.js
+ * Reduces a classname map for slot to a classname string. Uses classnames according to text directions.
  *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * @private
  */
-var f=__webpack_require__(96540),k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p={key:!0,ref:!0,__self:!0,__source:!0};
-function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}exports.Fragment=l;exports.jsx=q;exports.jsxs=q;
-
-
-/***/ }),
-
-/***/ 22799:
-/***/ (function(__unused_webpack_module, exports) {
-
-var __webpack_unused_export__;
-/** @license React v17.0.2
- * react-is.production.min.js
- *
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-var b=60103,c=60106,d=60107,e=60108,f=60114,g=60109,h=60110,k=60112,l=60113,m=60120,n=60115,p=60116,q=60121,r=60122,u=60117,v=60129,w=60131;
-if("function"===typeof Symbol&&Symbol.for){var x=Symbol.for;b=x("react.element");c=x("react.portal");d=x("react.fragment");e=x("react.strict_mode");f=x("react.profiler");g=x("react.provider");h=x("react.context");k=x("react.forward_ref");l=x("react.suspense");m=x("react.suspense_list");n=x("react.memo");p=x("react.lazy");q=x("react.block");r=x("react.server.block");u=x("react.fundamental");v=x("react.debug_trace_mode");w=x("react.legacy_hidden")}
-function y(a){if("object"===typeof a&&null!==a){var t=a.$$typeof;switch(t){case b:switch(a=a.type,a){case d:case f:case e:case l:case m:return a;default:switch(a=a&&a.$$typeof,a){case h:case k:case p:case n:case g:return a;default:return t}}case c:return t}}}var z=g,A=b,B=k,C=d,D=p,E=n,F=c,G=f,H=e,I=l;__webpack_unused_export__=h;__webpack_unused_export__=z;__webpack_unused_export__=A;__webpack_unused_export__=B;__webpack_unused_export__=C;__webpack_unused_export__=D;__webpack_unused_export__=E;__webpack_unused_export__=F;__webpack_unused_export__=G;__webpack_unused_export__=H;
-__webpack_unused_export__=I;__webpack_unused_export__=function(){return!1};__webpack_unused_export__=function(){return!1};__webpack_unused_export__=function(a){return y(a)===h};__webpack_unused_export__=function(a){return y(a)===g};__webpack_unused_export__=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===b};__webpack_unused_export__=function(a){return y(a)===k};__webpack_unused_export__=function(a){return y(a)===d};__webpack_unused_export__=function(a){return y(a)===p};__webpack_unused_export__=function(a){return y(a)===n};
-__webpack_unused_export__=function(a){return y(a)===c};__webpack_unused_export__=function(a){return y(a)===f};__webpack_unused_export__=function(a){return y(a)===e};__webpack_unused_export__=function(a){return y(a)===l};__webpack_unused_export__=function(a){return"string"===typeof a||"function"===typeof a||a===d||a===f||a===v||a===e||a===l||a===m||a===w||"object"===typeof a&&null!==a&&(a.$$typeof===p||a.$$typeof===n||a.$$typeof===g||a.$$typeof===h||a.$$typeof===k||a.$$typeof===u||a.$$typeof===q||a[0]===r)?!0:!1};
-__webpack_unused_export__=y;
-
-
-/***/ }),
-
-/***/ 25881:
-/***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
-
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(96540);
-// EXTERNAL MODULE: ./node_modules/react-dom/client.js
-var client = __webpack_require__(5338);
-// EXTERNAL MODULE: ./node_modules/@griffel/react/makeStyles.esm.js + 37 modules
-var makeStyles_esm = __webpack_require__(44541);
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-image/lib/components/Image/Image.js + 3 modules
-var Image = __webpack_require__(55883);
-// EXTERNAL MODULE: ./src/util/log.ts
-var log = __webpack_require__(20056);
-;// ./src/pricequotedialog/components/QuoteDialogApp.tsx
-/* provided dependency */ var Promise = __webpack_require__(64583)["Promise"];
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (undefined && undefined.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+function reduceToClassName(classMap, dir) {
+  // - `classString` is a string of classnames separated by a space, used to output classes
+  // - `hashString` is a string of classnames separated by a space, used to generate a hash
+  //
+  // `hashString` is needed to handle `null` values in a class map as they don't produce any classes.
+  let classString = '';
+  let hashString = '';
+  // eslint-disable-next-line guard-for-in
+  for (const propertyHash in classMap) {
+    const classNameMapping = classMap[propertyHash];
+    if (classNameMapping === 0) {
+      hashString += propertyHash + ' ';
+      continue;
     }
-};
+    const hasRTLClassName = Array.isArray(classNameMapping);
+    const className = dir === 'rtl' ? (hasRTLClassName ? classNameMapping[1] : classNameMapping) + ' ' : (hasRTLClassName ? classNameMapping[0] : classNameMapping) + ' ';
+    classString += className;
+    hashString += className;
+  }
+  return [classString.slice(0, -1), hashString.slice(0, -1)];
+}
+/**
+ * Reduces classname maps for slots to classname strings. Registers them in a definition cache to be used by
+ * `mergeClasses()`.
+ *
+ * @internal
+ */
+function reduceToClassNameForSlots(classesMapBySlot, dir) {
+  const classNamesForSlots = {};
+  // eslint-disable-next-line guard-for-in
+  for (const slotName in classesMapBySlot) {
+    const [slotClasses, slotClassesHash] = reduceToClassName(classesMapBySlot[slotName], dir);
+    // Handles a case when there are no classes in a set i.e. "makeStyles({ root: {} })"
+    if (slotClassesHash === '') {
+      classNamesForSlots[slotName] = '';
+      continue;
+    }
+    const sequenceHash = (0,_utils_hashSequence_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .hashSequence */ .G)(slotClassesHash, dir);
+    const resultSlotClasses = sequenceHash + (slotClasses === '' ? '' : ' ' + slotClasses);
+    _constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .DEFINITION_LOOKUP_TABLE */ .k1[sequenceHash] = [classesMapBySlot[slotName], dir];
+    classNamesForSlots[slotName] = resultSlotClasses;
+  }
+  return classNamesForSlots;
+}
+
+
+//# sourceMappingURL=reduceToClassNameForSlots.esm.js.map
+
+
+/***/ }),
+
+/***/ 29255:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   G: function() { return /* binding */ hashSequence; }
+/* harmony export */ });
+/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35137);
 
 
 
-var useStyles = (0,makeStyles_esm/* makeStyles */.n)({
-    root: {
-        minHeight: "100vh",
-    },
-});
-var QuoteDialogApp = function (props) {
-    var styles = useStyles();
-    var _a = react.useState(''), dialogData = _a[0], setDialogData = _a[1];
-    var _b = react.useState('https://webit01.github.io/vdspek/dist/assets/logo-filled.png'), imageUrl = _b[0], setImageUrl = _b[1];
-    console.log((0,log/* formatLog */.e)("Loading pricequotedialog"), props);
-    var fetchData = function (jsonData) { return __awaiter(void 0, void 0, void 0, function () {
-        var machineDataUrl, machine, result, parser, xmlDoc, hefFototElement, hefFototValue;
-        var _a;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    machineDataUrl = "https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=".concat(jsonData.machineNr, "&mrid=").concat(jsonData.referenceNr);
-                    return [4 /*yield*/, fetch(machineDataUrl)];
-                case 1:
-                    machine = _b.sent();
-                    return [4 /*yield*/, machine.text()];
-                case 2:
-                    result = _b.sent();
-                    parser = new DOMParser();
-                    xmlDoc = parser.parseFromString(result, "application/xml");
-                    hefFototElement = xmlDoc.querySelector("hef_fotot");
-                    hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
-                    console.log((0,log/* formatLog */.e)("Waarde van hef_fotot:"), hefFototValue);
-                    // De waarde is zonder host ervoor, voorbeeld:
-                    // www.gebruikteheftrucks.nl/site/55A64E6502B345A6C125899B004B519E/$File/Dutchlift DL-50 intro.png
-                    if (!hefFototValue.startsWith("https")) {
-                        hefFototValue = "https://" + hefFototValue;
-                    }
-                    setImageUrl(hefFototValue);
-                    return [2 /*return*/];
-            }
-        });
-    }); };
-    react.useEffect(function () {
-        console.log((0,log/* formatLog */.e)("Setting up dialog message handler"));
-        Office.onReady(function () {
-            console.log((0,log/* formatLog */.e)("Office is ready in dialog"));
-            Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived, function (arg) { return __awaiter(void 0, void 0, void 0, function () {
-                var jsonData;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            console.log((0,log/* formatLog */.e)("Bericht ontvangen van parent:"), arg);
-                            jsonData = JSON.parse(arg.message);
-                            console.log((0,log/* formatLog */.e)("Parsed JSON data:"), jsonData);
-                            setDialogData(arg.message); // Toon ontvangen bericht
-                            return [4 /*yield*/, fetchData(jsonData)];
-                        case 1:
-                            _a.sent();
-                            return [2 /*return*/];
-                    }
-                });
-            }); });
-            // Optioneel: stuur meteen een bericht terug
-            Office.context.ui.messageParent("Dialoog is klaar!");
-        });
-    }, []);
-    return (react.createElement(react.Fragment, null,
-        react.createElement("div", { className: styles.root },
-            react.createElement(Image/* Image */._, { src: imageUrl, alt: props.title })),
-        react.createElement("div", null,
-            react.createElement("h2", null, "Data ontvangen van parent:"),
-            react.createElement("p", null, dialogData))));
-};
-/* harmony default export */ var components_QuoteDialogApp = (QuoteDialogApp);
+function padEndHash(value) {
+  const hashLength = value.length;
+  if (hashLength === (/* inlined export .SEQUENCE_HASH_LENGTH */7)) {
+    return value;
+  }
+  for (let i = hashLength; i < (/* inlined export .SEQUENCE_HASH_LENGTH */7); i++) {
+    value += '0';
+  }
+  return value;
+}
+function hashSequence(classes, dir, sequenceIds = []) {
+  if (true) {
+    return (/* inlined export .SEQUENCE_PREFIX */"___") + padEndHash((0,_emotion_hash__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(classes + dir));
+  }
+  // removed by dead control flow
 
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-provider/lib/components/FluentProvider/FluentProvider.js + 14 modules
-var FluentProvider = __webpack_require__(12086);
-// EXTERNAL MODULE: ./node_modules/@fluentui/tokens/lib/themes/web/lightTheme.js + 15 modules
-var lightTheme = __webpack_require__(12272);
-;// ./src/pricequotedialog/index.tsx
+}
 
 
-
-
-/* global document, Office, module, require, HTMLElement */
-var title = "VdSpek Pane Add-in";
-var rootElement = document.getElementById("container");
-var root = rootElement ? (0,client/* createRoot */.H)(rootElement) : undefined;
-/* Render application after Office initializes */
-Office.onReady(function () {
-    root === null || root === void 0 ? void 0 : root.render(react.createElement(FluentProvider/* FluentProvider */.q, { theme: lightTheme/* webLightTheme */.o },
-        react.createElement(components_QuoteDialogApp, { title: title })));
-});
-if (false) // removed by dead control flow
-{}
+//# sourceMappingURL=hashSequence.esm.js.map
 
 
 /***/ }),
@@ -2798,6 +4177,8 @@ function normalizeCSSBucketEntry(entry) {
 // EXTERNAL MODULE: ./node_modules/@griffel/core/constants.esm.js
 var constants_esm = __webpack_require__(45614);
 ;// ./node_modules/@griffel/core/renderer/createIsomorphicStyleSheet.esm.js
+/* unused harmony import specifier */ var DATA_BUCKET_ATTR;
+/* unused harmony import specifier */ var DATA_PRIORITY_ATTR;
 
 
 function createIsomorphicStyleSheet(styleElement, bucketName, priority, elementAttributes) {
@@ -2842,6 +4223,8 @@ function createIsomorphicStyleSheetFromElement(element) {
 //# sourceMappingURL=createIsomorphicStyleSheet.esm.js.map
 
 ;// ./node_modules/@griffel/core/renderer/getStyleSheetForBucket.esm.js
+/* unused harmony import specifier */ var getStyleSheetForBucket_esm_DATA_BUCKET_ATTR;
+/* unused harmony import specifier */ var getStyleSheetForBucket_esm_DATA_PRIORITY_ATTR;
 
 
 
@@ -2889,8 +4272,8 @@ function getStyleSheetKey(bucketName, media, priority) {
 }
 function getStyleSheetKeyFromElement(styleEl) {
   var _a;
-  const bucketName = styleEl.getAttribute(DATA_BUCKET_ATTR);
-  const priority = (_a = styleEl.getAttribute(DATA_PRIORITY_ATTR)) !== null && _a !== void 0 ? _a : '0';
+  const bucketName = styleEl.getAttribute(getStyleSheetForBucket_esm_DATA_BUCKET_ATTR);
+  const priority = (_a = styleEl.getAttribute(getStyleSheetForBucket_esm_DATA_PRIORITY_ATTR)) !== null && _a !== void 0 ? _a : '0';
   return getStyleSheetKey(bucketName, styleEl.media, priority);
 }
 /**
@@ -2977,8 +4360,8 @@ function findInsertionPoint(targetDocument, insertionPoint, targetBucket, render
 /**
  * Suffixes to be ignored in case of error
  */
-const ignoreSuffixes = /*#__PURE__*/['-moz-placeholder', '-moz-focus-inner', '-moz-focusring', '-ms-input-placeholder', '-moz-read-write', '-moz-read-only'].join('|');
-const ignoreSuffixesRegex = /*#__PURE__*/new RegExp(`:(${ignoreSuffixes})`);
+const ignoreSuffixes = /*#__PURE__*/(/* unused pure expression or super */ null && (['-moz-placeholder', '-moz-focus-inner', '-moz-focusring', '-ms-input-placeholder', '-moz-read-write', '-moz-read-only'].join('|')));
+const ignoreSuffixesRegex = /*#__PURE__*/(/* unused pure expression or super */ null && (new RegExp(`:(${ignoreSuffixes})`)));
 /**
  * @internal
  *
@@ -3064,6 +4447,9 @@ function createDOMRenderer(targetDocument = typeof document === 'undefined' ? un
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(96540);
 ;// ./node_modules/@griffel/react/RendererContext.esm.js
+/* unused harmony import specifier */ var rehydrateRendererCache;
+/* unused harmony import specifier */ var React;
+/* unused harmony import specifier */ var canUseDOM;
 
 
 
@@ -3106,644 +4492,146 @@ function useRenderer() {
 
 /***/ }),
 
-/***/ 29255:
+/***/ 56004:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   G: function() { return /* binding */ hashSequence; }
+/* harmony export */   m: function() { return /* binding */ useTextDirection; }
 /* harmony export */ });
-/* harmony import */ var _emotion_hash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(35137);
-/* harmony import */ var _constants_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45614);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
 
 
-
-function padEndHash(value) {
-  const hashLength = value.length;
-  if (hashLength === _constants_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .SEQUENCE_HASH_LENGTH */ .ez) {
-    return value;
-  }
-  for (let i = hashLength; i < _constants_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .SEQUENCE_HASH_LENGTH */ .ez; i++) {
-    value += '0';
-  }
-  return value;
+/**
+ * @private
+ */
+const TextDirectionContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext('ltr');
+/**
+ * @public
+ */
+const TextDirectionProvider = ({
+  children,
+  dir
+}) => {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextDirectionContext.Provider, {
+    value: dir
+  }, children);
+};
+/**
+ * Returns current directionality of the element's text.
+ *
+ * @private
+ */
+function useTextDirection() {
+  return react__WEBPACK_IMPORTED_MODULE_0__.useContext(TextDirectionContext);
 }
-function hashSequence(classes, dir, sequenceIds = []) {
-  if (true) {
-    return _constants_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .SEQUENCE_PREFIX */ .fj + padEndHash((0,_emotion_hash__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .A)(classes + dir));
-  }
-  // removed by dead control flow
-
-}
 
 
-//# sourceMappingURL=hashSequence.esm.js.map
+//# sourceMappingURL=TextDirectionContext.esm.js.map
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, [
+/* harmony export */   "e", 0, /* binding */ TextDirectionProvider
+/* harmony export */ ]);
 
 
 /***/ }),
 
-/***/ 30460:
+/***/ 99159:
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   X: function() { return /* binding */ __styles; }
+/* harmony export */ });
+/* harmony import */ var _griffel_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58413);
+/* harmony import */ var _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49264);
+/* harmony import */ var _RendererContext_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26312);
+/* harmony import */ var _TextDirectionContext_esm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56004);
+
+
+
+
+
+/**
+ * A version of makeStyles() that accepts build output as an input and skips all runtime transforms.
+ *
+ * @internal
+ */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+function __styles(classesMapBySlot, cssRules) {
+  const getStyles = (0,_griffel_core__WEBPACK_IMPORTED_MODULE_0__/* .__styles */ .X)(classesMapBySlot, cssRules, _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .insertionFactory */ .A);
+  return function useClasses() {
+    const dir = (0,_TextDirectionContext_esm_js__WEBPACK_IMPORTED_MODULE_3__/* .useTextDirection */ .m)();
+    const renderer = (0,_RendererContext_esm_js__WEBPACK_IMPORTED_MODULE_2__/* .useRenderer */ .J)();
+    return getStyles({
+      dir,
+      renderer
+    });
+  };
+}
+
+
+//# sourceMappingURL=__styles.esm.js.map
+
+
+/***/ }),
+
+/***/ 49264:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  g: function() { return /* binding */ getIntrinsicElementProps; }
+  A: function() { return /* binding */ insertionFactory; }
 });
+
+;// ./node_modules/@griffel/react/utils/canUseDOM.esm.js
+/**
+ * Verifies if an application can use DOM.
+ */
+function canUseDOM() {
+  return typeof window !== 'undefined' && !!(window.document && window.document.createElement);
+}
+
+
+//# sourceMappingURL=canUseDOM.esm.js.map
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(96540);
-;// ./node_modules/@fluentui/react-utilities/lib/utils/properties.js
-const toObjectMap = (...items)=>{
-    const result = {};
-    for (const item of items){
-        const keys = Array.isArray(item) ? item : Object.keys(item);
-        for (const key of keys){
-            result[key] = 1;
-        }
+var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
+;// ./node_modules/@griffel/react/useInsertionEffect.esm.js
+
+
+const useInsertionEffect =
+// @ts-expect-error Hack to make sure that `useInsertionEffect` will not cause bundling issues in older React versions
+// eslint-disable-next-line no-useless-concat
+react_namespaceObject['useInsertion' + 'Effect'] ? react_namespaceObject['useInsertion' + 'Effect'] : undefined;
+
+
+//# sourceMappingURL=useInsertionEffect.esm.js.map
+
+;// ./node_modules/@griffel/react/insertionFactory.esm.js
+
+
+
+const insertionFactory = () => {
+  const insertionCache = {};
+  return function insert(renderer, cssRules) {
+    // Even if `useInsertionEffect` is available, we can use it on a client only as it will not be executed in SSR
+    if (useInsertionEffect && canUseDOM()) {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useInsertionEffect(() => {
+        renderer.insertCSSRules(cssRules);
+      }, [renderer, cssRules]);
+      return;
     }
-    return result;
-};
-/**
- * An array of events that are allowed on every html element type.
- *
- * @public
- */ const baseElementEvents = toObjectMap([
-    'onAuxClick',
-    'onAnimationEnd',
-    'onAnimationStart',
-    'onCopy',
-    'onCut',
-    'onPaste',
-    'onCompositionEnd',
-    'onCompositionStart',
-    'onCompositionUpdate',
-    'onFocus',
-    'onFocusCapture',
-    'onBlur',
-    'onBlurCapture',
-    'onChange',
-    'onInput',
-    'onSubmit',
-    'onLoad',
-    'onError',
-    'onKeyDown',
-    'onKeyDownCapture',
-    'onKeyPress',
-    'onKeyUp',
-    'onAbort',
-    'onCanPlay',
-    'onCanPlayThrough',
-    'onDurationChange',
-    'onEmptied',
-    'onEncrypted',
-    'onEnded',
-    'onLoadedData',
-    'onLoadedMetadata',
-    'onLoadStart',
-    'onPause',
-    'onPlay',
-    'onPlaying',
-    'onProgress',
-    'onRateChange',
-    'onSeeked',
-    'onSeeking',
-    'onStalled',
-    'onSuspend',
-    'onTimeUpdate',
-    'onVolumeChange',
-    'onWaiting',
-    'onClick',
-    'onClickCapture',
-    'onContextMenu',
-    'onDoubleClick',
-    'onDrag',
-    'onDragEnd',
-    'onDragEnter',
-    'onDragExit',
-    'onDragLeave',
-    'onDragOver',
-    'onDragStart',
-    'onDrop',
-    'onMouseDown',
-    'onMouseDownCapture',
-    'onMouseEnter',
-    'onMouseLeave',
-    'onMouseMove',
-    'onMouseOut',
-    'onMouseOver',
-    'onMouseUp',
-    'onMouseUpCapture',
-    'onSelect',
-    'onTouchCancel',
-    'onTouchEnd',
-    'onTouchMove',
-    'onTouchStart',
-    'onScroll',
-    'onWheel',
-    'onPointerCancel',
-    'onPointerDown',
-    'onPointerEnter',
-    'onPointerLeave',
-    'onPointerMove',
-    'onPointerOut',
-    'onPointerOver',
-    'onPointerUp',
-    'onGotPointerCapture',
-    'onLostPointerCapture'
-]);
-/**
- * An array of element attributes which are allowed on every html element type.
- *
- * @public
- */ const baseElementProperties = toObjectMap([
-    'accessKey',
-    'children',
-    'className',
-    'contentEditable',
-    'dir',
-    'draggable',
-    'hidden',
-    'htmlFor',
-    'id',
-    'lang',
-    'ref',
-    'role',
-    'style',
-    'tabIndex',
-    'title',
-    'translate',
-    'spellCheck',
-    'name'
-]);
-/**
- * An array of microdata attributes that are allowed on every html element type.
- *
- * @public
- */ const microdataProperties = toObjectMap([
-    'itemID',
-    'itemProp',
-    'itemRef',
-    'itemScope',
-    'itemType'
-]);
-/**
- * An array of HTML element properties and events.
- *
- * @public
- */ const htmlElementProperties = toObjectMap(baseElementProperties, baseElementEvents, microdataProperties);
-/**
- * An array of LABEL tag properties and events.
- *
- * @public
- */ const labelProperties = toObjectMap(htmlElementProperties, [
-    'form'
-]);
-/**
- * An array of AUDIO tag properties and events.
-
- * @public
- */ const audioProperties = toObjectMap(htmlElementProperties, [
-    'height',
-    'loop',
-    'muted',
-    'preload',
-    'src',
-    'width'
-]);
-/**
- * An array of VIDEO tag properties and events.
- *
- * @public
- */ const videoProperties = toObjectMap(audioProperties, [
-    'poster'
-]);
-/**
- * An array of OL tag properties and events.
- *
- * @public
- */ const olProperties = toObjectMap(htmlElementProperties, [
-    'start'
-]);
-/**
- * An array of LI tag properties and events.
- *
- * @public
- */ const liProperties = toObjectMap(htmlElementProperties, [
-    'value'
-]);
-/**
- * An array of A tag properties and events.
- *
- * @public
- */ const anchorProperties = toObjectMap(htmlElementProperties, [
-    'download',
-    'href',
-    'hrefLang',
-    'media',
-    'rel',
-    'target',
-    'type'
-]);
-/**
- * An array of TIME tag properties and events.
- *
- * @public
- */ const timeProperties = toObjectMap(htmlElementProperties, [
-    'dateTime'
-]);
-/**
- * An array of BUTTON tag properties and events.
- *
- * @public
- */ const buttonProperties = toObjectMap(htmlElementProperties, [
-    'autoFocus',
-    'disabled',
-    'form',
-    'formAction',
-    'formEncType',
-    'formMethod',
-    'formNoValidate',
-    'formTarget',
-    'type',
-    'value'
-]);
-/**
- * An array of INPUT tag properties and events.
- *
- * @public
- */ const inputProperties = toObjectMap(buttonProperties, [
-    'accept',
-    'alt',
-    'autoCorrect',
-    'autoCapitalize',
-    'autoComplete',
-    'checked',
-    'dirname',
-    'form',
-    'height',
-    'inputMode',
-    'list',
-    'max',
-    'maxLength',
-    'min',
-    'minLength',
-    'multiple',
-    'pattern',
-    'placeholder',
-    'readOnly',
-    'required',
-    'src',
-    'step',
-    'size',
-    'type',
-    'value',
-    'width'
-]);
-/**
- * An array of TEXTAREA tag properties and events.
- *
- * @public
- */ const textAreaProperties = toObjectMap(buttonProperties, [
-    'autoCapitalize',
-    'cols',
-    'dirname',
-    'form',
-    'maxLength',
-    'placeholder',
-    'readOnly',
-    'required',
-    'rows',
-    'wrap'
-]);
-/**
- * An array of SELECT tag properties and events.
- *
- * @public
- */ const selectProperties = toObjectMap(buttonProperties, [
-    'form',
-    'multiple',
-    'required'
-]);
-const optionProperties = toObjectMap(htmlElementProperties, [
-    'selected',
-    'value'
-]);
-/**
- * An array of TABLE tag properties and events.
- *
- * @public
- */ const tableProperties = toObjectMap(htmlElementProperties, [
-    'cellPadding',
-    'cellSpacing'
-]);
-/**
- * An array of TR tag properties and events.
- *
- * @public
- */ const trProperties = htmlElementProperties;
-/**
- * An array of TH tag properties and events.
- *
- * @public
- */ const thProperties = toObjectMap(htmlElementProperties, [
-    'colSpan',
-    'rowSpan',
-    'scope'
-]);
-/**
- * An array of TD tag properties and events.
- *
- * @public
- */ const tdProperties = toObjectMap(htmlElementProperties, [
-    'colSpan',
-    'headers',
-    'rowSpan',
-    'scope'
-]);
-const colGroupProperties = toObjectMap(htmlElementProperties, [
-    'span'
-]);
-const colProperties = toObjectMap(htmlElementProperties, [
-    'span'
-]);
-/**
- * An array of FIELDSET tag properties and events.
- *
- * @public
- */ const fieldsetProperties = toObjectMap(htmlElementProperties, [
-    'disabled',
-    'form'
-]);
-/**
- * An array of FORM tag properties and events.
- *
- * @public
- */ const formProperties = toObjectMap(htmlElementProperties, [
-    'acceptCharset',
-    'action',
-    'encType',
-    'encType',
-    'method',
-    'noValidate',
-    'target'
-]);
-/**
- * An array of IFRAME tag properties and events.
- *
- * @public
- */ const iframeProperties = toObjectMap(htmlElementProperties, [
-    'allow',
-    'allowFullScreen',
-    'allowPaymentRequest',
-    'allowTransparency',
-    'csp',
-    'height',
-    'importance',
-    'referrerPolicy',
-    'sandbox',
-    'src',
-    'srcDoc',
-    'width'
-]);
-/**
- * An array of IMAGE tag properties and events.
- *
- * @public
- */ const imgProperties = toObjectMap(htmlElementProperties, [
-    'alt',
-    'crossOrigin',
-    'height',
-    'src',
-    'srcSet',
-    'useMap',
-    'width'
-]);
-/**
- * An array of DIALOG tag properties and events.
- *
- * @public
- */ const dialogProperties = toObjectMap(htmlElementProperties, [
-    'open',
-    'onCancel',
-    'onClose'
-]);
-/**
- * An array of DIV tag properties and events.
- *
- * @public
- */ const divProperties = (/* unused pure expression or super */ null && (htmlElementProperties));
-/**
- * Gets native supported props for an html element provided the allowance set. Use one of the property
- * sets defined (divProperties, buttonPropertes, etc) to filter out supported properties from a given
- * props set. Note that all data- and aria- prefixed attributes will be allowed.
- * NOTE: getNativeProps should always be applied first when adding props to a react component. The
- * non-native props should be applied second. This will prevent getNativeProps from overriding your custom props.
- * For example, if props passed to getNativeProps has an onClick function and getNativeProps is added to
- * the component after an onClick function is added, then the getNativeProps onClick will override it.
- *
- * @public
- * @param props - The unfiltered input props
- * @param allowedPropNames - The array or record of allowed prop names.
- * @param excludedPropNames
- * @returns The filtered props
- */ // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getNativeProps(// eslint-disable-next-line @typescript-eslint/no-explicit-any
-props, allowedPropNames, excludedPropNames) {
-    // It'd be great to properly type this while allowing 'aria-` and 'data-' attributes like TypeScript does for
-    // JSX attributes, but that ability is hardcoded into the TS compiler with no analog in TypeScript typings.
-    // Then we'd be able to enforce props extends native props (including aria- and data- attributes), and then
-    // return native props.
-    // We should be able to do this once this PR is merged: https://github.com/microsoft/TypeScript/pull/26797
-    const isArray = Array.isArray(allowedPropNames);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = {};
-    const keys = Object.keys(props);
-    for (const key of keys){
-        const isNativeProp = !isArray && allowedPropNames[key] || isArray && allowedPropNames.indexOf(key) >= 0 || key.indexOf('data-') === 0 || key.indexOf('aria-') === 0;
-        if (isNativeProp && (!excludedPropNames || (excludedPropNames === null || excludedPropNames === void 0 ? void 0 : excludedPropNames.indexOf(key)) === -1)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            result[key] = props[key];
-        }
+    if (insertionCache[renderer.id] === undefined) {
+      renderer.insertCSSRules(cssRules);
+      insertionCache[renderer.id] = true;
     }
-    return result;
-}
-
-;// ./node_modules/@fluentui/react-utilities/lib/utils/getNativeElementProps.js
-
-
-const nativeElementMap = {
-    label: labelProperties,
-    audio: audioProperties,
-    video: videoProperties,
-    ol: olProperties,
-    li: liProperties,
-    a: anchorProperties,
-    button: buttonProperties,
-    input: inputProperties,
-    textarea: textAreaProperties,
-    select: selectProperties,
-    option: optionProperties,
-    table: tableProperties,
-    tr: trProperties,
-    th: thProperties,
-    td: tdProperties,
-    colGroup: colGroupProperties,
-    col: colProperties,
-    fieldset: fieldsetProperties,
-    form: formProperties,
-    iframe: iframeProperties,
-    img: imgProperties,
-    time: timeProperties,
-    dialog: dialogProperties
-};
-/**
- * Given an element tagname and user props, filters the props to only allowed props for the given
- * element type.
- * @param tagName - Tag name (e.g. "div")
- * @param props - Props object
- * @param excludedPropNames - List of props to disallow
- *
- * @deprecated use getIntrinsicElementProps instead, it is a type-safe version of this method
- */ // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getNativeElementProps(tagName, props, excludedPropNames) {
-    const allowedPropNames = tagName && nativeElementMap[tagName] || htmlElementProperties;
-    allowedPropNames.as = 1;
-    return getNativeProps(props, allowedPropNames, excludedPropNames);
-}
-/**
- * Splits the native props into ones that go to the `root` slot, and ones that go to the primary slot.
- *
- * This function is only for use with components that have a primary slot other than `root`.
- * Most components should use {@link getNativeElementProps} for their root slot if it is the primary slot.
- *
- * @returns An object containing the native props for the `root` and primary slots.
- */ const getPartitionedNativeProps = ({ primarySlotTagName, props, excludedPropNames })=>{
-    return {
-        root: {
-            style: props.style,
-            className: props.className
-        },
-        // eslint-disable-next-line @typescript-eslint/no-deprecated
-        primary: getNativeElementProps(primarySlotTagName, props, [
-            ...excludedPropNames || [],
-            'style',
-            'className'
-        ])
-    };
-};
-
-;// ./node_modules/@fluentui/react-utilities/lib/compose/getIntrinsicElementProps.js
-
-
-/**
- * Given an element tagname and user props, filters the props to only allowed props for the given
- * element type.
- *
- * Equivalent to {@link getNativeElementProps}, but more type-safe.
- *
- * @param tagName - The slot's default element type (e.g. 'div')
- * @param props - The component's props object
- * @param excludedPropNames - List of native props to exclude from the returned value
- */ const getIntrinsicElementProps = (tagName, // eslint-disable-next-line @typescript-eslint/no-restricted-types -- in order to not introduce Type Restriction CHANGe which is kinda "breaking change from Types POV", we don't enforce our custom `RefAttributes` in this API, to be compatible with scenarios where non v9 interfaces might be used. This may/will change with React 19
-props, excludedPropNames)=>{
-    var _props_as;
-    // eslint-disable-next-line @typescript-eslint/no-deprecated
-    return getNativeElementProps((_props_as = props.as) !== null && _props_as !== void 0 ? _props_as : tagName, props, excludedPropNames);
+  };
 };
 
 
-/***/ }),
-
-/***/ 35137:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: function() { return /* binding */ murmur2; }
-/* harmony export */ });
-/* eslint-disable */
-// Inspired by https://github.com/garycourt/murmurhash-js
-// Ported from https://github.com/aappleby/smhasher/blob/61a0530f28277f2e850bfc39600ce61d02b518de/src/MurmurHash2.cpp#L37-L86
-function murmur2(str) {
-  // 'm' and 'r' are mixing constants generated offline.
-  // They're not really 'magic', they just happen to work well.
-  // const m = 0x5bd1e995;
-  // const r = 24;
-  // Initialize the hash
-  var h = 0; // Mix 4 bytes at a time into the hash
-
-  var k,
-      i = 0,
-      len = str.length;
-
-  for (; len >= 4; ++i, len -= 4) {
-    k = str.charCodeAt(i) & 0xff | (str.charCodeAt(++i) & 0xff) << 8 | (str.charCodeAt(++i) & 0xff) << 16 | (str.charCodeAt(++i) & 0xff) << 24;
-    k =
-    /* Math.imul(k, m): */
-    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16);
-    k ^=
-    /* k >>> r: */
-    k >>> 24;
-    h =
-    /* Math.imul(k, m): */
-    (k & 0xffff) * 0x5bd1e995 + ((k >>> 16) * 0xe995 << 16) ^
-    /* Math.imul(h, m): */
-    (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  } // Handle the last few bytes of the input array
-
-
-  switch (len) {
-    case 3:
-      h ^= (str.charCodeAt(i + 2) & 0xff) << 16;
-
-    case 2:
-      h ^= (str.charCodeAt(i + 1) & 0xff) << 8;
-
-    case 1:
-      h ^= str.charCodeAt(i) & 0xff;
-      h =
-      /* Math.imul(h, m): */
-      (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  } // Do a few final mixes of the hash to ensure the last few
-  // bytes are well-incorporated.
-
-
-  h ^= h >>> 13;
-  h =
-  /* Math.imul(h, m): */
-  (h & 0xffff) * 0x5bd1e995 + ((h >>> 16) * 0xe995 << 16);
-  return ((h ^ h >>> 15) >>> 0).toString(36);
-}
-
-
-
-
-/***/ }),
-
-/***/ 40206:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   S: function() { return /* binding */ canUseDOM; }
-/* harmony export */ });
-/**
- * Verifies if an application can use DOM.
- */ function canUseDOM() {
-    return /* eslint-disable @nx/workspace-no-restricted-globals -- expected ignore ( SSR friendly acquisition of globals )*/ typeof window !== 'undefined' && !!(window.document && // eslint-disable-next-line @typescript-eslint/no-deprecated
-    window.document.createElement);
-}
-
-
-/***/ }),
-
-/***/ 44363:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-
-
-if (true) {
-  /* unused reexport */ __webpack_require__(22799);
-} else // removed by dead control flow
-{}
+//# sourceMappingURL=insertionFactory.esm.js.map
 
 
 /***/ }),
@@ -4300,13 +5188,13 @@ function normalizeNestedProperty(nestedProperty) {
 //# sourceMappingURL=normalizeNestedProperty.esm.js.map
 
 ;// ./node_modules/stylis/src/Enum.js
-var Enum_MS = '-ms-'
-var Enum_MOZ = '-moz-'
-var Enum_WEBKIT = '-webkit-'
+var MS = '-ms-'
+var MOZ = '-moz-'
+var WEBKIT = '-webkit-'
 
 var COMMENT = 'comm'
-var Enum_RULESET = 'rule'
-var Enum_DECLARATION = 'decl'
+var RULESET = 'rule'
+var DECLARATION = 'decl'
 
 var PAGE = '@page'
 var MEDIA = '@media'
@@ -4316,7 +5204,7 @@ var VIEWPORT = '@viewport'
 var SUPPORTS = '@supports'
 var DOCUMENT = '@document'
 var NAMESPACE = '@namespace'
-var Enum_KEYFRAMES = '@keyframes'
+var KEYFRAMES = '@keyframes'
 var FONT_FACE = '@font-face'
 var COUNTER_STYLE = '@counter-style'
 var FONT_FEATURE_VALUES = '@font-feature-values'
@@ -4348,7 +5236,7 @@ var Utility_assign = Object.assign
  * @return {number}
  */
 function hash (value, length) {
-	return Utility_charat(value, 0) ^ 45 ? (((((((length << 2) ^ Utility_charat(value, 0)) << 2) ^ Utility_charat(value, 1)) << 2) ^ Utility_charat(value, 2)) << 2) ^ Utility_charat(value, 3) : 0
+	return charat(value, 0) ^ 45 ? (((((((length << 2) ^ charat(value, 0)) << 2) ^ charat(value, 1)) << 2) ^ charat(value, 2)) << 2) ^ charat(value, 3) : 0
 }
 
 /**
@@ -4364,7 +5252,7 @@ function trim (value) {
  * @param {RegExp} pattern
  * @return {string?}
  */
-function Utility_match (value, pattern) {
+function match (value, pattern) {
 	return (value = pattern.exec(value)) ? value[0] : value
 }
 
@@ -4374,7 +5262,7 @@ function Utility_match (value, pattern) {
  * @param {string} replacement
  * @return {string}
  */
-function Utility_replace (value, pattern, replacement) {
+function replace (value, pattern, replacement) {
 	return value.replace(pattern, replacement)
 }
 
@@ -4393,7 +5281,7 @@ function indexof (value, search, position) {
  * @param {number} index
  * @return {number}
  */
-function Utility_charat (value, index) {
+function charat (value, index) {
 	return value.charCodeAt(index) | 0
 }
 
@@ -4403,7 +5291,7 @@ function Utility_charat (value, index) {
  * @param {number} end
  * @return {string}
  */
-function Utility_substr (value, begin, end) {
+function substr (value, begin, end) {
 	return value.slice(begin, end)
 }
 
@@ -4411,7 +5299,7 @@ function Utility_substr (value, begin, end) {
  * @param {string} value
  * @return {number}
  */
-function Utility_strlen (value) {
+function strlen (value) {
 	return value.length
 }
 
@@ -4419,7 +5307,7 @@ function Utility_strlen (value) {
  * @param {any[]} value
  * @return {number}
  */
-function Utility_sizeof (value) {
+function sizeof (value) {
 	return value.length
 }
 
@@ -4428,7 +5316,7 @@ function Utility_sizeof (value) {
  * @param {any[]} array
  * @return {any}
  */
-function Utility_append (value, array) {
+function append (value, array) {
 	return array.push(value), value
 }
 
@@ -4437,7 +5325,7 @@ function Utility_append (value, array) {
  * @param {function} callback
  * @return {string}
  */
-function Utility_combine (array, callback) {
+function combine (array, callback) {
 	return array.map(callback).join('')
 }
 
@@ -4446,8 +5334,8 @@ function Utility_combine (array, callback) {
  * @param {RegExp} pattern
  * @return {string[]}
  */
-function Utility_filter (array, pattern) {
-	return array.filter(function (value) { return !Utility_match(value, pattern) })
+function filter (array, pattern) {
+	return array.filter(function (value) { return !match(value, pattern) })
 }
 
 ;// ./node_modules/stylis/src/Serializer.js
@@ -4459,7 +5347,7 @@ function Utility_filter (array, pattern) {
  * @param {function} callback
  * @return {string}
  */
-function Serializer_serialize (children, callback) {
+function serialize (children, callback) {
 	var output = ''
 
 	for (var i = 0; i < children.length; i++)
@@ -4478,16 +5366,17 @@ function Serializer_serialize (children, callback) {
 function stringify (element, index, children, callback) {
 	switch (element.type) {
 		case LAYER: if (element.children.length) break
-		case IMPORT: case NAMESPACE: case Enum_DECLARATION: return element.return = element.return || element.value
+		case IMPORT: case NAMESPACE: case DECLARATION: return element.return = element.return || element.value
 		case COMMENT: return ''
-		case Enum_KEYFRAMES: return element.return = element.value + '{' + Serializer_serialize(element.children, callback) + '}'
-		case Enum_RULESET: if (!Utility_strlen(element.value = element.props.join(','))) return ''
+		case KEYFRAMES: return element.return = element.value + '{' + serialize(element.children, callback) + '}'
+		case RULESET: if (!strlen(element.value = element.props.join(','))) return ''
 	}
 
-	return Utility_strlen(children = Serializer_serialize(element.children, callback)) ? element.return = element.value + '{' + children + '}' : ''
+	return strlen(children = serialize(element.children, callback)) ? element.return = element.value + '{' + children + '}' : ''
 }
 
 ;// ./node_modules/stylis/src/Tokenizer.js
+/* unused harmony import specifier */ var Tokenizer_append;
 
 
 var line = 1
@@ -4516,18 +5405,18 @@ function node (value, root, parent, type, props, children, length, siblings) {
  * @param {object} props
  * @return {object}
  */
-function Tokenizer_copy (root, props) {
+function copy (root, props) {
 	return Utility_assign(node('', null, null, '', null, null, 0, root.siblings), root, {length: -root.length}, props)
 }
 
 /**
  * @param {object} root
  */
-function Tokenizer_lift (root) {
+function lift (root) {
 	while (root.root)
-		root = Tokenizer_copy(root.root, {children: [root]})
+		root = copy(root.root, {children: [root]})
 
-	append(root, root.siblings)
+	Tokenizer_append(root, root.siblings)
 }
 
 /**
@@ -4541,7 +5430,7 @@ function Tokenizer_char () {
  * @return {number}
  */
 function prev () {
-	character = position > 0 ? Utility_charat(characters, --position) : 0
+	character = position > 0 ? charat(characters, --position) : 0
 
 	if (column--, character === 10)
 		column = 1, line--
@@ -4553,7 +5442,7 @@ function prev () {
  * @return {number}
  */
 function next () {
-	character = position < Tokenizer_length ? Utility_charat(characters, position++) : 0
+	character = position < Tokenizer_length ? charat(characters, position++) : 0
 
 	if (column++, character === 10)
 		column = 1, line++
@@ -4565,7 +5454,7 @@ function next () {
  * @return {number}
  */
 function peek () {
-	return Utility_charat(characters, position)
+	return charat(characters, position)
 }
 
 /**
@@ -4581,7 +5470,7 @@ function caret () {
  * @return {string}
  */
 function slice (begin, end) {
-	return Utility_substr(characters, begin, end)
+	return substr(characters, begin, end)
 }
 
 /**
@@ -4617,7 +5506,7 @@ function token (type) {
  * @return {any[]}
  */
 function alloc (value) {
-	return line = column = 1, Tokenizer_length = Utility_strlen(characters = value), position = 0, []
+	return line = column = 1, Tokenizer_length = strlen(characters = value), position = 0, []
 }
 
 /**
@@ -4640,7 +5529,7 @@ function delimit (type) {
  * @param {string} value
  * @return {string[]}
  */
-function Tokenizer_tokenize (value) {
+function tokenize (value) {
 	return dealloc(tokenizer(alloc(value)))
 }
 
@@ -4665,11 +5554,11 @@ function whitespace (type) {
 function tokenizer (children) {
 	while (next())
 		switch (token(character)) {
-			case 0: Utility_append(identifier(position - 1), children)
+			case 0: append(identifier(position - 1), children)
 				break
-			case 2: Utility_append(delimit(character), children)
+			case 2: append(delimit(character), children)
 				break
-			default: Utility_append(from(character), children)
+			default: append(from(character), children)
 		}
 
 	return children
@@ -4792,8 +5681,8 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 		switch (previous = character, character = next()) {
 			// (
 			case 40:
-				if (previous != 108 && Utility_charat(characters, length - 1) == 58) {
-					if (indexof(characters += Utility_replace(delimit(character), '&', '&\f'), '&\f', abs(index ? points[index - 1] : 0)) != -1)
+				if (previous != 108 && charat(characters, length - 1) == 58) {
+					if (indexof(characters += replace(delimit(character), '&', '&\f'), '&\f', abs(index ? points[index - 1] : 0)) != -1)
 						ampersand = -1
 					break
 				}
@@ -4813,8 +5702,8 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 			case 47:
 				switch (peek()) {
 					case 42: case 47:
-						Utility_append(comment(commenter(next(), caret()), root, parent, declarations), declarations)
-						if ((token(previous || 1) == 5 || token(peek() || 1) == 5) && Utility_strlen(characters) && Utility_substr(characters, -1, void 0) !== ' ') characters += ' '
+						append(comment(commenter(next(), caret()), root, parent, declarations), declarations)
+						if ((token(previous || 1) == 5 || token(peek() || 1) == 5) && strlen(characters) && substr(characters, -1, void 0) !== ' ') characters += ' '
 						break
 					default:
 						characters += '/'
@@ -4822,22 +5711,22 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 				break
 			// {
 			case 123 * variable:
-				points[index++] = Utility_strlen(characters) * ampersand
+				points[index++] = strlen(characters) * ampersand
 			// } ; \0
 			case 125 * variable: case 59: case 0:
 				switch (character) {
 					// \0 }
 					case 0: case 125: scanning = 0
 					// ;
-					case 59 + offset: if (ampersand == -1) characters = Utility_replace(characters, /\f/g, '')
-						if (property > 0 && (Utility_strlen(characters) - length || (variable === 0 && previous === 47)))
-							Utility_append(property > 32 ? declaration(characters + ';', rule, parent, length - 1, declarations) : declaration(Utility_replace(characters, ' ', '') + ';', rule, parent, length - 2, declarations), declarations)
+					case 59 + offset: if (ampersand == -1) characters = replace(characters, /\f/g, '')
+						if (property > 0 && (strlen(characters) - length || (variable === 0 && previous === 47)))
+							append(property > 32 ? declaration(characters + ';', rule, parent, length - 1, declarations) : declaration(replace(characters, ' ', '') + ';', rule, parent, length - 2, declarations), declarations)
 						break
 					// @ ;
 					case 59: characters += ';'
 					// { rule/at-rule
 					default:
-						Utility_append(reference = ruleset(characters, root, parent, index, offset, rules, points, type, props = [], children = [], length, rulesets), rulesets)
+						append(reference = ruleset(characters, root, parent, index, offset, rules, points, type, props = [], children = [], length, rulesets), rulesets)
 
 						if (character === 123)
 							if (offset === 0)
@@ -4846,16 +5735,16 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 								switch (atrule) {
 									// c(ontainer)
 									case 99:
-										if (Utility_charat(characters, 3) === 110) break
+										if (charat(characters, 3) === 110) break
 									// l(ayer)
 									case 108:
-										if (Utility_charat(characters, 2) === 97) break
+										if (charat(characters, 2) === 97) break
 									default:
 										offset = 0
 									// d(ocument) m(edia) s(upports)
 									case 100: case 109: case 115:
 								}
-								if (offset) parse(value, reference, reference, rule && Utility_append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length, children), children), rules, children, length, points, rule ? props : children)
+								if (offset) parse(value, reference, reference, rule && append(ruleset(value, reference, reference, 0, 0, rules, points, type, rules, props = [], length, children), children), rules, children, length, points, rule ? props : children)
 								else parse(characters, reference, reference, reference, [''], children, 0, points, children)
 							}
 				}
@@ -4864,7 +5753,7 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 				break
 			// :
 			case 58:
-				length = 1 + Utility_strlen(characters), property = previous
+				length = 1 + strlen(characters), property = previous
 			default:
 				if (variable < 1)
 					if (character == 123)
@@ -4879,7 +5768,7 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 						break
 					// ,
 					case 44:
-						points[index++] = (Utility_strlen(characters) - 1) * ampersand, ampersand = 1
+						points[index++] = (strlen(characters) - 1) * ampersand, ampersand = 1
 						break
 					// @
 					case 64:
@@ -4887,11 +5776,11 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 						if (peek() === 45)
 							characters += delimit(next())
 
-						atrule = peek(), offset = length = Utility_strlen(type = characters += identifier(caret())), character++
+						atrule = peek(), offset = length = strlen(type = characters += identifier(caret())), character++
 						break
 					// -
 					case 45:
-						if (previous === 45 && Utility_strlen(characters) == 2)
+						if (previous === 45 && strlen(characters) == 2)
 							variable = 0
 				}
 		}
@@ -4917,14 +5806,14 @@ function parse (value, root, parent, rule, rules, rulesets, pseudo, points, decl
 function ruleset (value, root, parent, index, offset, rules, points, type, props, children, length, siblings) {
 	var post = offset - 1
 	var rule = offset === 0 ? rules : ['']
-	var size = Utility_sizeof(rule)
+	var size = sizeof(rule)
 
 	for (var i = 0, j = 0, k = 0; i < index; ++i)
-		for (var x = 0, y = Utility_substr(value, post + 1, post = abs(j = points[i])), z = value; x < size; ++x)
-			if (z = trim(j > 0 ? rule[x] + ' ' + y : Utility_replace(y, /&\f/g, rule[x])))
+		for (var x = 0, y = substr(value, post + 1, post = abs(j = points[i])), z = value; x < size; ++x)
+			if (z = trim(j > 0 ? rule[x] + ' ' + y : replace(y, /&\f/g, rule[x])))
 				props[k++] = z
 
-	return node(value, root, parent, offset === 0 ? Enum_RULESET : type, props, children, length, siblings)
+	return node(value, root, parent, offset === 0 ? RULESET : type, props, children, length, siblings)
 }
 
 /**
@@ -4935,7 +5824,7 @@ function ruleset (value, root, parent, index, offset, rules, points, type, props
  * @return {object}
  */
 function comment (value, root, parent, siblings) {
-	return node(value, root, parent, COMMENT, from(Tokenizer_char()), Utility_substr(value, 2, -2), 0, siblings)
+	return node(value, root, parent, COMMENT, from(Tokenizer_char()), substr(value, 2, -2), 0, siblings)
 }
 
 /**
@@ -4947,10 +5836,30 @@ function comment (value, root, parent, siblings) {
  * @return {object}
  */
 function declaration (value, root, parent, length, siblings) {
-	return node(value, root, parent, Enum_DECLARATION, Utility_substr(value, 0, length), Utility_substr(value, length + 1, -1), length, siblings)
+	return node(value, root, parent, DECLARATION, substr(value, 0, length), substr(value, length + 1, -1), length, siblings)
 }
 
 ;// ./node_modules/stylis/src/Middleware.js
+/* unused harmony import specifier */ var Middleware_DECLARATION;
+/* unused harmony import specifier */ var Middleware_KEYFRAMES;
+/* unused harmony import specifier */ var Middleware_WEBKIT;
+/* unused harmony import specifier */ var Middleware_RULESET;
+/* unused harmony import specifier */ var Middleware_MOZ;
+/* unused harmony import specifier */ var Middleware_MS;
+/* unused harmony import specifier */ var Middleware_replace;
+/* unused harmony import specifier */ var Middleware_combine;
+/* unused harmony import specifier */ var Middleware_match;
+/* unused harmony import specifier */ var Middleware_assign;
+/* unused harmony import specifier */ var Middleware_filter;
+/* unused harmony import specifier */ var Middleware_charat;
+/* unused harmony import specifier */ var Middleware_substr;
+/* unused harmony import specifier */ var Middleware_strlen;
+/* unused harmony import specifier */ var Middleware_sizeof;
+/* unused harmony import specifier */ var Middleware_copy;
+/* unused harmony import specifier */ var Middleware_lift;
+/* unused harmony import specifier */ var Middleware_tokenize;
+/* unused harmony import specifier */ var Middleware_serialize;
+/* unused harmony import specifier */ var prefix;
 
 
 
@@ -4962,7 +5871,7 @@ function declaration (value, root, parent, length, siblings) {
  * @return {function}
  */
 function middleware (collection) {
-	var length = Utility_sizeof(collection)
+	var length = sizeof(collection)
 
 	return function (element, index, children, callback) {
 		var output = ''
@@ -4996,27 +5905,27 @@ function prefixer (element, index, children, callback) {
 	if (element.length > -1)
 		if (!element.return)
 			switch (element.type) {
-				case DECLARATION: element.return = prefix(element.value, element.length, children)
+				case Middleware_DECLARATION: element.return = prefix(element.value, element.length, children)
 					return
-				case KEYFRAMES:
-					return serialize([copy(element, {value: replace(element.value, '@', '@' + WEBKIT)})], callback)
-				case RULESET:
+				case Middleware_KEYFRAMES:
+					return Middleware_serialize([Middleware_copy(element, {value: Middleware_replace(element.value, '@', '@' + Middleware_WEBKIT)})], callback)
+				case Middleware_RULESET:
 					if (element.length)
-						return combine(children = element.props, function (value) {
-							switch (match(value, callback = /(::plac\w+|:read-\w+)/)) {
+						return Middleware_combine(children = element.props, function (value) {
+							switch (Middleware_match(value, callback = /(::plac\w+|:read-\w+)/)) {
 								// :read-(only|write)
 								case ':read-only': case ':read-write':
-									lift(copy(element, {props: [replace(value, /:(read-\w+)/, ':' + MOZ + '$1')]}))
-									lift(copy(element, {props: [value]}))
-									assign(element, {props: filter(children, callback)})
+									Middleware_lift(Middleware_copy(element, {props: [Middleware_replace(value, /:(read-\w+)/, ':' + Middleware_MOZ + '$1')]}))
+									Middleware_lift(Middleware_copy(element, {props: [value]}))
+									Middleware_assign(element, {props: Middleware_filter(children, callback)})
 									break
 								// :placeholder
 								case '::placeholder':
-									lift(copy(element, {props: [replace(value, /:(plac\w+)/, ':' + WEBKIT + 'input-$1')]}))
-									lift(copy(element, {props: [replace(value, /:(plac\w+)/, ':' + MOZ + '$1')]}))
-									lift(copy(element, {props: [replace(value, /:(plac\w+)/, MS + 'input-$1')]}))
-									lift(copy(element, {props: [value]}))
-									assign(element, {props: filter(children, callback)})
+									Middleware_lift(Middleware_copy(element, {props: [Middleware_replace(value, /:(plac\w+)/, ':' + Middleware_WEBKIT + 'input-$1')]}))
+									Middleware_lift(Middleware_copy(element, {props: [Middleware_replace(value, /:(plac\w+)/, ':' + Middleware_MOZ + '$1')]}))
+									Middleware_lift(Middleware_copy(element, {props: [Middleware_replace(value, /:(plac\w+)/, Middleware_MS + 'input-$1')]}))
+									Middleware_lift(Middleware_copy(element, {props: [value]}))
+									Middleware_assign(element, {props: Middleware_filter(children, callback)})
 									break
 							}
 
@@ -5032,28 +5941,28 @@ function prefixer (element, index, children, callback) {
  */
 function namespace (element) {
 	switch (element.type) {
-		case RULESET:
+		case Middleware_RULESET:
 			element.props = element.props.map(function (value) {
-				return combine(tokenize(value), function (value, index, children) {
-					switch (charat(value, 0)) {
+				return Middleware_combine(Middleware_tokenize(value), function (value, index, children) {
+					switch (Middleware_charat(value, 0)) {
 						// \f
 						case 12:
-							return substr(value, 1, strlen(value))
+							return Middleware_substr(value, 1, Middleware_strlen(value))
 						// \0 ( + > ~
 						case 0: case 40: case 43: case 62: case 126:
 							return value
 						// :
 						case 58:
 							if (children[++index] === 'global')
-								children[index] = '', children[++index] = '\f' + substr(children[index], index = 1, -1)
+								children[index] = '', children[++index] = '\f' + Middleware_substr(children[index], index = 1, -1)
 						// \s
 						case 32:
 							return index === 1 ? '' : value
 						default:
 							switch (index) {
 								case 0: element = value
-									return sizeof(children) > 1 ? '' : value
-								case index = sizeof(children) - 1: case 2:
+									return Middleware_sizeof(children) > 1 ? '' : value
+								case index = Middleware_sizeof(children) - 1: case 2:
 									return index === 2 ? value + element + element : value + element
 								default:
 									return value
@@ -5069,7 +5978,7 @@ function namespace (element) {
 
 const globalPlugin = element => {
   switch (element.type) {
-    case Enum_RULESET:
+    case RULESET:
       if (typeof element.props === 'string') {
         if (false) // removed by dead control flow
 {}
@@ -5080,7 +5989,7 @@ const globalPlugin = element => {
         if (value.indexOf(':global(') === -1) {
           return value;
         }
-        return Tokenizer_tokenize(value).reduce((acc, value, index, children) => {
+        return tokenize(value).reduce((acc, value, index, children) => {
           if (value === '') {
             return acc;
           }
@@ -5113,7 +6022,7 @@ function prefixerPlugin_esm_prefix(value, length, children) {
   switch (hash(value, length)) {
     // color-adjust
     case 5103:
-      return Enum_WEBKIT + 'print-' + value + value;
+      return WEBKIT + 'print-' + value + value;
     // backface-visibility, column, box-decoration-break
     case 3191:
     case 6645:
@@ -5125,44 +6034,44 @@ function prefixerPlugin_esm_prefix(value, length, children) {
     case 6135:
     case 4599:
     case 4855:
-      return Enum_WEBKIT + value + value;
+      return WEBKIT + value + value;
     // backdrop-filter, background-clip: text
     case 4215:
       // Additional check on "backdrop-(f)ilter" to prevent conflict with "background-clip"
       // https://github.com/thysultan/stylis/issues/292
-      if (Utility_charat(value, 9) === 102) {
-        return Enum_WEBKIT + value + value;
+      if (charat(value, 9) === 102) {
+        return WEBKIT + value + value;
       }
       // background-clip: text
-      if (Utility_charat(value, length + 1) === 116) {
-        return Enum_WEBKIT + value + value;
+      if (charat(value, length + 1) === 116) {
+        return WEBKIT + value + value;
       }
       break;
     // tab-size
     case 4789:
-      return Enum_MOZ + value + value;
+      return MOZ + value + value;
     // appearance, user-select, hyphens
     case 5349:
     case 4246:
     case 6968:
-      return Enum_WEBKIT + value + Enum_MOZ + value + value;
+      return WEBKIT + value + MOZ + value + value;
     // cursor
     // @ts-expect-error fall through is intentional here
     case 6187:
-      if (!Utility_match(value, /grab/)) {
-        return Utility_replace(Utility_replace(Utility_replace(value, /(zoom-|grab)/, Enum_WEBKIT + '$1'), /(image-set)/, Enum_WEBKIT + '$1'), value, '') + value;
+      if (!match(value, /grab/)) {
+        return replace(replace(replace(value, /(zoom-|grab)/, WEBKIT + '$1'), /(image-set)/, WEBKIT + '$1'), value, '') + value;
       }
     // background, background-image
     case 5495:
     case 3959:
       // eslint-disable-next-line no-useless-concat
-      return Utility_replace(value, /(image-set\([^]*)/, Enum_WEBKIT + '$1' + '$`$1');
+      return replace(value, /(image-set\([^]*)/, WEBKIT + '$1' + '$`$1');
     // (margin|padding)-inline-(start|end)
     case 4095:
     case 3583:
     case 4068:
     case 2532:
-      return Utility_replace(value, /(.+)-inline(.+)/, Enum_WEBKIT + '$1$2') + value;
+      return replace(value, /(.+)-inline(.+)/, WEBKIT + '$1$2') + value;
     // (min|max)?(width|height|inline-size|block-size)
     case 8116:
     case 7059:
@@ -5177,18 +6086,18 @@ function prefixerPlugin_esm_prefix(value, length, children) {
     case 5021:
     case 4765:
       // stretch fill-available
-      if (Utility_strlen(value) - 1 - length > 6) switch (Utility_charat(value, length + 1)) {
+      if (strlen(value) - 1 - length > 6) switch (charat(value, length + 1)) {
         // (f)ill-available
         // @ts-expect-error fall through is intentional here
         case 102:
-          if (Utility_charat(value, length + 3) === 108) {
-            return Utility_replace(value, /(.+:)(.+)-([^]+)/,
+          if (charat(value, length + 3) === 108) {
+            return replace(value, /(.+:)(.+)-([^]+)/,
             // eslint-disable-next-line no-useless-concat, eqeqeq
-            '$1' + Enum_WEBKIT + '$2-$3' + '$1' + Enum_MOZ + (Utility_charat(value, length + 3) == 108 ? '$3' : '$2-$3')) + value;
+            '$1' + WEBKIT + '$2-$3' + '$1' + MOZ + (charat(value, length + 3) == 108 ? '$3' : '$2-$3')) + value;
           }
         // (s)tretch
         case 115:
-          return ~indexof(value, 'stretch') ? prefixerPlugin_esm_prefix(Utility_replace(value, 'stretch', 'fill-available'), length) + value : value;
+          return ~indexof(value, 'stretch') ? prefixerPlugin_esm_prefix(replace(value, 'stretch', 'fill-available'), length) + value : value;
       }
       break;
   }
@@ -5202,36 +6111,36 @@ function prefixerPlugin_esm_prefix(value, length, children) {
  */
 function prefixerPlugin(element, index, children, callback) {
   if (element.length > -1) if (!element.return) switch (element.type) {
-    case Enum_DECLARATION:
+    case DECLARATION:
       element.return = prefixerPlugin_esm_prefix(element.value, element.length);
       return;
-    case Enum_RULESET:
+    case RULESET:
       if (element.length)
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return Utility_combine(element.props, function (value) {
-          switch (Utility_match(value, /(::plac\w+|:read-\w+)/)) {
+        return combine(element.props, function (value) {
+          switch (match(value, /(::plac\w+|:read-\w+)/)) {
             // :read-(only|write)
             case ':read-only':
             case ':read-write':
-              return Serializer_serialize(
+              return serialize(
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              [Tokenizer_copy(element, {
-                props: [Utility_replace(value, /:(read-\w+)/, ':' + Enum_MOZ + '$1')]
+              [copy(element, {
+                props: [replace(value, /:(read-\w+)/, ':' + MOZ + '$1')]
               })], callback);
             // :placeholder
             case '::placeholder':
-              return Serializer_serialize([
+              return serialize([
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              Tokenizer_copy(element, {
-                props: [Utility_replace(value, /:(plac\w+)/, ':' + Enum_WEBKIT + 'input-$1')]
+              copy(element, {
+                props: [replace(value, /:(plac\w+)/, ':' + WEBKIT + 'input-$1')]
               }),
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
-              Tokenizer_copy(element, {
-                props: [Utility_replace(value, /:(plac\w+)/, ':' + Enum_MOZ + '$1')]
+              copy(element, {
+                props: [replace(value, /:(plac\w+)/, ':' + MOZ + '$1')]
               })], callback);
           }
           return '';
@@ -5282,7 +6191,7 @@ const sortClassesInAtRulesPlugin = element => {
 function noop() {}
 function compileCSSRules(cssRules, sortClassesInAtRules) {
   const rules = [];
-  Serializer_serialize(compile(cssRules), middleware([globalPlugin, sortClassesInAtRules ? sortClassesInAtRulesPlugin : noop, prefixerPlugin, stringify,
+  serialize(compile(cssRules), middleware([globalPlugin, sortClassesInAtRules ? sortClassesInAtRulesPlugin : noop, prefixerPlugin, stringify,
   // 💡 we are using `.insertRule()` API for DOM operations, which does not support
   // insertion of multiple CSS rules in a single call. `rulesheet` plugin extracts
   // individual rules to be used with this API
@@ -5408,7 +6317,7 @@ function compileKeyframeRule(keyframeObject) {
 function compileKeyframesCSS(keyframeName, keyframeCSS) {
   const cssRule = `@keyframes ${keyframeName} {${keyframeCSS}}`;
   const rules = [];
-  Serializer_serialize(compile(cssRule), middleware([stringify, prefixerPlugin,
+  serialize(compile(cssRule), middleware([stringify, prefixerPlugin,
   // 💡 we are using `.insertRule()` API for DOM operations, which does not support
   // insertion of multiple CSS rules in a single call. `rulesheet` plugin extracts
   // individual rules to be used with this API
@@ -5655,7 +6564,7 @@ function hashClassName({
   salt,
   value
 }, atRules) {
-  return constants_esm/* HASH_PREFIX */.aN + (0,emotion_hash_esm/* default */.A)(salt + selector + atRulesToString(atRules) + property +
+  return (/* inlined export .HASH_PREFIX */"f") + (0,emotion_hash_esm/* default */.A)(salt + selector + atRulesToString(atRules) + property +
   // Trimming of value is required to generate consistent hashes
   value.trim());
 }
@@ -5860,7 +6769,7 @@ function resolveStyleRules(styles, classNameHashSalt = '', selectors = [], atRul
       for (const keyframeObject of animationNameValue) {
         const keyframeCSS = compileKeyframeRule(keyframeObject);
         const rtlKeyframeCSS = compileKeyframeRule(convert(keyframeObject));
-        const animationName = constants_esm/* HASH_PREFIX */.aN + (0,emotion_hash_esm/* default */.A)(keyframeCSS);
+        const animationName = (/* inlined export .HASH_PREFIX */"f") + (0,emotion_hash_esm/* default */.A)(keyframeCSS);
         let rtlAnimationName;
         const keyframeRules = compileKeyframesCSS(animationName, keyframeCSS);
         let rtlKeyframeRules = [];
@@ -5868,7 +6777,7 @@ function resolveStyleRules(styles, classNameHashSalt = '', selectors = [], atRul
           // If CSS for LTR & RTL are same we will re-use animationName from LTR to avoid duplication of rules in output
           rtlAnimationName = animationName;
         } else {
-          rtlAnimationName = constants_esm/* HASH_PREFIX */.aN + (0,emotion_hash_esm/* default */.A)(rtlKeyframeCSS);
+          rtlAnimationName = (/* inlined export .HASH_PREFIX */"f") + (0,emotion_hash_esm/* default */.A)(rtlKeyframeCSS);
           rtlKeyframeRules = compileKeyframesCSS(rtlAnimationName, rtlKeyframeCSS);
         }
         for (let i = 0; i < keyframeRules.length; i++) {
@@ -6088,179 +6997,23 @@ function makeStyles_esm_makeStyles(stylesBySlots) {
 
 /***/ }),
 
-/***/ 45614:
+/***/ 20056:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   AX: function() { return /* binding */ LOOKUP_DIR_INDEX; },
-/* harmony export */   EJ: function() { return /* binding */ DATA_PRIORITY_ATTR; },
-/* harmony export */   FS: function() { return /* binding */ LOOKUP_DEFINITIONS_INDEX; },
-/* harmony export */   Ut: function() { return /* binding */ RESET; },
-/* harmony export */   aN: function() { return /* binding */ HASH_PREFIX; },
-/* harmony export */   ed: function() { return /* binding */ DATA_BUCKET_ATTR; },
-/* harmony export */   ez: function() { return /* binding */ SEQUENCE_HASH_LENGTH; },
-/* harmony export */   fj: function() { return /* binding */ SEQUENCE_PREFIX; },
-/* harmony export */   k1: function() { return /* binding */ DEFINITION_LOOKUP_TABLE; },
-/* harmony export */   qw: function() { return /* binding */ UNSUPPORTED_CSS_PROPERTIES; },
-/* harmony export */   wn: function() { return /* binding */ SEQUENCE_SIZE; }
+/* harmony export */   e: function() { return /* binding */ formatLog; }
 /* harmony export */ });
-/* unused harmony exports DEBUG_RESET_CLASSES, DEBUG_SEQUENCE_SEPARATOR, RESET_HASH_PREFIX */
-// ----
-// Heads up!
-// These constants are global and will be shared between Griffel instances.
-// Any change in them should happen only in a MAJOR version. If it happens,
-// please change "__NAMESPACE_PREFIX__" to include a version.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const __GLOBAL__ = typeof window === 'undefined' ? __webpack_require__.g : window;
-const __NAMESPACE_PREFIX__ = '@griffel/';
-function getGlobalVar(name, defaultValue) {
-  if (!__GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)]) {
-    __GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)] = defaultValue;
-  }
-  return __GLOBAL__[Symbol.for(__NAMESPACE_PREFIX__ + name)];
+function pad(num) {
+  return num.toString().padStart(2, '0');
 }
-/** @internal */
-const DEBUG_RESET_CLASSES = /*#__PURE__*/getGlobalVar('DEBUG_RESET_CLASSES', {});
-/** @internal */
-const DEFINITION_LOOKUP_TABLE = /*#__PURE__*/getGlobalVar('DEFINITION_LOOKUP_TABLE', {});
-// ----
-/** @internal */
-const DATA_BUCKET_ATTR = 'data-make-styles-bucket';
-/** @internal */
-const DATA_PRIORITY_ATTR = 'data-priority';
-/** @internal */
-const HASH_PREFIX = 'f';
-/** @internal */
-const RESET_HASH_PREFIX = 'r';
-/** @internal */
-const SEQUENCE_HASH_LENGTH = 7;
-/** @internal */
-const SEQUENCE_PREFIX = '___';
-/** @internal */
-const DEBUG_SEQUENCE_SEPARATOR = '_';
-/** @internal */
-const SEQUENCE_SIZE =  true ? SEQUENCE_PREFIX.length + SEQUENCE_HASH_LENGTH : 0;
-// indexes for values in LookupItem tuple
-/** @internal */
-const LOOKUP_DEFINITIONS_INDEX = 0;
-/** @internal */
-const LOOKUP_DIR_INDEX = 1;
-// This collection is a map simply for faster access when checking if a CSS property is unsupported
-/** @internal */
-const UNSUPPORTED_CSS_PROPERTIES = {
-  all: 1,
-  borderColor: 1,
-  borderStyle: 1,
-  borderWidth: 1,
-  borderBlock: 1,
-  borderBlockEnd: 1,
-  borderBlockStart: 1,
-  borderInline: 1,
-  borderInlineEnd: 1,
-  borderInlineStart: 1
-};
-/**
- * Removes a CSS property from the style object.
- *
- * @link https://griffel.js.org/react/api/make-styles
- *
- * Do not use the value directly, use `RESET` constant instead.
- */
-const RESET = 'DO_NOT_USE_DIRECTLY: @griffel/reset-value';
-
-
-//# sourceMappingURL=constants.esm.js.map
-
-
-/***/ }),
-
-/***/ 49264:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  A: function() { return /* binding */ insertionFactory; }
-});
-
-;// ./node_modules/@griffel/react/utils/canUseDOM.esm.js
-/**
- * Verifies if an application can use DOM.
- */
-function canUseDOM() {
-  return typeof window !== 'undefined' && !!(window.document && window.document.createElement);
+function padMilliseconds(ms) {
+  return ms.toString().padStart(3, '0');
 }
-
-
-//# sourceMappingURL=canUseDOM.esm.js.map
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(96540);
-var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
-;// ./node_modules/@griffel/react/useInsertionEffect.esm.js
-
-
-const useInsertionEffect =
-// @ts-expect-error Hack to make sure that `useInsertionEffect` will not cause bundling issues in older React versions
-// eslint-disable-next-line no-useless-concat
-react_namespaceObject['useInsertion' + 'Effect'] ? react_namespaceObject['useInsertion' + 'Effect'] : undefined;
-
-
-//# sourceMappingURL=useInsertionEffect.esm.js.map
-
-;// ./node_modules/@griffel/react/insertionFactory.esm.js
-
-
-
-const insertionFactory = () => {
-  const insertionCache = {};
-  return function insert(renderer, cssRules) {
-    // Even if `useInsertionEffect` is available, we can use it on a client only as it will not be executed in SSR
-    if (useInsertionEffect && canUseDOM()) {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useInsertionEffect(() => {
-        renderer.insertCSSRules(cssRules);
-      }, [renderer, cssRules]);
-      return;
-    }
-    if (insertionCache[renderer.id] === undefined) {
-      renderer.insertCSSRules(cssRules);
-      insertionCache[renderer.id] = true;
-    }
-  };
-};
-
-
-//# sourceMappingURL=insertionFactory.esm.js.map
-
-
-/***/ }),
-
-/***/ 53864:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   A: function() { return /* binding */ insertionFactory; }
-/* harmony export */ });
-/**
- * Default implementation of insertion factory. Inserts styles only once per renderer and performs
- * insertion immediately after styles computation.
- *
- * @internal
- */
-const insertionFactory = () => {
-  const insertionCache = {};
-  return function insertStyles(renderer, cssRules) {
-    if (insertionCache[renderer.id] === undefined) {
-      renderer.insertCSSRules(cssRules);
-      insertionCache[renderer.id] = true;
-    }
-  };
-};
-
-
-//# sourceMappingURL=insertionFactory.esm.js.map
-
+function formatLog(message) {
+  var now = new Date();
+  var formattedTime = "".concat(pad(now.getHours()), ":").concat(pad(now.getMinutes()), ":").concat(pad(now.getSeconds()), ":").concat(padMilliseconds(now.getMilliseconds()));
+  return "[VdSpek ".concat(formattedTime, "] ").concat(message);
+}
 
 /***/ }),
 
@@ -6274,380 +7027,36 @@ var code = (/* unused pure expression or super */ null && (" <!doctype html> <ht
 
 /***/ }),
 
-/***/ 55883:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 5338:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+var __webpack_unused_export__;
 
 
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  _: function() { return /* binding */ Image; }
-});
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(96540);
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-jsx-runtime/lib/jsx-runtime.js + 8 modules
-var jsx_runtime = __webpack_require__(95395);
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/assertSlots.js
-var assertSlots = __webpack_require__(82222);
-;// ./node_modules/@fluentui/react-image/lib/components/Image/renderImage.js
-  
-
-/**
- * Define the render function.
- * Given the state of an image, renders it.
- */ const renderImage_unstable = (state)=>{
-    (0,assertSlots/* assertSlots */.C)(state);
-    return /*#__PURE__*/ (0,jsx_runtime/* jsx */.Y)(state.root, {});
-};
-
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/slot.js
-var slot = __webpack_require__(56257);
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/getIntrinsicElementProps.js + 2 modules
-var getIntrinsicElementProps = __webpack_require__(30460);
-;// ./node_modules/@fluentui/react-image/lib/components/Image/useImage.js
-
-
-/**
- * Given user props, returns state and render function for an Image.
- */ const useImage_unstable = (props, ref)=>{
-    const { bordered = false, fit = 'default', block = false, shape = 'square', shadow = false } = props;
-    const state = {
-        bordered,
-        fit,
-        block,
-        shape,
-        shadow,
-        components: {
-            root: 'img'
-        },
-        root: slot/* always */.Gk((0,getIntrinsicElementProps/* getIntrinsicElementProps */.g)('img', {
-            ref,
-            ...props
-        }), {
-            elementType: 'img'
-        })
-    };
-    return state;
-};
-
-// EXTERNAL MODULE: ./node_modules/@griffel/react/__styles.esm.js
-var _styles_esm = __webpack_require__(99159);
-// EXTERNAL MODULE: ./node_modules/@griffel/core/mergeClasses.esm.js
-var mergeClasses_esm = __webpack_require__(20677);
-;// ./node_modules/@fluentui/react-image/lib/components/Image/useImageStyles.styles.js
-
-
-const imageClassNames = {
-  root: 'fui-Image'
-};
-const useStyles = /*#__PURE__*/(0,_styles_esm/* __styles */.X)({
-  base: {
-    g2u3we: "fj3muxo",
-    h3c5rm: ["f1akhkt", "f1lxtadh"],
-    B9xav0g: "f1aperda",
-    zhjwy3: ["f1lxtadh", "f1akhkt"],
-    Beyfa6y: 0,
-    Bbmb7ep: 0,
-    Btl43ni: 0,
-    B7oj6ja: 0,
-    Dimara: "f1fabniw",
-    B7ck84d: "f1ewtqcl",
-    mc9l5x: "f14t3ns0"
-  },
-  bordered: {
-    icvyot: "fzkkow9",
-    vrafjx: ["fcdblym", "fjik90z"],
-    oivjwe: "fg706s2",
-    wvpqe5: ["fjik90z", "fcdblym"],
-    B4j52fo: "f192inf7",
-    Bekrc4i: ["f5tn483", "f1ojsxk5"],
-    Bn0qgzm: "f1vxd6vx",
-    ibv6hh: ["f1ojsxk5", "f5tn483"]
-  },
-  circular: {
-    Beyfa6y: 0,
-    Bbmb7ep: 0,
-    Btl43ni: 0,
-    B7oj6ja: 0,
-    Dimara: "f44lkw9"
-  },
-  rounded: {
-    Beyfa6y: 0,
-    Bbmb7ep: 0,
-    Btl43ni: 0,
-    B7oj6ja: 0,
-    Dimara: "ft85np5"
-  },
-  square: {},
-  shadow: {
-    E5pizo: "f1whvlc6"
-  },
-  center: {
-    st4lth: "f1plgu50",
-    Ermj5k: "f14xojzb",
-    Bqenvij: "f1l02sjl",
-    a9b677: "fly5x3f"
-  },
-  contain: {
-    st4lth: "f1kle4es",
-    Ermj5k: "f14xojzb",
-    Bqenvij: "f1l02sjl",
-    a9b677: "fly5x3f"
-  },
-  "default": {},
-  cover: {
-    st4lth: "f1ps3kmd",
-    Ermj5k: "f14xojzb",
-    Bqenvij: "f1l02sjl",
-    a9b677: "fly5x3f"
-  },
-  none: {
-    st4lth: "f1plgu50",
-    Ermj5k: ["f13uwng7", "fjmyj0p"],
-    Bqenvij: "f1l02sjl",
-    a9b677: "fly5x3f"
-  },
-  block: {
-    a9b677: "fly5x3f"
-  }
-}, {
-  d: [".fj3muxo{border-top-color:var(--colorNeutralStroke1);}", ".f1akhkt{border-right-color:var(--colorNeutralStroke1);}", ".f1lxtadh{border-left-color:var(--colorNeutralStroke1);}", ".f1aperda{border-bottom-color:var(--colorNeutralStroke1);}", [".f1fabniw{border-radius:var(--borderRadiusNone);}", {
-    p: -1
-  }], ".f1ewtqcl{box-sizing:border-box;}", ".f14t3ns0{display:inline-block;}", ".fzkkow9{border-top-style:solid;}", ".fcdblym{border-right-style:solid;}", ".fjik90z{border-left-style:solid;}", ".fg706s2{border-bottom-style:solid;}", ".f192inf7{border-top-width:var(--strokeWidthThin);}", ".f5tn483{border-right-width:var(--strokeWidthThin);}", ".f1ojsxk5{border-left-width:var(--strokeWidthThin);}", ".f1vxd6vx{border-bottom-width:var(--strokeWidthThin);}", [".f44lkw9{border-radius:var(--borderRadiusCircular);}", {
-    p: -1
-  }], [".ft85np5{border-radius:var(--borderRadiusMedium);}", {
-    p: -1
-  }], ".f1whvlc6{box-shadow:var(--shadow4);}", ".f1plgu50{object-fit:none;}", ".f14xojzb{object-position:center;}", ".f1l02sjl{height:100%;}", ".fly5x3f{width:100%;}", ".f1kle4es{object-fit:contain;}", ".f1ps3kmd{object-fit:cover;}", ".f13uwng7{object-position:left top;}", ".fjmyj0p{object-position:right top;}"]
-});
-const useImageStyles_unstable = state => {
-  'use no memo';
-
-  const styles = useStyles();
-  state.root.className = (0,mergeClasses_esm/* mergeClasses */.z)(imageClassNames.root, styles.base, state.block && styles.block, state.bordered && styles.bordered, state.shadow && styles.shadow, styles[state.fit], styles[state.shape], state.root.className);
-  return state;
-};
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-shared-contexts/lib/CustomStyleHooksContext/CustomStyleHooksContext.js
-var CustomStyleHooksContext = __webpack_require__(68909);
-;// ./node_modules/@fluentui/react-image/lib/components/Image/Image.js
-
-
-
-
-
-/**
- * The Image component ensures the consistent styling of images.
- */ const Image = /*#__PURE__*/ react.forwardRef((props, ref)=>{
-    const state = useImage_unstable(props, ref);
-    useImageStyles_unstable(state);
-    (0,CustomStyleHooksContext/* useCustomStyleHook */.$e)('useImageStyles_unstable')(state);
-    return renderImage_unstable(state);
-});
-Image.displayName = 'Image';
+var m = __webpack_require__(40961);
+if (true) {
+  exports.H = m.createRoot;
+  __webpack_unused_export__ = m.hydrateRoot;
+} else // removed by dead control flow
+{ var i; }
 
 
 /***/ }),
 
-/***/ 56004:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   e: function() { return /* binding */ TextDirectionProvider; },
-/* harmony export */   m: function() { return /* binding */ useTextDirection; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-
+/***/ 21020:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 /**
- * @private
- */
-const TextDirectionContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createContext('ltr');
-/**
- * @public
- */
-const TextDirectionProvider = ({
-  children,
-  dir
-}) => {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(TextDirectionContext.Provider, {
-    value: dir
-  }, children);
-};
-/**
- * Returns current directionality of the element's text.
+ * @license React
+ * react-jsx-runtime.production.min.js
  *
- * @private
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
  */
-function useTextDirection() {
-  return react__WEBPACK_IMPORTED_MODULE_0__.useContext(TextDirectionContext);
-}
-
-
-//# sourceMappingURL=TextDirectionContext.esm.js.map
-
-
-/***/ }),
-
-/***/ 56257:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Gk: function() { return /* binding */ always; },
-/* harmony export */   lq: function() { return /* binding */ optional; }
-/* harmony export */ });
-/* unused harmony export resolveShorthand */
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-/* harmony import */ var _constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(86800);
-
-
-/**
- * Creates a slot from a slot shorthand or properties (`props.SLOT_NAME` or `props` itself)
- * @param value - the value of the slot, it can be a slot shorthand, a slot component or a slot properties
- * @param options - values you can pass to alter the signature of a slot, those values are:
- *
- * * `elementType` - the base element type of a slot, defaults to `'div'`
- * * `defaultProps` - similar to a React component declaration, you can provide a slot default properties to be merged with the shorthand/properties provided.
- */ function always(value, options) {
-    const { defaultProps, elementType } = options;
-    const props = resolveShorthand(value);
-    /**
-   * Casting is required here as SlotComponentType is a function, not an object.
-   * Although SlotComponentType has a function signature, it is still just an object.
-   * This is required to make a slot callable (JSX compatible), this is the exact same approach
-   * that is used on `@types/react` components
-   */ const propsWithMetadata = {
-        ...defaultProps,
-        ...props,
-        [_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_ELEMENT_TYPE_SYMBOL */ .on]: elementType,
-        [_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_CLASS_NAME_PROP_SYMBOL */ .b9]: props === null || props === void 0 ? void 0 : props.className
-    };
-    if (props && typeof props.children === 'function') {
-        propsWithMetadata[_constants__WEBPACK_IMPORTED_MODULE_1__/* .SLOT_RENDER_FUNCTION_SYMBOL */ .Y9] = props.children;
-        propsWithMetadata.children = defaultProps === null || defaultProps === void 0 ? void 0 : defaultProps.children;
-    }
-    return propsWithMetadata;
-}
-/**
- * Creates a slot from a slot shorthand or properties (`props.SLOT_NAME` or `props` itself)
- * @param value - the value of the slot, it can be a slot shorthand, a slot component or a slot properties
- * @param options - values you can pass to alter the signature of a slot, those values are:
- *
- * * `elementType` - the base element type of a slot, defaults to `'div'`
- * * `defaultProps` - similar to a React component declaration, you can provide a slot default properties to be merged with the shorthand/properties provided
- * * `renderByDefault` - a boolean that indicates if a slot will be rendered even if it's base value is `undefined`.
- * By default if `props.SLOT_NAME` is `undefined` then `state.SLOT_NAME` becomes `undefined`
- * and nothing will be rendered, but if `renderByDefault = true` then `state.SLOT_NAME` becomes an object
- * with the values provided by `options.defaultProps` (or `{}`). This is useful for cases such as providing a default content
- * in case no shorthand is provided, like the case of the `expandIcon` slot for the `AccordionHeader`
- */ function optional(value, options) {
-    if (value === null || value === undefined && !options.renderByDefault) {
-        return undefined;
-    }
-    return always(value, options);
-}
-/**
- * Helper function that converts a slot shorthand or properties to a slot properties object
- * The main difference between this function and `slot` is that this function does not return the metadata required for a slot to be considered a properly renderable slot, it only converts the value to a slot properties object
- * @param value - the value of the slot, it can be a slot shorthand or a slot properties object
- */ function resolveShorthand(value) {
-    if (typeof value === 'string' || typeof value === 'number' || isIterable(value) || // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    react__WEBPACK_IMPORTED_MODULE_0__.isValidElement(value)) {
-        return {
-            children: value
-        };
-    }
-    if (value && typeof value !== 'object' && "production" !== 'production') // removed by dead control flow
-{}
-    return value;
-}
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const isIterable = (value)=>typeof value === 'object' && value !== null && Symbol.iterator in value;
-
-
-/***/ }),
-
-/***/ 58413:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   X: function() { return /* binding */ __styles; }
-/* harmony export */ });
-/* harmony import */ var _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(53864);
-/* harmony import */ var _runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(87294);
-
-
-
-
-
-
-
-/**
- * A version of makeStyles() that accepts build output as an input and skips all runtime transforms.
- *
- * @internal
- */
-function __styles(classesMapBySlot, cssRules, factory = _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .insertionFactory */ .A) {
-  const insertStyles = factory();
-  let ltrClassNamesForSlots = null;
-  let rtlClassNamesForSlots = null;
-  let sourceURL;
-  if (false) // removed by dead control flow
-{}
-  function computeClasses(options) {
-    const {
-      dir,
-      renderer
-    } = options;
-    const isLTR = dir === 'ltr';
-    if (isLTR) {
-      if (ltrClassNamesForSlots === null) {
-        ltrClassNamesForSlots = (0,_runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .reduceToClassNameForSlots */ .N)(classesMapBySlot, dir);
-      }
-    } else {
-      if (rtlClassNamesForSlots === null) {
-        rtlClassNamesForSlots = (0,_runtime_reduceToClassNameForSlots_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .reduceToClassNameForSlots */ .N)(classesMapBySlot, dir);
-      }
-    }
-    insertStyles(renderer, cssRules);
-    const classNamesForSlots = isLTR ? ltrClassNamesForSlots : rtlClassNamesForSlots;
-    if (false) // removed by dead control flow
-{}
-    return classNamesForSlots;
-  }
-  return computeClasses;
-}
-
-
-//# sourceMappingURL=__styles.esm.js.map
-
-
-/***/ }),
-
-/***/ 68909:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $e: function() { return /* binding */ useCustomStyleHook; },
-/* harmony export */   gH: function() { return /* binding */ CustomStyleHooksProvider; },
-/* harmony export */   k7: function() { return /* binding */ CustomStyleHooksContext; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-/* eslint-disable */ 
-/**
- * @internal
- */ const CustomStyleHooksContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
-const noop = ()=>{};
-/**
- * @internal
- */ const CustomStyleHooksProvider = CustomStyleHooksContext.Provider;
-/**
- * Gets a custom style hook
- * @param hook - One of the hook properties in CustomStyleHooksContextValue
- * @returns The corresponding hook when defined, otherwise a no-op function.
- */ const useCustomStyleHook = (hook)=>{
-    var _React_useContext;
-    var _React_useContext_hook;
-    return (_React_useContext_hook = (_React_useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(CustomStyleHooksContext)) === null || _React_useContext === void 0 ? void 0 : _React_useContext[hook]) !== null && _React_useContext_hook !== void 0 ? _React_useContext_hook : noop;
-};
+var f=__webpack_require__(96540),k=Symbol.for("react.element"),l=Symbol.for("react.fragment"),m=Object.prototype.hasOwnProperty,n=f.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED.ReactCurrentOwner,p={key:!0,ref:!0,__self:!0,__source:!0};
+function q(c,a,g){var b,d={},e=null,h=null;void 0!==g&&(e=""+g);void 0!==a.key&&(e=""+a.key);void 0!==a.ref&&(h=a.ref);for(b in a)m.call(a,b)&&!p.hasOwnProperty(b)&&(d[b]=a[b]);if(c&&c.defaultProps)for(b in a=c.defaultProps,a)void 0===d[b]&&(d[b]=a[b]);return{$$typeof:k,type:c,key:e,ref:h,props:d,_owner:n.current}}exports.Fragment=l;exports.jsx=q;exports.jsxs=q;
 
 
 /***/ }),
@@ -6665,564 +7074,111 @@ if (true) {
 
 /***/ }),
 
-/***/ 82222:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+/***/ 25881:
+/***/ (function(__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) {
 
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   C: function() { return /* binding */ assertSlots; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-
-
-
-
-/**
- * @internal
- * Assertion method to ensure state slots properties are properly declared.
- * A properly declared slot must be declared by using the `slot` method.
- *
- * @example
- * ```tsx
- * export const renderInput_unstable = (state: InputState) => {
-    assertSlots<InputSlots>(state);
-    return (
-      <state.root>
-        {state.contentBefore && <state.contentBefore />}
-        <state.input />
-        {state.contentAfter && <state.contentAfter />}
-      </state.root>
-    );
-  };
- * ```
- */ function assertSlots(state) {
-    /**
-   * This verification is not necessary in production
-   * as we're verifying static properties that will not change between environments
-   */ if (false) // removed by dead control flow
-{}
-}
-
-
-/***/ }),
-
-/***/ 85532:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   a: function() { return /* binding */ useMergedRefs; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-
-/**
- * React hook to merge multiple React refs (either MutableRefObjects or ref callbacks) into a single ref callback that
- * updates all provided refs
- * @param refs - Refs to collectively update with one ref value.
- * @returns A function with an attached "current" prop, so that it can be treated like a RefObject.
- */ // LegacyRef is actually not supported, but in React v18 types this is leaking directly from forwardRef component declaration
-function useMergedRefs(...refs) {
-    'use no memo';
-    const mergedCallback = react__WEBPACK_IMPORTED_MODULE_0__.useCallback((value)=>{
-        // Update the "current" prop hanging on the function.
-        mergedCallback.current = value;
-        for (const ref of refs){
-            if (typeof ref === 'string' && "production" !== 'production') // removed by dead control flow
-{}
-            if (typeof ref === 'function') {
-                ref(value);
-            } else if (ref) {
-                // work around the immutability of the React.Ref type
-                ref.current = value;
-            }
-        }
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps -- already exhaustive
-    [
-        ...refs
-    ]);
-    return mergedCallback;
-}
-
-
-/***/ }),
-
-/***/ 86800:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Y9: function() { return /* binding */ SLOT_RENDER_FUNCTION_SYMBOL; },
-/* harmony export */   b9: function() { return /* binding */ SLOT_CLASS_NAME_PROP_SYMBOL; },
-/* harmony export */   on: function() { return /* binding */ SLOT_ELEMENT_TYPE_SYMBOL; }
-/* harmony export */ });
-/**
- * @internal
- * Internal reference for the render function
- */ const SLOT_RENDER_FUNCTION_SYMBOL = Symbol.for('fui.slotRenderFunction');
-/**
- * @internal
- * Internal reference for the render function
- */ const SLOT_ELEMENT_TYPE_SYMBOL = Symbol.for('fui.slotElementType');
-/**
- * @internal
- * Internal cache of the original className prop for the slot, before being modified by the useStyles hook.
- */ const SLOT_CLASS_NAME_PROP_SYMBOL = Symbol.for('fui.slotClassNameProp');
-
-
-/***/ }),
-
-/***/ 87294:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   N: function() { return /* binding */ reduceToClassNameForSlots; },
-/* harmony export */   z: function() { return /* binding */ reduceToClassName; }
-/* harmony export */ });
-/* harmony import */ var _constants_esm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(45614);
-/* harmony import */ var _utils_hashSequence_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(29255);
-
-
-
-/**
- * Reduces a classname map for slot to a classname string. Uses classnames according to text directions.
- *
- * @private
- */
-function reduceToClassName(classMap, dir) {
-  // - `classString` is a string of classnames separated by a space, used to output classes
-  // - `hashString` is a string of classnames separated by a space, used to generate a hash
-  //
-  // `hashString` is needed to handle `null` values in a class map as they don't produce any classes.
-  let classString = '';
-  let hashString = '';
-  // eslint-disable-next-line guard-for-in
-  for (const propertyHash in classMap) {
-    const classNameMapping = classMap[propertyHash];
-    if (classNameMapping === 0) {
-      hashString += propertyHash + ' ';
-      continue;
-    }
-    const hasRTLClassName = Array.isArray(classNameMapping);
-    const className = dir === 'rtl' ? (hasRTLClassName ? classNameMapping[1] : classNameMapping) + ' ' : (hasRTLClassName ? classNameMapping[0] : classNameMapping) + ' ';
-    classString += className;
-    hashString += className;
-  }
-  return [classString.slice(0, -1), hashString.slice(0, -1)];
-}
-/**
- * Reduces classname maps for slots to classname strings. Registers them in a definition cache to be used by
- * `mergeClasses()`.
- *
- * @internal
- */
-function reduceToClassNameForSlots(classesMapBySlot, dir) {
-  const classNamesForSlots = {};
-  // eslint-disable-next-line guard-for-in
-  for (const slotName in classesMapBySlot) {
-    const [slotClasses, slotClassesHash] = reduceToClassName(classesMapBySlot[slotName], dir);
-    // Handles a case when there are no classes in a set i.e. "makeStyles({ root: {} })"
-    if (slotClassesHash === '') {
-      classNamesForSlots[slotName] = '';
-      continue;
-    }
-    const sequenceHash = (0,_utils_hashSequence_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .hashSequence */ .G)(slotClassesHash, dir);
-    const resultSlotClasses = sequenceHash + (slotClasses === '' ? '' : ' ' + slotClasses);
-    _constants_esm_js__WEBPACK_IMPORTED_MODULE_0__/* .DEFINITION_LOOKUP_TABLE */ .k1[sequenceHash] = [classesMapBySlot[slotName], dir];
-    classNamesForSlots[slotName] = resultSlotClasses;
-  }
-  return classNamesForSlots;
-}
-
-
-//# sourceMappingURL=reduceToClassNameForSlots.esm.js.map
-
-
-/***/ }),
-
-/***/ 93564:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  Bi: function() { return /* binding */ useId; }
-});
-
-// UNUSED EXPORTS: IdPrefixProvider, resetIdsForTests
 
 // EXTERNAL MODULE: ./node_modules/react/index.js
 var react = __webpack_require__(96540);
-var react_namespaceObject = /*#__PURE__*/__webpack_require__.t(react, 2);
-;// ./node_modules/@fluentui/react-utilities/lib/ssr/SSRContext.js
-
-
-/**
- * Default context value to use in case there is no SSRProvider. This is fine for client-only apps.
- *
- * @internal
- */ const SSRContext_defaultSSRContextValue = {
-    current: 0
-};
-const SSRContext = /*#__PURE__*/ react.createContext(undefined);
-/**
- * @internal
- */ function useSSRContext() {
-    var _React_useContext;
-    return (_React_useContext = react.useContext(SSRContext)) !== null && _React_useContext !== void 0 ? _React_useContext : SSRContext_defaultSSRContextValue;
-}
-/**
- * When using SSR with Fluent UI, applications must be wrapped in an SSRProvider. This ensures that auto generated ids
- * are consistent between the client and server.
- *
- * @public
- */ const SSRProvider = (props)=>{
-    const [value] = React.useState(()=>({
-            current: 0
-        }));
-    return /*#__PURE__*/ React.createElement(SSRContext.Provider, {
-        value: value
-    }, props.children);
-};
-/**
- * Returns whether the component is currently being server side rendered or hydrated on the client. Can be used to delay
- * browser-specific rendering until after hydration. May cause re-renders on a client when is used within SSRProvider.
- */ function useIsSSR() {
-    const isInSSRContext = useSSRContext() !== SSRContext_defaultSSRContextValue;
-    const [isSSR, setIsSSR] = React.useState(isInSSRContext);
-    // If we are rendering in a non-DOM environment, and there's no SSRProvider, provide a warning to hint to the
-    // developer to add one.
-    if (false) // removed by dead control flow
-{}
-    // If on the client, and the component was initially server rendered, then schedule a layout effect to update the
-    // component after hydration.
-    if (canUseDOM() && isInSSRContext) {
-        // This if statement technically breaks the rules of hooks, but is safe because the condition never changes after
-        // mounting.
-        // eslint-disable-next-line
-        React.useLayoutEffect(()=>{
-            setIsSSR(false);
-        }, []);
-    }
-    return isSSR;
-}
-
-;// ./node_modules/@fluentui/react-utilities/lib/hooks/useId.js
-
-
-const IdPrefixContext = react.createContext(undefined);
-/**
- * Allows to define a prefix that will be used for all IDs generated by useId() hook. It's useful to avoid collisions
- * between different bundles.
- */ const IdPrefixProvider = IdPrefixContext.Provider;
-function useIdPrefix() {
-    return react.useContext(IdPrefixContext) || '';
-}
-/**
- * Resets generated IDs, should be used only in tests.
- */ function resetIdsForTests() {
-    defaultSSRContextValue.current = 0;
-}
-/**
- * Hook to generate a unique ID.
- *
- * @param prefix - Optional prefix for the ID. Defaults to 'fui-'.
- * @param providedId - Optional id provided by a parent component. Defaults to the provided value if present,
- *  without conditioning the hook call
- * @returns The ID
- */ function useId(prefix = 'fui-', providedId) {
-    'use no memo';
-    const contextValue = useSSRContext();
-    const idPrefix = useIdPrefix();
-    // Checking if useId is available on React, if it is, we use it to generate the id. String concatenation is used to
-    // prevent bundlers from complaining with older versions of React.
-    const _useId = react_namespaceObject['use' + 'Id'];
-    if (_useId) {
-        const generatedId = _useId();
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const escapedId = react.useMemo(()=>generatedId.replace(/:/g, ''), [
-            generatedId
-        ]);
-        return providedId || `${idPrefix}${prefix}${escapedId}`;
-    }
-    // Hooks appear to be running conditionally, but they will always run in the same order since it's based on
-    // the version of React being used. This is safe to ignore.
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return react.useMemo(()=>{
-        if (providedId) {
-            return providedId;
-        }
-        return `${idPrefix}${prefix}${++contextValue.current}`;
-    }, [
-        idPrefix,
-        prefix,
-        providedId,
-        contextValue
-    ]);
-}
-
-
-/***/ }),
-
-/***/ 93700:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   F: function() { return /* binding */ IconDirectionContextProvider; },
-/* harmony export */   U: function() { return /* binding */ useIconContext; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-
-const IconDirectionContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
-const IconDirectionContextDefaultValue = {};
-const IconDirectionContextProvider = IconDirectionContext.Provider;
-const useIconContext = () => {
-    const context = react__WEBPACK_IMPORTED_MODULE_0__.useContext(IconDirectionContext);
-    return context !== null && context !== void 0 ? context : IconDirectionContextDefaultValue;
-};
-
-
-/***/ }),
-
-/***/ 95395:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  Y: function() { return /* binding */ jsx; },
-  FD: function() { return /* binding */ jsxs; }
-});
-
-// UNUSED EXPORTS: Fragment
-
-// EXTERNAL MODULE: ./node_modules/@fluentui/react-utilities/lib/compose/constants.js
-var constants = __webpack_require__(86800);
-;// ./node_modules/@fluentui/react-utilities/lib/compose/isSlot.js
-
-/**
- * Guard method to ensure a given element is a slot.
- * This is mainly used internally to ensure a slot is being used as a component.
- */ function isSlot(element) {
-    return Boolean(element === null || element === void 0 ? void 0 : element.hasOwnProperty(constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on));
-}
-
-// EXTERNAL MODULE: ./node_modules/react/index.js
-var react = __webpack_require__(96540);
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/createCompatSlotComponent.js
-
-
-// TODO:
-// this is for backwards compatibility with getSlotsNext
-// it should be removed once getSlotsNext is obsolete
-function createCompatSlotComponent(type, props) {
-    return {
-        ...props,
-        [constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on]: type
-    };
-}
-
-// EXTERNAL MODULE: ./node_modules/react-is/index.js
-var react_is = __webpack_require__(44363);
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/warnIfElementTypeIsInvalid.js
-
-
-function warnIfElementTypeIsInvalid(type) {
-    if (false) // removed by dead control flow
-{}
-}
-
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/createJSX.js
-
-
-
-
-function createJSX(runtime, slotRuntime) {
-    return function jsx(type, overrideProps, key, source, self) {
-        // TODO:
-        // this is for backwards compatibility with getSlotsNext
-        // it should be removed once getSlotsNext is obsolete
-        if (isSlot(overrideProps)) {
-            return slotRuntime(createCompatSlotComponent(type, overrideProps), null, key, source, self);
-        }
-        if (isSlot(type)) {
-            return slotRuntime(type, overrideProps, key, source, self);
-        }
-        warnIfElementTypeIsInvalid(type);
-        return runtime(type, overrideProps, key, source, self);
-    };
-}
-
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/getMetadataFromSlotComponent.js
-
-/**
- * @internal
- */ function getMetadataFromSlotComponent(type) {
-    const { as, [constants/* SLOT_CLASS_NAME_PROP_SYMBOL */.b9]: _classNameProp, [constants/* SLOT_ELEMENT_TYPE_SYMBOL */.on]: baseElementType, [constants/* SLOT_RENDER_FUNCTION_SYMBOL */.Y9]: renderFunction, ...propsWithoutMetadata } = type;
-    const props = propsWithoutMetadata;
-    const elementType = typeof baseElementType === 'string' ? as !== null && as !== void 0 ? as : baseElementType : baseElementType;
-    if (typeof elementType !== 'string' && as) {
-        props.as = as;
-    }
-    return {
-        elementType,
-        props,
-        renderFunction
-    };
-}
-
-// EXTERNAL MODULE: ./node_modules/react/jsx-runtime.js
-var jsx_runtime = __webpack_require__(74848);
-var jsx_runtime_namespaceObject = /*#__PURE__*/__webpack_require__.t(jsx_runtime, 2);
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/utils/Runtime.js
-
-const Runtime = jsx_runtime_namespaceObject;
-
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/jsxSlot.js
-
-
-
-const jsxSlot = (type, overrideProps, key)=>{
-    const { elementType, renderFunction, props: slotProps } = getMetadataFromSlotComponent(type);
-    const props = {
-        ...slotProps,
-        ...overrideProps
-    };
-    if (renderFunction) {
-        return Runtime.jsx(react.Fragment, {
-            children: renderFunction(elementType, props)
-        }, key);
-    }
-    return Runtime.jsx(elementType, props, key);
-};
-
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx/jsxsSlot.js
-
-
-
-const jsxsSlot = (type, overrideProps, key)=>{
-    const { elementType, renderFunction, props: slotProps } = getMetadataFromSlotComponent(type);
-    const props = {
-        ...slotProps,
-        ...overrideProps
-    };
-    if (renderFunction) {
-        /**
-     * In static runtime then children is an array and this array won't be keyed.
-     * We should wrap children by a static fragment
-     * as there's no way to know if renderFunction will render statically or dynamically
-     */ return Runtime.jsx(react.Fragment, {
-            children: renderFunction(elementType, {
-                ...props,
-                children: Runtime.jsxs(react.Fragment, {
-                    children: props.children
-                }, undefined)
-            })
-        }, key);
-    }
-    return Runtime.jsxs(elementType, props, key);
-};
-
-;// ./node_modules/@fluentui/react-jsx-runtime/lib/jsx-runtime.js
-
-
-
-
-
-const jsx = createJSX(Runtime.jsx, jsxSlot);
-const jsxs = createJSX(Runtime.jsxs, jsxsSlot);
-
-
-/***/ }),
-
-/***/ 96631:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   s: function() { return /* binding */ isHTMLElement; }
-/* harmony export */ });
-/**
- * Verifies if a given node is an HTMLElement,
- * this method works seamlessly with frames and elements from different documents
- *
- * This is preferred over simply using `instanceof`.
- * Since `instanceof` might be problematic while operating with [multiple realms](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/instanceof#instanceof_and_multiple_realms)
- *
- * @example
- * ```ts
- * isHTMLElement(event.target) && event.target.focus()
- * isHTMLElement(event.target, {constructorName: 'HTMLInputElement'}) && event.target.value // some value
- * ```
- *
- */ function isHTMLElement(element, options) {
-    var _typedElement_ownerDocument;
-    const typedElement = element;
-    var _options_constructorName;
-    return Boolean((typedElement === null || typedElement === void 0 ? void 0 : (_typedElement_ownerDocument = typedElement.ownerDocument) === null || _typedElement_ownerDocument === void 0 ? void 0 : _typedElement_ownerDocument.defaultView) && typedElement instanceof typedElement.ownerDocument.defaultView[(_options_constructorName = options === null || options === void 0 ? void 0 : options.constructorName) !== null && _options_constructorName !== void 0 ? _options_constructorName : 'HTMLElement']);
-}
-
-
-/***/ }),
-
-/***/ 97073:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   K: function() { return /* binding */ Provider; },
-/* harmony export */   Y: function() { return /* binding */ useFluent; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(96540);
-
-/**
- * @internal
- */ const ProviderContext = react__WEBPACK_IMPORTED_MODULE_0__.createContext(undefined);
-const providerContextDefaultValue = {
-    // eslint-disable-next-line @nx/workspace-no-restricted-globals -- expected ignore ( SSR friendly acquisition of globals )
-    targetDocument: typeof document === 'object' ? document : undefined,
-    dir: 'ltr'
-};
-/**
- * @internal
- */ const Provider = ProviderContext.Provider;
-function useFluent() {
-    var _React_useContext;
-    return (_React_useContext = react__WEBPACK_IMPORTED_MODULE_0__.useContext(ProviderContext)) !== null && _React_useContext !== void 0 ? _React_useContext : providerContextDefaultValue;
-}
-
-
-/***/ }),
-
-/***/ 99159:
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   X: function() { return /* binding */ __styles; }
-/* harmony export */ });
-/* harmony import */ var _griffel_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(58413);
-/* harmony import */ var _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(49264);
-/* harmony import */ var _RendererContext_esm_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26312);
-/* harmony import */ var _TextDirectionContext_esm_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(56004);
-
-
-
-
-
-/**
- * A version of makeStyles() that accepts build output as an input and skips all runtime transforms.
- *
- * @internal
- */
-// eslint-disable-next-line @typescript-eslint/naming-convention
-function __styles(classesMapBySlot, cssRules) {
-  const getStyles = (0,_griffel_core__WEBPACK_IMPORTED_MODULE_0__/* .__styles */ .X)(classesMapBySlot, cssRules, _insertionFactory_esm_js__WEBPACK_IMPORTED_MODULE_1__/* .insertionFactory */ .A);
-  return function useClasses() {
-    const dir = (0,_TextDirectionContext_esm_js__WEBPACK_IMPORTED_MODULE_3__/* .useTextDirection */ .m)();
-    const renderer = (0,_RendererContext_esm_js__WEBPACK_IMPORTED_MODULE_2__/* .useRenderer */ .J)();
-    return getStyles({
-      dir,
-      renderer
+// EXTERNAL MODULE: ./node_modules/react-dom/client.js
+var client = __webpack_require__(5338);
+// EXTERNAL MODULE: ./node_modules/@griffel/react/makeStyles.esm.js + 37 modules
+var makeStyles_esm = __webpack_require__(44541);
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-image/lib/components/Image/Image.js + 3 modules
+var Image = __webpack_require__(55883);
+// EXTERNAL MODULE: ./src/util/log.ts
+var log = __webpack_require__(20056);
+;// ./src/pricequotedialog/components/QuoteDialogApp.tsx
+/* provided dependency */ var Promise = __webpack_require__(64583).Promise;
+var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-  };
-}
+};
 
 
-//# sourceMappingURL=__styles.esm.js.map
+
+const useStyles = (0,makeStyles_esm/* makeStyles */.n)({
+    root: {
+        minHeight: "100vh",
+    },
+});
+const QuoteDialogApp = (props) => {
+    const styles = useStyles();
+    const [dialogData, setDialogData] = react.useState('');
+    const [imageUrl, setImageUrl] = react.useState('https://webit01.github.io/vdspek/dist/assets/logo-filled.png');
+    console.log((0,log/* formatLog */.e)("Loading pricequotedialog"), props);
+    const fetchData = (jsonData) => __awaiter(void 0, void 0, void 0, function* () {
+        var _a;
+        const machineDataUrl = `https://www.gebruikteheftrucks.nl/gebruikteheftrucks/fs3_mr.nsf/RetrieveHeftruck?openagent&hefid=${jsonData.machineNr}&mrid=${jsonData.referenceNr}`;
+        const machine = yield fetch(machineDataUrl);
+        const result = yield machine.text();
+        // De result is XML
+        // Lees de node Heftrucks/hef_fotot uit
+        // XML parsen
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(result, "application/xml");
+        // Waarde van <hef_fotot> ophalen
+        const hefFototElement = xmlDoc.querySelector("hef_fotot");
+        let hefFototValue = (_a = hefFototElement === null || hefFototElement === void 0 ? void 0 : hefFototElement.textContent) !== null && _a !== void 0 ? _a : "";
+        console.log((0,log/* formatLog */.e)("Waarde van hef_fotot:"), hefFototValue);
+        // De waarde is zonder host ervoor, voorbeeld:
+        // www.gebruikteheftrucks.nl/site/55A64E6502B345A6C125899B004B519E/$File/Dutchlift DL-50 intro.png
+        if (!hefFototValue.startsWith("https")) {
+            hefFototValue = "https://" + hefFototValue;
+        }
+        setImageUrl(hefFototValue);
+    });
+    react.useEffect(() => {
+        console.log((0,log/* formatLog */.e)("Setting up dialog message handler"));
+        Office.onReady(() => {
+            console.log((0,log/* formatLog */.e)("Office is ready in dialog"));
+            Office.context.ui.addHandlerAsync(Office.EventType.DialogParentMessageReceived, (arg) => __awaiter(void 0, void 0, void 0, function* () {
+                console.log((0,log/* formatLog */.e)("Bericht ontvangen van parent:"), arg);
+                // Laat machnr en referentienr binnenkomen
+                // Parse json string naar object
+                const jsonData = JSON.parse(arg.message);
+                console.log((0,log/* formatLog */.e)("Parsed JSON data:"), jsonData);
+                setDialogData(arg.message); // Toon ontvangen bericht
+                yield fetchData(jsonData);
+            }));
+            // Optioneel: stuur meteen een bericht terug
+            Office.context.ui.messageParent("Dialoog is klaar!");
+        });
+    }, []);
+    return (react.createElement(react.Fragment, null,
+        react.createElement("div", { className: styles.root },
+            react.createElement(Image/* Image */._, { src: imageUrl, alt: props.title })),
+        react.createElement("div", null,
+            react.createElement("h2", null, "Data ontvangen van parent:"),
+            react.createElement("p", null, dialogData))));
+};
+/* harmony default export */ var components_QuoteDialogApp = (QuoteDialogApp);
+
+// EXTERNAL MODULE: ./node_modules/@fluentui/react-provider/lib/components/FluentProvider/FluentProvider.js + 14 modules
+var FluentProvider = __webpack_require__(12086);
+// EXTERNAL MODULE: ./node_modules/@fluentui/tokens/lib/themes/web/lightTheme.js + 15 modules
+var lightTheme = __webpack_require__(12272);
+;// ./src/pricequotedialog/index.tsx
+
+
+
+
+/* global document, Office, module, require, HTMLElement */
+const title = "VdSpek Pane Add-in";
+const rootElement = document.getElementById("container");
+const root = rootElement ? (0,client/* createRoot */.H)(rootElement) : undefined;
+/* Render application after Office initializes */
+Office.onReady(() => {
+    root === null || root === void 0 ? void 0 : root.render(react.createElement(FluentProvider/* FluentProvider */.q, { theme: lightTheme/* webLightTheme */.o },
+        react.createElement(components_QuoteDialogApp, { title: title })));
+});
+if (false) // removed by dead control flow
+{}
 
 
 /***/ })
