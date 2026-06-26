@@ -2070,7 +2070,7 @@ Office.onReady(function () {
 });
 function addAttachment(event) {
   return commands_awaiter(this, void 0, void 0, /*#__PURE__*/commands_regenerator().m(function _callee() {
-    var mailItem, subject, subjectInfo, heftruckImageUrl, heftruckImageBase64;
+    var mailItem, subject, subjectInfo, result, heftruckImageUrl, heftruckImageBase64;
     return commands_regenerator().w(function (_context) {
       while (1) switch (_context.n) {
         case 0:
@@ -2089,33 +2089,39 @@ function addAttachment(event) {
           console.log(formatLog("Hostname"), Office.context.mailbox.diagnostics.hostName);
           subject = mailItem.subject;
           subjectInfo = null;
-          if (typeof subject === "string") {
-            console.log(formatLog("Subject (read mode)"), subject);
-            subjectInfo = readInfoFromSubject(subject);
-          } else {
-            subject.getAsync(function (result) {
-              if (result.status === Office.AsyncResultStatus.Succeeded) {
-                console.log("Subject (compose mode):", result.value);
-                subjectInfo = readInfoFromSubject(result.value);
-              } else {
-                console.error("Fout bij ophalen subject:", result.error.message);
-              }
-            });
+          if (!(typeof subject === "string")) {
+            _context.n = 2;
+            break;
           }
-          console.log(formatLog("Subject"), subject);
+          console.log(formatLog("Subject (read mode)"), subject);
+          subjectInfo = readInfoFromSubject(subject);
+          _context.n = 4;
+          break;
+        case 2:
+          _context.n = 3;
+          return subject.getAsync();
+        case 3:
+          result = _context.v;
+          if (result.status === Office.AsyncResultStatus.Succeeded) {
+            console.log(formatLog("Subject (compose mode):"), result.value);
+            subjectInfo = readInfoFromSubject(result.value);
+          } else {
+            console.error(formatLog("Fout bij ophalen subject:"), result.error.message);
+          }
+        case 4:
           // Probeer de mail te herkennen
           console.log(formatLog("subjectInfo"), subjectInfo);
           heftruckImageUrl = "https://www.gebruikteheftrucks.nl/site/11D0786E77E34E1BC1258D6F00454D14/$File/4594%20Toyota%201800x1200-1.jpg";
-          _context.n = 2;
+          _context.n = 5;
           return AttachmentService.downloadImageAsBase64(heftruckImageUrl);
-        case 2:
+        case 5:
           heftruckImageBase64 = _context.v;
           mailItem.addFileAttachmentFromBase64Async(heftruckImageBase64, "Toyota.png", function (asyncResult) {
             console.log("Async result", asyncResult);
           });
           // Altijd afsluiten
           event.completed();
-        case 3:
+        case 6:
           return _context.a(2);
       }
     }, _callee);
